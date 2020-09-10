@@ -1,0 +1,33 @@
+@import "../../colors.scss"; 
+
+.navigation_bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+
+    background: $color-blue-dark;
+
+    &__logo_container {
+        font-size:2rem;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+    &__logo {
+        color: rgb(222, 236, 31);
+        span {
+            font-family: Italianno;
+
+            color: $color-white-light;
+        }
+    }
+
+    &__search_bar {
+        font-size: 2.5rem;
+        color: $color-white-light;
+    }
+    &__icons {
+        font-size: 2.5rem;
+        color: $color-white-light;
+    }
+}

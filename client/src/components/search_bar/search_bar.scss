@@ -1,0 +1,33 @@
+@import "../../colors";
+
+.search_bar {
+  &__container {
+    margin-right: -15rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__input {
+    width: 30rem;
+    padding: .5rem 3rem;
+    border-radius: 10rem;
+    border: none;
+    transition: all .5s ;
+    &::placeholder {
+        font-size: 1.6rem;
+        color: $color-white-dark;
+    }
+
+    &:focus {
+        user-select: none;
+        outline:none;
+        width: 35rem;
+    }
+  }
+
+  &__icon {
+    color: $color-white-light;
+    margin-left: -3rem;
+  }
+}

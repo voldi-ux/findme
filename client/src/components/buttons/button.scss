@@ -1,0 +1,14 @@
+@import './../../colors';
+
+.button {
+    text-align: center;
+    color: $color-white-light;
+    background: $color-blue-dark;
+    border: 1px solid $color-blue-light;
+    min-width: 100px;
+    cursor: pointer;
+    padding: 1rem 2rem;
+    &:active,&:focus {
+        outline: none;
+    }
+}

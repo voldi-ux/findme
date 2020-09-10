@@ -1,0 +1,15 @@
+@import '../../colors';
+
+.home_page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1rem 10rem;
+
+    background-image: url('../../assets/images/background-img-1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat-y;
+}

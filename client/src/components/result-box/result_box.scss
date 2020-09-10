@@ -1,0 +1,46 @@
+@import '../../colors';
+
+.result {
+    &__box {
+        padding: 1rem 1rem;
+        width: 100%;
+        box-shadow: 0 0 1rem rgba($color: #000000, $alpha: .1);
+        &:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+        strong {
+            text-transform: capitalize;
+            color: $color-blue-dark;
+            font-size: 1.5rem;
+        }
+        p {
+            color: $color-blue-light;
+            font-size: 1.2rem;
+
+            &:last-child{
+                margin-bottom: .5rem;
+            }
+        }
+    }
+
+    &__group {
+        &-1 {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    &__name {
+        text-transform: capitalize;
+        font-size: 2rem;
+        color: $color-blue-light;
+    }
+
+    &__img {
+       img {
+        display: block;
+        width: 5rem;
+        border-radius: 500rem;;
+       }
+    }
+}

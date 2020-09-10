@@ -1,0 +1,11 @@
+@import '../../colors';
+@import '../../sass/mixins.scss';
+
+.filter_container {
+    width: 20rem;
+    padding: 2rem;
+    box-shadow: 0 0 1rem  rgba(0,0,0,.2);  
+    background: #fff;
+    @include positionfixed;
+    left: 10%;
+}

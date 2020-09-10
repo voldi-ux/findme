@@ -1,0 +1,14 @@
+
+
+.select_container {
+  
+    select {
+        width: 100%;
+        padding: .5rem 1rem ;
+        margin: 1rem 0;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
