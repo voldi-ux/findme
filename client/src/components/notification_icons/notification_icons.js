@@ -5,6 +5,7 @@ import {IconContext} from 'react-icons'
 
 
 import './notification_icons.scss'
+import { Link } from 'react-router-dom'
 
 const NotificationContainer = () => (<div className='notification__container'>
     <span className='notification__icons' >
@@ -24,9 +25,9 @@ const NotificationContainer = () => (<div className='notification__container'>
        </IconContext.Provider>
        
        </span>
-     <span className='notification__login'>
-      Login
-     </span>
+     <Link to='/signin' className='notification__login'>
+        signin
+     </Link>
 </div>)
 
 

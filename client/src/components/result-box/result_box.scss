@@ -2,20 +2,24 @@
 
 .result {
     &__box {
-        padding: 1rem 1rem;
-        width: 100%;
+        padding: 2rem 2rem;
+        width: 45rem;
         box-shadow: 0 0 1rem rgba($color: #000000, $alpha: .1);
         &:not(:last-child) {
             margin-bottom: 1rem;
         }
         strong {
             text-transform: capitalize;
-            color: $color-blue-dark;
+            // color: $color-blue-dark;
             font-size: 1.5rem;
+
+            margin-right:.5rem;
         }
         p {
-            color: $color-blue-light;
-            font-size: 1.2rem;
+            margin: .5rem 0;
+            // color: $color-blue-light;
+            font-size: 1.3rem;
+            font-weight: 600;
 
             &:last-child{
                 margin-bottom: .5rem;

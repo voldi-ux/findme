@@ -1,0 +1,42 @@
+@import '../../colors';
+
+.form {
+   
+
+    &__signIn{
+        height: 40rem;
+        background: #fff;
+        padding: 3rem 2rem;
+        &__heading {
+            letter-spacing: 1.4px;
+            font-size: 2rem;
+            margin: 2rem 0;
+            
+        }
+        p {
+            font-size: 1.7rem;
+            color:$color-blue-light ;
+            margin: 1rem;
+            font-weight: 500;
+        }
+        a,a:active,a:visited {
+            font-weight: 500;
+            font-size: 2rem;
+            color:$color-blue-dark;
+            border-bottom: 1px solid $color-blue-dark;
+            transition: .3s all;
+            &:hover {
+                border: none;
+                color: $color-blue-light;
+            }
+            
+        }
+    }
+}
+
+.black {
+    background: none;
+    p {
+        color: #fff;
+    }
+}

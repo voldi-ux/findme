@@ -22,7 +22,7 @@ const ProfileComponent = () => {
         </span>
       </div>
 
-      <Button value={"got to profile"} onClick={() => history.push("/profile")} />
+      <Button value={"Got to profile"} onClick={() => history.push("/profile")} />
     </div>
   );
 };

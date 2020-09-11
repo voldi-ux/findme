@@ -9,3 +9,15 @@
     @include positionfixed;
     left: 10%;
 }
+
+.filter_group {
+    text-transform: capitalize;
+    margin: 1rem 0;
+
+    h3 {
+        font-size: 1.6rem;
+        margin: .5rem 0;
+    }
+
+    
+}

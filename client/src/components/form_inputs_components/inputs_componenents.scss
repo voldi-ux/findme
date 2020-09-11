@@ -1,4 +1,4 @@
-
+@import '../../colors';
 
 .select_container {
   
@@ -10,5 +10,40 @@
         &:focus {
             outline: none;
         }
+    }
+
+    
+}
+
+.text {
+
+    &__input {
+        padding: .7rem 1rem;
+        width: 100%;
+        transition: all .3s;
+        outline: 1px solid $color-blue-dark;
+        border: 3px solid transparent;
+        margin-bottom: 1rem;
+        &:focus {
+            outline: none;
+            border: 3px solid $color-blue-dark;
+        }
+
+        &::placeholder {
+            font-family: lato;
+            color: inherit;
+            font-size: 1.6;
+            text-transform: capitalize;
+            
+        }
+    }
+}
+
+.radio {
+    font-size: 1.2rem;
+    margin: .7rem;
+
+    label {
+        margin: 0 .4rem;
     }
 }
