@@ -26,7 +26,7 @@ const FilterContainer = ({filter}) => {
     filter(filterData)
   }
 
-  const handlecChange = (event) => {
+  const handleChange = (event) => {
     const {name,value} = event.target;
     setFilterData({
     ...filterData, [name]: value
@@ -38,24 +38,24 @@ const FilterContainer = ({filter}) => {
   return (<form onSubmit={onSubmit} className='filter_container'>
   <div className='filter_group' >
       <h3>Filter by age</h3>
-   <RangeComponent name='age' handleChange={handlecChange}/>
+   <RangeComponent name='age' handleChange={handleChange}/>
 {filterData.age ? <h3>age:  {filterData.age} </h3> : null}
    </div>
    <div className='filter_group' >
    <h3>Filter by country</h3>
-   <SelectComponent name='country' options={countries} handleChange={handlecChange}/>
+   <SelectComponent name='country' options={countries} handleChange={handleChange}/>
    </div>
    <div className='filter_group' >
    <h3>Filter by town</h3>
-   <SelectComponent name='town' options={towns} handleChange={handlecChange}/>
+   <SelectComponent name='town' options={towns} handleChange={handleChange}/>
    </div>
    <div className='filter_group'>
      <h3>
        Filter by gender
      </h3>
-     <Radio handleChange={handlecChange}  label='male' name='gender' checked={filterData.gender === 'male'} value='male'/>
-     <Radio  handleChange={handlecChange}  label='female' name='gender' value='Female'checked={filterData.gender === 'female'}/>
-     <Radio handleChange={handlecChange}   label='other' name='gender' value='other' checked={filterData.gender === 'other'}/>
+     <Radio handleChange={handleChange}  label='male' name='gender' checked={filterData.gender === 'male'} value='male'/>
+     <Radio  handleChange={handleChange}  label='female' name='gender' value='Female'checked={filterData.gender === 'female'}/>
+     <Radio handleChange={handleChange}   label='other' name='gender' value='other' checked={filterData.gender === 'other'}/>
    </div>
    <Button value='Filter'/>
  </form>)

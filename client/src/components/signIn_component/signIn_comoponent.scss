@@ -5,29 +5,31 @@
 
     &__signIn{
         height: 40rem;
-        background: #fff;
+        background: rgba(0, 0, 0,.4);
         padding: 3rem 2rem;
         &__heading {
             letter-spacing: 1.4px;
             font-size: 2rem;
             margin: 2rem 0;
+            color:$color-white-light ;
+            font-weight: 600;
             
         }
         p {
             font-size: 1.7rem;
-            color:$color-blue-light ;
+            color:$color-white-light ;
             margin: 1rem;
             font-weight: 500;
         }
         a,a:active,a:visited {
             font-weight: 500;
             font-size: 2rem;
-            color:$color-blue-dark;
+            color:$color-white-light;
             border-bottom: 1px solid $color-blue-dark;
             transition: .3s all;
             &:hover {
                 border: none;
-                color: $color-blue-light;
+              
             }
             
         }

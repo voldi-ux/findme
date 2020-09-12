@@ -8,6 +8,7 @@ import HomePage from './pages/homepage/Home_page'
 import SignIn from './pages/signIn_page/sigIn_page';
 import SignUp from './pages/siginUp_page/signUp';
 import LandingPage from './pages/landing_page/landing_page';
+import VeryEmailPage from './pages/email_veryfication_page/email_verifiaction_page';
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
        <Route exact path='/' component={LandingPage} />
        <Route exact path = '/signin' component={SignIn} />
        <Route exact path = '/signup' component={SignUp} />
+       <Route exact path = '/getcredentials' component={SignUp} />
+       <Route exact path='/emailverification'  component={VeryEmailPage} />
        <NavigationBar />
      </Switch>
        <Switch>
