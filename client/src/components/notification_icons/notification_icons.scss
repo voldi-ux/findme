@@ -45,5 +45,7 @@
     font-size: 2rem;
     color: $color-white-light;
     text-transform: capitalize;
+    user-select: none;
+    cursor: pointer;
   }
 }

@@ -1,12 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const {postSignin,postSigningUp,getCredentials,postCredentials} = require('../controllers/auth')
+const {  getUserProfile } = require('../controllers/userProfile')
 
 //post routes
-router.post('/signingup',postSigningUp)
-router.post('/credentials',postCredentials )
-router.put('/signin',postSignin)
-router.get('/getprofile')
+
+router.get('/getuserprofile/:userId',getUserProfile)
 //get routes
 // router.get('/userdatarecieved',getCredentials)
 

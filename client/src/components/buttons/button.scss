@@ -10,7 +10,16 @@
     padding: 1rem 2rem;
     font-weight: 500;
     font-size: 1.3rem;
+    transition: .4s;
+
+    &:not(.disable):hover {
+        opacity: .7;
+    }
     &:active,&:focus {
         outline: none;
     }
+}
+
+.disable {
+    opacity: .4;
 }

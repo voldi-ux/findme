@@ -10,8 +10,13 @@ const UserChema = new Schema({
       type:String,
       required:true
     },
-    profile: {
-         type:Object
+    password: {
+      type:String,
+      required:true
+    },
+    profileId: {
+             type:mongoose.Types.ObjectId,
+             ref: 'profile'
     }
 })
 
