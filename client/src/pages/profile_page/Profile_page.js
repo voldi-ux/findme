@@ -1,7 +1,6 @@
 import React from "react"
 import { Route,Switch  } from 'react-router-dom'
 import './Profile_page.scss'
-import Button from "../../components/buttons/button"
 import ProfilePageComponent from "../../components/profile_page_componet/profile_page_component"
 
 const ProfilePage = ({match}) => (<div className='profile_page'>

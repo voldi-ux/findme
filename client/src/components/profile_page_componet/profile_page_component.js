@@ -6,11 +6,12 @@ import "./profile_page_copomenent.scss";
 import Button from "../../components/buttons/button";
 import userData from "../../testData/user";
 import { connect } from "react-redux";
-const ProfilePageComponent = ({ match, isLoggedin, userProfile }) => {
-  const CurentProfileUser = userData.find(
-    (user) => user.id == match.params.userId
+const ProfilePageComponent = ({ match, isLoggedin, userProfile,profiles }) => {
+  console.log(profiles)
+  const CurentProfileUser = profiles.find(
+    (user) => user._id == match.params.userId
   );
-  console.log(match, CurentProfileUser);
+  console.log(CurentProfileUser)
   if (CurentProfileUser) {
     return (
       <div className="profile_page__container">
@@ -110,6 +111,7 @@ const ProfilePageComponent = ({ match, isLoggedin, userProfile }) => {
 const mapStateToProps = (state) => ({
   isLoggedin: state.user.loggedIn,
   userProfile: state.user.profile,
+    profiles: state.appData.data,
 });
 
 export default connect(mapStateToProps)(ProfilePageComponent);

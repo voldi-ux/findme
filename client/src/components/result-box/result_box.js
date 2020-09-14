@@ -26,7 +26,7 @@ const ResultBox = ({user}) => {
    <strong>Bio:</strong>{user.bio.slice(0, 100) + '...'}    
    </p>       
   </div>
-  <Button value='Read profile' onClick={() => history.push(`/profile/${user.id}`)} />
+  <Button value='Read profile' onClick={() => history.push(`/profile/${user._id}`)} />
 </div>)
 }
 

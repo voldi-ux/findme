@@ -1,28 +1,58 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import './search_result_conponent.scss'
-import ResultBox from '../result-box/result_box'
+import React from "react";
+import { connect } from "react-redux";
+import "./search_result_conponent.scss";
+import ResultBox from "../result-box/result_box";
+import Button from "../buttons/button";
+import { onFechingProfiles } from "../../redux/app_data_reducer/data_actions";
 
+const SearchResult = ({
+  profiles,
+  pageNunber,
+  getProfiles,
+  incrementPageNum,
+  decrementPageNum,
+}) => (
+  <div className="search_result_container">
+    {profiles.map((user) => (
+      <ResultBox key={user._id} user={user} />
+    ))}
 
+    <div className="control__botton">
+      {pageNunber > 1 ? (
+        <Button
+          onClick={async() => {
+            await decrementPageNum()
+            //   getProfiles(pageNunber)
+          }}
+          value="previuos"
+        />
+      ) : null}
+      <Button
+        value="next"
+        onClick={async() => {
+         await incrementPageNum()
+         //  getProfiles(pageNunber)
+        }}
+      />
+    </div>
+  </div>
+);
 
-const SearchResult = ({Users}) => {
+const mapStateToProps = (state) => ({
+  pageNunber: state.appData.page,
+});
+let incre = () => ({
+  type: "INCREMENT_PAGE_NUMBER",
+});
 
-   if(Users.data.length) {
-    return  (<div className='search_result_container'>
-                  {Users.data.map(user => <ResultBox key={user.id} user={user} />)} 
-            </div>)
+let decre = () => ({
+  type: "DECREMENT_PAGE_NUMBER",
+});
 
-   } else {
-      console.log(Users)
-    return  (<div className='search_result_container'>
-            <h1 className='search_result__heading'>
-               your seacrh paremeters did not match any results
-            </h1> 
-      </div>)
+const mapDispatchToProps = (disptach) => ({
+  getProfiles: (pageNunber) => disptach(onFechingProfiles(pageNunber)),
+  incrementPageNum: () => disptach(incre()),
 
-   }
-}
-const mapStateToProps = state => ({
-   Users: state.appData
-})
-export default connect(mapStateToProps)(SearchResult)
+  decrementPageNum: () => disptach(decre()),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResult);

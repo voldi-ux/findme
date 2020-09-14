@@ -39,7 +39,6 @@ export const loggingInUser = (userInput) =>{
             body: JSON.stringify(userInput) 
         })
       const data = await resp.json()
-      console.log(data.userId)
           if(data.type === 'success') {
             dispatch(loginSucceced(data))
             dispatch(fecthUserProfileStart())

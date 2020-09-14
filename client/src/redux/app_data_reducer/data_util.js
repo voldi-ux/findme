@@ -8,3 +8,21 @@ export const filteredData = (oldData, filerterContent) => {
 // return oldData
 
 }
+
+export const increntPageNum = (state) => {
+    if(state.data.length) {
+        return {
+            ...state,
+            page: state.page + 1
+        }
+    }
+    return state
+} 
+export const decrentPageNum = (state) => {
+    
+        return {
+            ...state,
+            page: state.page - 1
+    
+    }
+} 

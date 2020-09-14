@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import './App.css';
 import NavigationBar from './components/navigation_bar/navigation_bar';
 import Profile from './pages/profile_page/Profile_page'
@@ -10,9 +10,13 @@ import SignUp from './pages/siginUp_page/signUp';
 import LandingPage from './pages/landing_page/landing_page';
 import VeryEmailPage from './pages/email_veryfication_page/email_verifiaction_page';
 import { connect } from 'react-redux';
+import { onFechingProfiles } from './redux/app_data_reducer/data_actions';
 
-function App({isloggedin}) {
-  console.log(isloggedin)
+function App({isloggedin,getProfiles,pageNunber}) {
+  useEffect(()=>{
+    getProfiles(pageNunber)
+  },[getProfiles,pageNunber])
+
   return (
     <div className="App">
       <Switch>
@@ -32,7 +36,12 @@ function App({isloggedin}) {
 }
 
 const mapStateToProps = state => ({
-  isloggedin: state.user.loggedIn
+  isloggedin: state.user.loggedIn,
+  pageNunber: state.appData.page,
 })
 
-export default connect(mapStateToProps)(App);
+
+const mapDispatchToProps = (disptach) => ({
+  getProfiles: (num) => disptach(onFechingProfiles(num))
+})
+export default connect(mapStateToProps,mapDispatchToProps)(App);
