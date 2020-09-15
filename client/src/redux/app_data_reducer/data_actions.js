@@ -32,3 +32,29 @@ export const onFechingProfiles = (pageNun) => async (dispacth) => {
          dispacth(fetchProfilesFails(error.message))
      }
 }
+
+
+export const fetchFilterProfilesFails = (msg) => ({
+    type:types.FETCHING_FilTER_DATA_FAIL,
+    payload:msg
+})
+export const fecthFilterProfileSucceced = (profiles) => ({
+    type:types.FETCHING_FilTER_DATA_SUCCECED,
+    payload:profiles
+})
+
+export const onFechingFilterProfiles = (pageNun,FilterData) => async (dispacth) => {
+    dispacth(fetchProfilesStart)
+     try {
+        const resp = await fetch(`http://localhost:5000/getfilteredProfiles/4/${pageNun}`,{
+            method:'get',
+            body: JSON.stringify(FilterData)
+        })
+
+        const profiles = await resp.json()
+        console.log(profiles)
+        dispacth(fecthProfileSucceced(profiles))
+     } catch (error) {
+         dispacth(fetchProfilesFails(error.message))
+     }
+}
