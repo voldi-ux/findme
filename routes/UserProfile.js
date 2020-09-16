@@ -7,7 +7,7 @@ const {  getUserProfile,getProfiles,getfilteredProfiles } = require('../controll
 router.get('/getuserprofile/:userId',getUserProfile)
 //get routes
 router.get('/getProfiles/:pageItems/:pageNum',getProfiles)
-router.get('/getfilteredProfiles/:pageItems/:pageNum',getfilteredProfiles)
+router.post('/getfilteredProfiles/:pageItems/:pageNum',getfilteredProfiles)
 
 
 module.exports = router

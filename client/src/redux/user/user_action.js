@@ -4,6 +4,9 @@ import userTypes from './user_types'
 export const loginStart = () => ({
   type:userTypes.LOG_IN_START
 })
+export const logOut = () => ({
+  type:userTypes.LOG_OUT
+})
 
 
 export const loginFail = (msg) => ({

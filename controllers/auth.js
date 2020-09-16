@@ -18,14 +18,16 @@ exports.postSigningUp = async (req,resp,next) => {
         
     const {name,email} = req.body;
     try {
-       sendGrid.send({
+   sendGrid.send({
            to: email,
            from: "voldimuyumba2001@gmail.com",
            subject: "verify email ",
            html: `<p> to very your email please click <a href="http://localhost:5000/getcredentials/?uva=${token}name=${name}&& email=${email}"> here</a> </p>`,
-         })
+         }).then(() => {
+             return resp.redirect('/emailverification')
+
+         }).catch(err => console.log(err.message))
        
-         return resp.redirect('/emailverification')
     } catch (error) {
         console.log(error)
     }

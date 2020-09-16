@@ -31,6 +31,12 @@ const UserReducer = (state= initState,action) => {
             return {
                 ...state, message:action.payload
             }
+            case types.LOG_OUT:
+                return {
+                    ...state,
+                    profile: null,
+                    loggedIn:false
+                }
            default:
                return state
     }

@@ -43,12 +43,16 @@ export const fecthFilterProfileSucceced = (profiles) => ({
     payload:profiles
 })
 
-export const onFechingFilterProfiles = (pageNun,FilterData) => async (dispacth) => {
+export const onFechingFilterProfiles = (pageNun,FilteredData) => async (dispacth) => {
+    console.log(pageNun,FilteredData)
     dispacth(fetchProfilesStart)
      try {
         const resp = await fetch(`http://localhost:5000/getfilteredProfiles/4/${pageNun}`,{
-            method:'get',
-            body: JSON.stringify(FilterData)
+            method:'post',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify(FilteredData)
         })
 
         const profiles = await resp.json()

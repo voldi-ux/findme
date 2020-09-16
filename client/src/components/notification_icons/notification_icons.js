@@ -7,8 +7,9 @@ import {IconContext} from 'react-icons'
 import './notification_icons.scss'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { logOut } from '../../redux/user/user_action'
 
-const NotificationContainer = ({isLoggedin}) => (<div className='notification__container'>
+const NotificationContainer = ({isLoggedin,logout}) => (<div className='notification__container'>
     <span className='notification__icons' >
        <IconContext.Provider value={{className:'notification__icon',size:'2rem'}} >
         <span className=' notification__icon__container'>
@@ -26,7 +27,7 @@ const NotificationContainer = ({isLoggedin}) => (<div className='notification__c
        </IconContext.Provider>
        
        </span>
-       {isLoggedin ? <span className='notification__login'>
+       {isLoggedin ? <span className='notification__login' onClick={logout}>
           signOut
        </span> : <Link to='/signin' className='notification__login'>
         signin
@@ -36,4 +37,7 @@ const NotificationContainer = ({isLoggedin}) => (<div className='notification__c
 const mapStateToProps = state => ({
    isLoggedin: state.user.loggedIn
 })
-export default connect(mapStateToProps)(NotificationContainer)
+const mapDispatchToProps = dispacth => ({
+   logout: () => dispacth(logOut())
+ })
+export default connect(mapStateToProps,mapDispatchToProps)(NotificationContainer)

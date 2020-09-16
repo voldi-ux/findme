@@ -17,7 +17,7 @@ const ResultBox = ({user}) => {
    <strong>Current Locaion:</strong> {user.currentLocation}
    </p>     
    <p>
-   <strong>From: </strong> {user.from}    
+   <strong>From: </strong> {user.town}    
    </p>     
    <p>
    <strong>Country:</strong>  {user.country}  

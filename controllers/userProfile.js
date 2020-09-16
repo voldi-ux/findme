@@ -35,11 +35,13 @@ exports.getProfiles = async (req, resp, next) => {
 
 //constructor function
 
-function FilterObj(age, country, town, gender) {
+function FilterObj(age, country, town, gender,name,surname) {
   age ? (this.age = age) : null;
   country ? (this.country = country) : null;
   town ? (this.town = town) : null;
   gender ? (this.gender = gender) : null;
+  name ? (this.name = name) : null;
+  surname ? (this.surname = surname) : null;
 }
 
 function isEmpty(obj) {
@@ -47,16 +49,16 @@ function isEmpty(obj) {
 }
 
 exports.getfilteredProfiles = async (req, resp, next) => {
+  console.log(req.body)
   const { pageItems, pageNum } = await req.params;
-  const { age, country, town, gender } = req.body;
-  const filterObj = new FilterObj(age, country, town, gender);
+  const { age, country, town, gender,name,surname } = req.body;
+  const filterObj = new FilterObj(age, country, town, gender,name,surname);
   const filter = isEmpty(filterObj) ? null : filterObj
 
   console.log(filterObj)
   try {
     const profiles = await Profile.find(filter)
-      .skip(+pageItems * +pageNum - 4)
-      .limit(+pageItems);
+      
 
     return resp.json({
       message: "success",

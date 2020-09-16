@@ -11,6 +11,7 @@ import LandingPage from './pages/landing_page/landing_page';
 import VeryEmailPage from './pages/email_veryfication_page/email_verifiaction_page';
 import { connect } from 'react-redux';
 import { onFechingProfiles } from './redux/app_data_reducer/data_actions';
+import FiltercontextProvider from './context/filter_Data_context/filter.data';
 
 function App({isloggedin,getProfiles,pageNunber}) {
   useEffect(()=>{
@@ -18,6 +19,7 @@ function App({isloggedin,getProfiles,pageNunber}) {
   },[getProfiles,pageNunber])
 
   return (
+    <FiltercontextProvider >
     <div className="App">
       <Switch>
        <Route exact path = '/' render={(props)=> isloggedin ? <Redirect to='/home' /> : <LandingPage {...props} /> } />
@@ -32,6 +34,7 @@ function App({isloggedin,getProfiles,pageNunber}) {
        <Route path = '/profile' component={Profile} />
        </Switch>
     </div>
+    </FiltercontextProvider>
   );
 }
 

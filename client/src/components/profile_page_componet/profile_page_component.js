@@ -4,10 +4,8 @@ import { IconContext } from "react-icons";
 
 import "./profile_page_copomenent.scss";
 import Button from "../../components/buttons/button";
-import userData from "../../testData/user";
 import { connect } from "react-redux";
 const ProfilePageComponent = ({ match, isLoggedin, userProfile,profiles }) => {
-  console.log(profiles)
   const CurentProfileUser = profiles.find(
     (user) => user._id == match.params.userId
   );
@@ -36,7 +34,7 @@ const ProfilePageComponent = ({ match, isLoggedin, userProfile,profiles }) => {
               </div>
               <div className="profile_page__country">
                 <strong>From :</strong> <FaMapMarkerAlt />{" "}
-                {CurentProfileUser.from}
+                {CurentProfileUser.town}
               </div>
             </IconContext.Provider>
             <div className="profile_page__bio">
