@@ -12,6 +12,7 @@ import VeryEmailPage from './pages/email_veryfication_page/email_verifiaction_pa
 import { connect } from 'react-redux';
 import { onFechingProfiles } from './redux/app_data_reducer/data_actions';
 import FiltercontextProvider from './context/filter_Data_context/filter.data';
+import CreateProfilePage from './pages/create_profile/create_profile';
 
 function App({isloggedin,getProfiles,pageNunber}) {
   useEffect(()=>{
@@ -26,6 +27,7 @@ function App({isloggedin,getProfiles,pageNunber}) {
        <Route exact path = '/signin' render={(props)=> isloggedin ? <Redirect to='/home' /> : <SignIn {...props} /> } />
        <Route exact path = '/signup' render={(props)=> isloggedin ? <Redirect to='/home' /> : <SignUp {...props}/> } />
        <Route exact path = '/getcredentials' component={SignUp} />
+       <Route exact path = '/updateprofile' component={CreateProfilePage} />
        <Route exact path='/emailverification'  component={VeryEmailPage} />
        <NavigationBar />
      </Switch>
