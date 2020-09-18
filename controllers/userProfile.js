@@ -68,3 +68,18 @@ exports.getfilteredProfiles = async (req, resp, next) => {
     console.log(error);
   }
 };
+
+
+exports.postProfile = (req,resp,next) => {
+   try {
+    const imagesPath = req.files['gallaries'].map(image => image.filename )
+    const profile= new Profile({
+      ...req.boy,
+      gallary: imagesPath
+    })
+    profile.save()
+   }
+   catch (err){
+     console.log(err)
+   }
+}

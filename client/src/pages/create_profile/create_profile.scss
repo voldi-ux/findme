@@ -1,0 +1,54 @@
+.updateProfile {
+    background: url('../../assets/images/background-img-1.jpg');
+    padding: 3rem 0;
+}
+
+.form {
+  &__updateProfile {
+      color: #fff;
+    padding: 2rem 3rem;
+    max-width: 60rem;
+    width: 100%;
+    margin: 0 auto;
+    background: rgba(0, 0, 0,.5);
+   
+  }
+  &__group {
+ 
+    &__bio {
+        &__area {
+            min-height: 20rem;
+            width: 100%;
+            margin: 1rem 0;
+        }
+
+        &__heading {
+            font-size: 1.8rem;
+            text-transform: capitalize;
+            font-weight: 600;            
+        }
+
+    }
+    &__images {
+        margin: 1rem 0;
+        width: 100%;
+        min-height: 20rem;
+        border: 1px dashed #000;
+        background: #fff;
+        &__preview {
+            display: inline-block;
+            width: 20%;
+            height: 10rem;
+        }
+    }
+  }
+}
+
+
+.gender {
+    font-size: 1.8rem;
+    text-transform: capitalize;
+    font-weight: 600; 
+    margin: 1rem;
+}
+
