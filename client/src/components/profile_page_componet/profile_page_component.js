@@ -1,6 +1,7 @@
 import React from "react";
 import { FaMapMarkerAlt, FaMapMarkedAlt, FaFlag } from "react-icons/fa";
 import { IconContext } from "react-icons";
+import {useHistory} from 'react-router-dom'
 
 import "./profile_page_copomenent.scss";
 import Button from "../../components/buttons/button";
@@ -9,7 +10,7 @@ const ProfilePageComponent = ({ match, isLoggedin, userProfile,profiles }) => {
   const CurentProfileUser = profiles.find(
     (user) => user._id == match.params.userId
   );
- 
+  const history = useHistory()
   if (CurentProfileUser) {
     return (
       <div className="profile_page__container">
@@ -62,6 +63,9 @@ const ProfilePageComponent = ({ match, isLoggedin, userProfile,profiles }) => {
           </div>}
           <Button value="view gallary" />
         </div>
+        <p className='profile_page__infor'>
+          is this the person you are looking for ? <button className='profile_page__btn'onClick={() => history.push('/chatroom/singlechat') } >leave a message</button> or <button className='profile_page__btn' onClick={() => history.push('/home') }>keep searching</button>
+          </p> 
       </div>
     );
   } else {

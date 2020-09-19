@@ -1,4 +1,19 @@
+@import '../../colors.scss';
+
 .profile_page {
+    &__infor {
+        margin: 3rem auto;
+        width: 50%;
+        font-size: 1.6rem;
+    }
+
+    &__btn {
+        border: none;
+        background:$color-blue-light;
+        color: #fff;
+        cursor: pointer;
+        padding: .5rem;
+    }
      &__container { 
          min-height: 50rem;
          background: #fff;

@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { onFechingProfiles } from './redux/app_data_reducer/data_actions';
 import FiltercontextProvider from './context/filter_Data_context/filter.data';
 import CreateProfilePage from './pages/create_profile/create_profile';
+import ChatRoom from './pages/chat_room_Page/chat_room';
 
 function App({isloggedin,getProfiles,pageNunber}) {
   useEffect(()=>{
@@ -23,6 +24,7 @@ function App({isloggedin,getProfiles,pageNunber}) {
     <FiltercontextProvider >
     <div className="App">
       <Switch>
+       <Route  path='/chatroom'  component={ChatRoom}/>
        <Route exact path = '/' render={(props)=> isloggedin ? <Redirect to='/home' /> : <LandingPage {...props} /> } />
        <Route exact path = '/signin' render={(props)=> isloggedin ? <Redirect to='/home' /> : <SignIn {...props} /> } />
        <Route exact path = '/signup' render={(props)=> isloggedin ? <Redirect to='/home' /> : <SignUp {...props}/> } />
