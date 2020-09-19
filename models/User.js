@@ -6,6 +6,9 @@ const UserChema = new Schema({
         type:String,
         required:true
     },
+    hasProfile: {
+      type:Boolean
+    },
     email: {
       type:String,
       required:true

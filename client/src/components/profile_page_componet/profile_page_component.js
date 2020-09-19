@@ -9,7 +9,7 @@ const ProfilePageComponent = ({ match, isLoggedin, userProfile,profiles }) => {
   const CurentProfileUser = profiles.find(
     (user) => user._id == match.params.userId
   );
-  console.log(CurentProfileUser)
+ 
   if (CurentProfileUser) {
     return (
       <div className="profile_page__container">
@@ -47,13 +47,19 @@ const ProfilePageComponent = ({ match, isLoggedin, userProfile,profiles }) => {
         </div>
         <div className="profile_page__gallary">
           <h1>Photos</h1>
-          <div className="profile_page__gallary__container ">
+            {CurentProfileUser.name === 'test' ?  <div className="profile_page__gallary__container ">
+            {CurentProfileUser.gallary.map((item) => (
+              <div key={item} className="profile_page__gallary__item">
+                <img src={`/images/${item}`} alt={`imaget`} />
+              </div>
+            ))}
+          </div>: <div className="profile_page__gallary__container ">
             {CurentProfileUser.gallary.map((item) => (
               <div key={item} className="profile_page__gallary__item">
                 <img src={item} alt={`imaget`} />
               </div>
             ))}
-          </div>
+          </div>}
           <Button value="view gallary" />
         </div>
       </div>

@@ -10,14 +10,25 @@ import {connect} from 'react-redux'
 const ProfileComponent = ({isLoggedin,userProfile}) => {
   const disable =  isLoggedin && userProfile ?'':'true'
   const history = useHistory();
+  let value;
+
+  if(isLoggedin && userProfile.hasProfile) {
+    value = 'Go to Your Profile'
+  } else if(userProfile.hasProfile === false) {
+    value = 'Create Profile'
+  } else {
+    value = 'Not Signed In'
+  }
+
+
   return (
     <div className={`profile ${isLoggedin ? '' : 'profile__disable'}`}>
       <div className="profile__image">
         {/* must insery the user's avatar url here */}
-        <img src={`${isLoggedin && userProfile ? userProfile.avatarUrl: 'https://dmrmechanical.com/wp-content/uploads/2018/01/avatar-1577909_640.png'}`} />
+        <img src={`${isLoggedin && userProfile.avatarUrl ? userProfile.avatarUrl: 'https://dmrmechanical.com/wp-content/uploads/2018/01/avatar-1577909_640.png'}`} />
       </div>
       <div>
-  <h3 className="profile__name">{`${isLoggedin && userProfile? userProfile.name : 'Please sign in to view your profile'}`}</h3>
+  <h3 className="profile__name">{`${isLoggedin && userProfile? userProfile.userName : 'Please sign in to view your profile'}`}</h3>
       </div>
       <div>
       <span className="profile__online">
@@ -27,14 +38,21 @@ const ProfileComponent = ({isLoggedin,userProfile}) => {
         
       </div>
 
-      <Button disable={disable}  value={"Got to profile"} onClick={() => isLoggedin && userProfile ? history.push("/profile"): null} />
+      <Button disable={disable}  value={value} onClick={() => {
+        if(isLoggedin && userProfile.hasProfile) {
+          history.push("/profile")
+        } else if(userProfile.hasProfile === false) {
+          history.push("/updateprofile")
+        }
+        return false 
+      }} />
     </div>
   );
 };
 
 const mapStateToProps = state => ({
   isLoggedin: state.user.loggedIn,
-  userProfile: state.user.profile
+  userProfile: state.user.CurrentUser || {}
 })
 
 export default connect(mapStateToProps)(ProfileComponent);

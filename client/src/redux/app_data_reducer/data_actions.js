@@ -44,7 +44,7 @@ export const fecthFilterProfileSucceced = (profiles) => ({
 })
 
 export const onFechingFilterProfiles = (pageNun,FilteredData) => async (dispacth) => {
-    console.log(pageNun,FilteredData)
+    
     dispacth(fetchProfilesStart)
      try {
         const resp = await fetch(`http://localhost:5000/getfilteredProfiles/4/${pageNun}`,{

@@ -86,6 +86,7 @@ await    console.log(name,email)
      const user = await new User({
          userName:name,
          email:email,
+         hasProfile:false,
          password:hashedPassword,
      })
  

@@ -1,3 +1,4 @@
+const { findOneAndUpdate } = require("../models/profile");
 const Profile = require("../models/profile");
 
 exports.getUserProfile = async (req, resp, next) => {
@@ -70,14 +71,17 @@ exports.getfilteredProfiles = async (req, resp, next) => {
 };
 
 
-exports.postProfile = (req,resp,next) => {
+exports.postProfile = async (req,resp,next) =>  {
    try {
     const imagesPath = req.files['gallaries'].map(image => image.filename )
-    const profile= new Profile({
-      ...req.boy,
-      gallary: imagesPath
+    const profile= await new Profile({
+      ...req.body,
+      gallary: imagesPath,
+      avatarUrl:'https://dmrmechanical.com/wp-content/uploads/2018/01/avatar-1577909_640.png'
     })
-    profile.save()
+    // await findOneAndUpdate({_id: req.body.userId}, {hasProfile:true})
+    await  profile.save()
+     return resp.redirect('/home')
    }
    catch (err){
      console.log(err)
