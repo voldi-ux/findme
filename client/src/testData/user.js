@@ -86,6 +86,7 @@ const USERS = [
         country:'Mexico',
         from:'San Diago',
         age:21,
+        chatroomIds:[],
         bio: 'In friendship diminution instrument so. Son sure paid door with say them. Two among sir sorry men court. Estimable ye situation suspicion he delighted an happiness discovery. Fact are size cold why had part. If believing or sweetness otherwise in we forfeited. Tolerably an unwilling arranging of determine. Beyond rather sooner so if up wishes or.',
         gallary:['https://loremflickr.com/g/320/240/man','https://loremflickr.com/g/320/240/boy','https://loremflickr.com/g/320/240/girl/all','https://loremflickr.com/g/320/240/woman','https://loremflickr.com/g/320/240/boy,family','https://loremflickr.com/g/320/240/child']
     }
