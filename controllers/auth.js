@@ -73,12 +73,15 @@ return  resp.status(201).json({
 }
 
 
+
 //get the user passwords
 exports.postCredentials = async(req,resp,next) => {
+    // const hidden = req.query;
+  try {
     const {password,confirmPassword,hidden} = req.body
 
     // extract data from the hidden field i.e UserName and email
-
+console.log(password,confirmPassword,hidden)
     let  name = hidden.split('?')[1].split('&&')[1].split("=")[1]
     let  email = hidden.split('?')[1].split('&&')[2].split("=")[1]
 await    console.log(name,email)
@@ -86,14 +89,14 @@ await    console.log(name,email)
      const user = await new User({
          userName:name,
          email:email,
-         hasProfile:false,
+         hasProfile:true,
          password:hashedPassword,
      })
  
      let createdUser =  await user.save() 
 //      const profile = new Profile({
-//         name:'Naruto',
-//         surname:'Ndidi',
+//         name:'new',
+//         surname:'guy',
 //         avatarUrl:'https://static.toiimg.com/photo/76729750.cms',
 //         currentLocation:'hillbrow',
 //         country:'SA',
@@ -110,6 +113,9 @@ await    console.log(name,email)
     },'voldi', {expiresIn: '4hr'})
         
       return  resp.redirect('/signin')
+  } catch (error) {
+      console.log(error.message)
+  }
 }
 
 

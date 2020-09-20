@@ -17,7 +17,7 @@ const ChatRoom = ({match}) => {
                 <MinorRoom {...props}/>
             </div>
         </div>)} />
-        <Route path={`${match.path}/singlechat`} component={MajorRoom} />
+        <Route path={`${match.path}/singlechat/:userId`} component={MajorRoom} />
     </div>
 }
 

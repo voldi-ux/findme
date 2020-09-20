@@ -17,6 +17,7 @@ const UserChema = new Schema({
       type:String,
       required:true
     },
+    chatroomIds: [],
     profileId: {
              type:mongoose.Types.ObjectId,
              ref: 'profile'

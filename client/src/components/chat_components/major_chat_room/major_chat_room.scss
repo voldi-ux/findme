@@ -1,96 +1,111 @@
-@import '../../../colors.scss';
+@import "../../../colors.scss";
 
 .major {
-    &__container {
-
-        &__inner {
-          min-width: 50rem;
-          width: 100%;
-          max-height: 60rem;
-          background: $color-white-light;
-          user-select: none;
-       
-          
-        }
-    }
-    &__name {
-        font-size: 1.4rem;
-        font-weight: 600;
-    }
-    &__image {
-        width: 5rem;
-       height: 5rem;
-       border-radius: 100%;
-       margin-right: 1rem;
-    }
-    &__header {
-       text-align: center;
-       padding: 1rem;
-       text-transform: uppercase;
-       color: $color-white-light;
-       font-weight: 600;
-       font-size: 1.6rem;
-       background: $color-blue-light;
-       display: flex;
-       align-items: center;
-      
-    }
-    &__content {
-      height: 50rem;
-      max-width: 100%;
-      padding: .4rem 2rem;
-
-    } 
-
-    &__chats {
-        height: 90%;
-        overflow-y: auto;
-        &__left,&__right {
-            background-color: #fff;
-            font-size: 1.5rem;
-            font-weight: 500;
-            width: 15rem;
-            padding: .7rem;
-            color: $color-blue-light;
-            border-radius: .4rem;
-            margin: .5rem .3rem;
-        }
-
-        &__right {
-            margin-left:auto;
-        }
-    }
-
-    &__form {
-        height: 10%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        
-    &__group {
-        width: 100%;
-        display: flex;
-        align-items: center;
-    }
-    
-    }
-    &__textInput {
-       flex: 0 0 80%;
-       outline: none;
-       border: 1px solid $color-white-light;
-       border-radius: 2rem;
-       height: 3rem;
-       padding: 0 1rem;
-    }
-    &__button {
-     width: 6rem;
-     border: none;
-     font-size: 1.2rem;
-     color:$color-blue-light;
-     font-weight: 500;
-     height: 2.5rem;
-     background: #fff;
-     cursor: pointer;
-
+  &__container {
+    &__inner {
+      min-width: 50rem;
+      width: 100%;
+      max-height: 60rem;
+      background: $color-white-light;
+      user-select: none;
     }
   }
+  &__name {
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+  &__image {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 100%;
+    margin-right: 1rem;
+  }
+  &__header {
+    text-align: center;
+    padding: 1rem;
+    text-transform: uppercase;
+    color: $color-white-light;
+    font-weight: 600;
+    font-size: 1.6rem;
+    background: $color-blue-light;
+    display: flex;
+    align-items: center;
+  }
+  &__content {
+    height: 50rem;
+    max-width: 100%;
+    padding: 0.4rem 2rem;
+  }
+
+  &__chats {
+    height: 90%;
+    overflow-y: auto;
+
+    /* width */
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 20rem;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+    &__left,
+    &__right {
+      background-color: #fff;
+      font-size: 1.5rem;
+      font-weight: 500;
+      width: 15rem;
+      padding: 0.7rem;
+      color: $color-blue-light;
+      border-radius: 0.4rem;
+      margin: 0.5rem 0.3rem;
+    }
+
+    &__right {
+      margin-left: auto;
+    }
+  }
+
+  &__form {
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__group {
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+  }
+  &__textInput {
+    flex: 0 0 80%;
+    outline: none;
+    border: 1px solid $color-white-light;
+    border-radius: 2rem;
+    height: 3rem;
+    padding: 0 1rem;
+  }
+  &__button {
+    width: 6rem;
+    border: none;
+    font-size: 1.2rem;
+    color: $color-blue-light;
+    font-weight: 500;
+    height: 2.5rem;
+    background: #fff;
+    cursor: pointer;
+  }
+}

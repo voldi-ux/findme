@@ -34,11 +34,11 @@ const chatData =  [
                 msg: 'please go buy me something'
             },
             {
-                name:'user2',
+                name:'voldi2',
                 msg:'okay owen, will surely do that for you'
             },
             {
-                name:'user2',
+                name:'voldi2',
                 msg:'and please do not forget to do your work this time around'
             },
             {
@@ -51,4 +51,4 @@ const chatData =  [
 
 
 
-export default chatData
+module.exports =chatData

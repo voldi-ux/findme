@@ -64,7 +64,7 @@ const ProfilePageComponent = ({ match, isLoggedin, userProfile,profiles }) => {
           <Button value="view gallary" />
         </div>
         <p className='profile_page__infor'>
-          is this the person you are looking for ? <button className='profile_page__btn'onClick={() => history.push('/chatroom/singlechat') } >leave a message</button> or <button className='profile_page__btn' onClick={() => history.push('/home') }>keep searching</button>
+          is this the person you are looking for ? <button className='profile_page__btn'onClick={() => history.push(`/chatroom/singlechat/${CurentProfileUser._id}`) } >leave a message</button> or <button className='profile_page__btn' onClick={() => history.push('/home') }>keep searching</button>
           </p> 
       </div>
     );
