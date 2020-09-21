@@ -25,7 +25,7 @@ exports.getProfiles = async (req, resp, next) => {
   try {
     const profiles = await Profile.find()
       .skip(+pageItems * +pageNum - 4)
-      .limit(+pageItems);
+      .limit(+pageItems).populate('userId').exec();
     resp.json({
       profiles: profiles,
     });
@@ -58,7 +58,7 @@ exports.getfilteredProfiles = async (req, resp, next) => {
 
   console.log(filterObj)
   try {
-    const profiles = await Profile.find(filter)
+    const profiles = await Profile.find(filter).populate('userId').exec()
       
 
     return resp.json({

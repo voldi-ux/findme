@@ -4,21 +4,21 @@ import { connect } from "react-redux";
 import "./major_chat_room.scss";
 import io from "socket.io-client";
 import chatData from "../../../testData/chat_data";
+import { onGettingChatPrtner } from "../../../redux/chat/chat_actions";
 
 const URI_STRING = "http://localhost:5000/";
 let socket;
 
-const MajorRoom = ({ location, currentUser, match,getUser,partner }) => {
-  const userId1 = match.userId1;
+const MajorRoom = ({ location, currentUser, match,partner,room }) => {
+  const userId1 = partner._id;
   const userId2 = currentUser._id;
-  const chatRoomId = 1;
-  const room = chatData.find((room) => room.id === chatRoomId); //this data should come from the database.
-  const [userRoom, setRoom] = useState(room);
+
+  
+  
   const [message, SetMessage] = useState("");
-  const [messages, SetMessages] = useState(userRoom.messages);
+  const [messages, SetMessages] = useState(room.messages);
 
-  const existingRoom =  currentUser.chatrooms.find((roomId,index) => partner.chatrooms[index] === roomId)
-
+ 
   //reach out to the data base and find a user and check if he has an existing realtionship with current user fetch(/getuser/user1id)
 
 //   const existingRoom = true; //must use this to find if there is an existing room
@@ -26,38 +26,41 @@ const MajorRoom = ({ location, currentUser, match,getUser,partner }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (!message) return false;
-
+   
     socket.emit("message", {
-      roomId: 1,
+      roomId: room._id,
       name: currentUser.userName,
       msg: message,
     });
     SetMessage("");
   };
+let dicsonnectCount = 0
+   
 
   useEffect(() => {
-    socket = io(URI_STRING);
-    if(existingRoom) {
-      socket.emit("jion", { roomId: existingRoom,name: currentUser.userName,});
-    } else {
-      socket.emit("createRoom", {userId1,userId2});
-    }
+   console.log(room)
 
-    socket.on("recievedMsg", (msg) => {
-      SetMessages([...messages, msg]);
-    });
+    socket = io(URI_STRING,{transports:['websocket']});
+   
+      socket.emit("join", { roomId:room._id ,name: currentUser.userName,});
+    
+
+    
 
     return () => {
       socket.off();
-      socket.emit("disconnect");
+      socket.emit("disconnect", {name:currentUser.userName});
     };
-  }, [messages]);
+  }, [partner,room,dicsonnectCount]);
 
-  // useEffect(() => {
-  //    socket.on('sendRoom', room => {
-  //       setRoom(room)
-  //    })
-  // },[messages])
+  useEffect(() => {
+    socket.on("recievedMsg", (msg) => {
+      SetMessages([...messages, msg]);
+    });
+    socket.on("disconnect", (count) => {
+      dicsonnectCount += count
+    });
+  },[messages])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -106,9 +109,12 @@ const MajorRoom = ({ location, currentUser, match,getUser,partner }) => {
 
 const mapStateToProps = (state) => ({
   currentUser: state.user.CurrentUser,
+  partner:state.Chat.partner,
+  isLoading:state.Chat.loading,
+  room:state.Chat.room
 });
 const mapDispatchToProps = (dispatch) => ({
-  getUser: '/ a function that get a user from a database / part of the chat redux'
+  getPartner: id => dispatch(onGettingChatPrtner(id))
 });
 
-export default connect(mapStateToProps)(withRouter(MajorRoom));
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(MajorRoom));

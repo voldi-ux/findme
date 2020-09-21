@@ -7,9 +7,10 @@ const bodyParser = require("body-parser");
 const app = express();
 const authRoutes = require("./routes/auth");
 const ProfileRoutes = require("./routes/UserProfile");
+const ChatRoutes = require("./routes/chat");
 const multer = require("multer");
 const socketio = require("socket.io");
-const { getRoom, upadateMessages ,createRoom} = require("./utils/socket");
+const { getRoom, upadateMessages, createRoom } = require("./utils/socket");
 
 const MONGO_URI = " mongodb://127.0.0.1:27017/findme";
 const server = http.createServer(app);
@@ -34,7 +35,7 @@ app.use(cors());
 
 app.use(ProfileRoutes);
 app.use(authRoutes);
-
+app.use(ChatRoutes);
 app.use(express.static(path.join(__dirname, "client", "build")));
 app.use("/images", express.static(path.join(__dirname, "images")));
 
@@ -42,19 +43,24 @@ app.use("*", (req, resp) =>
   resp.sendFile(path.join(__dirname, "client", "build", "index.html"))
 );
 
+io.set('transports', ['websocket'])
 io.on("connection", (socket) => {
-  socket.on("jion", async ({ roomId, name, userId2 }) => {
-    console.log(`${name} has joined`);
+  let theRoom;
+  socket.on("join", async ({ roomId, name, userId2 }) => {
+    console.log(`${name} has joined and the room ${roomId}`);
 
-    const room = await getRoom(roomId);
+    // const room = await getRoom(roomId);
+    theRoom = roomId
     await socket.join(roomId);
-
+    console.log(socket.rooms)
     socket.on("message", async ({ roomId, name, msg }) => {
       //recieve the message and then save it to the database
+      console.log(`${name} has send message  and the roomNo is ${roomId}`);
       console.log("messaging worked", name, msg);
       //  const room = await getRoom(roomId)
-      const newRoom = await upadateMessages(roomId, { name, msg });
+      // const newRoom = await upadateMessages(roomId, { name, msg });
 
+      // io.to(roomId).emit("recievedMsg", { name, msg });
       io.to(roomId).emit("recievedMsg", { name, msg });
 
       socket.emit("sendMessage", () => {
@@ -62,15 +68,15 @@ io.on("connection", (socket) => {
       });
     });
     socket.on("createroom", ({ userId1, userId2 }) => {
-        //create a room if does not exist yet!!!
-        createRoom([userId1,userId2])
-      });
-    
+      //create a room if does not exist yet!!!
+      // createRoom([userId1,userId2])
+      console.log(userId1, userId2);
+    });
   });
 
- 
-  socket.on("disconnect", () => {
-    console.log("disconneted");
+  socket.on("disconnect", ({name}) => {
+
+    io.to(theRoom).emit('disconnect', 1)
   });
 });
 
@@ -85,10 +91,14 @@ io.on("connection", (socket) => {
 //   })
 
 mongoose
-  .connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    MONGO_URI,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    },
+    { useFindAndModify: false }
+  )
   .then(() => {
     server.listen(5000, () => console.log("app listening"));
   });

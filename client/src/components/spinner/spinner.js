@@ -1,12 +1,12 @@
 import React from 'react'
 import {Spinner,SpinnerWrapper} from './spinner.styles'
-const withSpinner = Component => ({isLoading, height,profiles}) => {
+const withSpinner = Component => ({isLoading, height,...props}) => {
     if(isLoading) {
       return  <SpinnerWrapper height= {height} >
             <Spinner />
         </SpinnerWrapper>
     } else {
-       return <Component profiles= {profiles}/>
+       return <Component {...props}/>
     }
 }
 

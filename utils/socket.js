@@ -10,20 +10,15 @@ const getRoom = (id) => {
 }
 
 const upadateMessages =async (roomId, msg) => {
-  const room = await Chatroom.find({_id:roomId})
-  room.messages = [...room.messages, msg]
-   return  await room.save()
+  const room = await Chatroom.findOneAndUpdate({_id:roomId}, {
+    $push: {
+        'messages': msg
+    }
+  })
+  
 } 
 
 const createRoom = async(arrOfid) => {
-    const  newchatroom =await new Chatroom({
-         messages:[]
-    })
-    arrOfid.forEach( async(id) => {
-        const user = await User.findById(id)
-         user.chatroomIds = user.chatroomIds.push(newchatroom._id)
-         await user.save() 
-    })
     
 
 }

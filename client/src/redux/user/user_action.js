@@ -34,7 +34,7 @@ export const loggingInUser = (userInput) =>{
      dispatch(loginStart())
       try {
           
-        const resp = await fetch('http://localhost:5000/signin/', {
+        const resp = await fetch('/signin/', {
             method:'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ export const loggingInUser = (userInput) =>{
           if(data.type === 'success') {
             dispatch(loginSucceced(data))
             dispatch(fecthUserProfileStart())
-            const resp = await fetch(`http://localhost:5000/getuserprofile/${data.userId}`)
+            const resp = await fetch(`/getuserprofile/${data.userId}`)
             const profile = await resp.json()
              dispatch(fecthUserProfileSucceced(profile))
           } else if(data.type === 'error') {

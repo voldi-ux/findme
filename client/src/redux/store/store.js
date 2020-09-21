@@ -7,7 +7,8 @@ import {persistStore,persistReducer} from 'redux-persist'
 
 const persistConfig = {
   key:'root',
-  storage
+  storage,
+  whitelist: ['user']
 }
 const persistedRootReducer =  persistReducer(persistConfig,rootReducer),
  store = createStore(persistedRootReducer, applyMiddleware(thunk,logger))
