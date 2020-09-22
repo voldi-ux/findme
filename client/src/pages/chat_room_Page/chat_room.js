@@ -1,6 +1,7 @@
 import React, { Component,useEffect } from 'react'
 import { connect} from 'react-redux'
-import MinorRoom from '../../components/chat_components/minor_chat_room/minor_chat_room'
+import MinorRoomContainer from '../../components/chat_components/minor_chat_room/minor_container'
+
 import MajorRoom from '../../components/chat_components/major_chat_room/major_component'
 import {Route} from 'react-router-dom'
 import { fetchingChats } from '../../redux/chat/chat_actions'
@@ -9,28 +10,20 @@ import withSpinner from '../../components/spinner/spinner'
 
 import './chat_room.scss'
 
-const MajorRoomWithSpinner = withSpinner(MajorRoom)
+const MinorRoomContainerWithSpinner = withSpinner(MinorRoomContainer)
 
-const ChatRoom = ({match,chats,getChats,curentUser,isLoading}) => {
+const ChatRoom = ({match,chats,getChats,curentUser,isLoading,isGettingRoom}) => {
    useEffect(()=> {
        getChats(curentUser._id)
 
-   },[getChats,curentUser])
- 
+   },[match.path])
+ console.log('from the room',isLoading)
   return <div className='chatroom__container'>
-        <Route exact path={match.path} render = {(props) => (<div className='chatroom__container__inner'>
-           <h1 className='chatroom__heading'>
-               Chats
-           </h1>
-            <div className='chatroom__minor'>
-                {chats.length ? chats.map((chat,i) => <MinorRoom key={i} chat={chat} {...props}/>) : <h1>
-                    no chats
-                </h1> }
-            </div>
-        </div>)} />
+        <Route exact path={match.path} render={() => <MinorRoomContainerWithSpinner  isLoading={isLoading} height='40rem' />} />
         <Route path={`${match.path}/singlechat/:userId`} render={(props) => <MajorRoom  {...props} />}/>
     </div>
 }
+
 
 
 const mapDisptchToProps = dispatch => ({
@@ -38,9 +31,9 @@ const mapDisptchToProps = dispatch => ({
     
 })
 const mapStateToProps = state => ({
-    chats: state.Chat.chats,
     isLoading:state.Chat.loading,
-    curentUser: state.user.CurrentUser
+    curentUser: state.user.CurrentUser,
+    
 })
 
 export default connect(mapStateToProps,mapDisptchToProps)(ChatRoom)

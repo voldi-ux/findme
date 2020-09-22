@@ -7,10 +7,12 @@
     align-items: center;
 
     padding: 1rem 5rem;
-
-    background-image: url('../../assets/images/background-img-1.jpg');
+    background: #106EDF;
+    // background-image: url('../../assets/images/background-img-1.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: repeat-y;
     min-height: 100vh;
+  
 }
+

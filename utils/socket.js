@@ -16,6 +16,7 @@ const upadateMessages =async (roomId, msg) => {
     }
   })
   
+  console.log(room)
 } 
 
 const createRoom = async(arrOfid) => {

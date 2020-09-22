@@ -63,6 +63,7 @@
     }
     &__left,
     &__right {
+      position: relative;
       background-color: #fff;
       font-size: 1.5rem;
       font-weight: 500;
@@ -108,4 +109,13 @@
     background: #fff;
     cursor: pointer;
   }
+}
+
+
+.time {
+  font-size: .9rem;
+  position: absolute;
+  bottom: 0;
+  right: 2%;
+  color: #555;
 }

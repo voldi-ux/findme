@@ -4,10 +4,12 @@ const User = require("../models/User");
 
 exports.getChats = async (req, res) => {
   const userId = req.params.userId;
-  const rooms = await chatroom.find({
-    $or: [{ user1: userId }, { user2: userId }],
-  });
-
+  const rooms = await chatroom
+    .find({
+      $or: [{ user1: userId }, { user2: userId }],
+    })
+    .populate(["user2", "user1"]).exec();
+  console.log(rooms);
   return res.json(rooms);
 };
 
@@ -36,7 +38,7 @@ exports.getRoom = async (req, res) => {
         },
       ],
     });
-    
+
     if (room) return res.json(room);
 
     //if the room does not exist

@@ -4,9 +4,9 @@
     display: flex;
     justify-content: space-between;
     padding: 1.5rem 3.5rem ;
-
-    background: $color-blue-dark;
-
+    background: $color-blue-light;
+  
+    z-index: 99999;
     &__logo_container {
         font-size:2rem;
         text-transform: uppercase;

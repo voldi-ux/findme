@@ -22,7 +22,7 @@ exports.postSigningUp = async (req,resp,next) => {
            to: email,
            from: "voldimuyumba2001@gmail.com",
            subject: "verify email ",
-           html: `<p> to very your email please click <a href="http://localhost:5000/getcredentials/?uva=${token}name=${name}&& email=${email}"> here</a> </p>`,
+           html: `<p> to very your email please click <a href="http://localhost:5000/getcredentials/?uva=${token}&&name=${name}&& email=${email}"> here</a> </p>`,
          }).then(() => {
              return resp.redirect('/emailverification')
 
@@ -89,7 +89,8 @@ await    console.log(name,email)
      const user = await new User({
          userName:name,
          email:email,
-         hasProfile:true,
+         hasProfile:false,
+         avatarUrl: 'https://dmrmechanical.com/wp-content/uploads/2018/01/avatar-1577909_640.png',
          password:hashedPassword,
      })
  

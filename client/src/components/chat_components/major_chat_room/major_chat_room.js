@@ -51,7 +51,7 @@ let dicsonnectCount = 0
       socket.off();
       socket.emit("disconnect", {name:currentUser.userName});
     };
-  }, [partner,room,dicsonnectCount]);
+  }, [dicsonnectCount,match.url]);
 
   useEffect(() => {
     socket.on("recievedMsg", (msg) => {
@@ -73,19 +73,20 @@ let dicsonnectCount = 0
         <div className="major__header">
           <img
             className="major__image"
-            src="https://cdn.iconscout.com/icon/free/png-256/avatar-367-456319.png"
+            src={partner.avatarUrl}
             alt="avatar"
           />
-          <h3 className="major__name">{currentUser.userName}</h3>
+          <h3 className="major__name">{partner.userName}</h3>
         </div>
 
         <div className="major__content">
           <div className="major__chats">
             {messages.map((msg) => {
               return msg.name === currentUser.userName ? (
-                <p className="major__chats__right">{msg.msg}</p>
+                <p className="major__chats__right">{msg.msg} <span className='time'>{msg.time}</span></p>
+            
               ) : (
-                <p className="major__chats__left">{msg.msg}</p>
+                <p className="major__chats__left">{msg.msg} <span className='time'>{msg.time}</span></p>
               );
             })}
           </div>
