@@ -11,30 +11,33 @@ const SearchResult = ({
   getProfiles,
   incrementPageNum,
   decrementPageNum,
+  search
 }) => (
   <div className="search_result_container">
-    {profiles.map((user) => (
-      <ResultBox key={user._id} user={user} />
+    {profiles.map((profile) => (
+      <ResultBox key={profile._id} profile={profile} />
     ))}
 
-    <div className="control__botton">
-      {pageNunber > 1 ? (
-        <Button
-          onClick={async() => {
-            await decrementPageNum()
-            //   getProfiles(pageNunber)
-          }}
-          value="previuos"
-        />
-      ) : null}
-      <Button
-        value="next"
-        onClick={async() => {
-         await incrementPageNum()
-         //  getProfiles(pageNunber)
-        }}
-      />
-    </div>
+   {
+     search ? null : <div className="control__botton">
+     {pageNunber > 1 ? (
+       <Button
+         onClick={async() => {
+           await decrementPageNum()
+           //   getProfiles(pageNunber)
+         }}
+         value="previuos"
+       />
+     ) : null}
+     <Button
+       value="next"
+       onClick={async() => {
+        await incrementPageNum()
+        //  getProfiles(pageNunber)
+       }}
+     />
+   </div>
+   }
   </div>
 );
 

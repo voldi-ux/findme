@@ -7,7 +7,8 @@ const {  getUserProfile,getProfiles,postProfile,getfilteredProfiles } = require(
 router.get('/getuserprofile/:userId',getUserProfile)
 //get routes
 router.get('/getProfiles/:pageItems/:pageNum',getProfiles)
-router.post('/getfilteredProfiles/:pageItems/:pageNum',getfilteredProfiles)
+
+router.post('/getfilteredProfiles',getfilteredProfiles)
 router.post('/postprofile',postProfile)
 
 

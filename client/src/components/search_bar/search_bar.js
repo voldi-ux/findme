@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import { connect } from 'react-redux'
+import {useHistory} from 'react-router-dom'
 import {ImSearch} from 'react-icons/im'
 import {IconContext} from 'react-icons'
 import './search_bar.scss'
@@ -7,15 +8,17 @@ import { onFechingFilterProfiles } from '../../redux/app_data_reducer/data_actio
 
 
 const SeacrhBar = ({onSearch}) => {
+   const history = useHistory()
    const [formInput,setFormInput]  = useState({
       searchQuery: ''
    })
    const onSubmit = (e) => {
     e.preventDefault()
     if(formInput ==='') return false;
+    history.push('/home')
       const name = formInput.searchQuery.split(' ')[0]
       const surname = formInput.searchQuery.split(' ')[1]
-      onSearch(1,{
+      onSearch({
             name,
             surname
       })
@@ -36,6 +39,6 @@ const SeacrhBar = ({onSearch}) => {
 }
 
 const mapDispatchToProps = dispacth => ({
-   onSearch: (pageNo,data) => dispacth(onFechingFilterProfiles(pageNo,data))
+   onSearch: (data) => dispacth(onFechingFilterProfiles(data))
  })
 export default connect(null,mapDispatchToProps)(SeacrhBar)

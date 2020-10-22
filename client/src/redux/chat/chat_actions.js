@@ -21,7 +21,7 @@ export const fetchingChats= (id1) => async dispatch => {
         const chats = await res.json()
         dispatch(fetchingChatsSucceced(chats))
     } catch (error) {
-       console.log(error)     
+         
        dispatch(fetchingChatsFail())
     }
 } 

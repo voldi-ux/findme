@@ -31,11 +31,11 @@ function App({isloggedin,getProfiles,pageNunber}) {
        <Route exact path = '/getcredentials' component={SignUp} />
        <Route exact path = '/updateprofile' component={CreateProfilePage} />
        <Route exact path='/emailverification'  component={VeryEmailPage} />
+       <Route exact path = '/profile/:userId' component={Profile} />
        <NavigationBar />
      </Switch>
        <Switch>
-       <Route exact path='/home' component={HomePage} />
-       <Route path = '/profile' component={Profile} />
+       <Route  path='/home' component={HomePage} />
        </Switch>
     </div>
     </FiltercontextProvider>

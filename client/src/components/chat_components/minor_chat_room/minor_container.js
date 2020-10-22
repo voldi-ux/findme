@@ -11,6 +11,7 @@ const MinorRoomContainer =  ({chats, currentUser}) => {
   
   console.log('modified',modifiedChats)
   console.log('old chats',chats)
+  
   return <div className='chatroom__container__inner'>
   <h1 className='chatroom__heading'>
       Chats

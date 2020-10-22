@@ -4,7 +4,8 @@ const initState = {
     loggedIn:false,
     profile:null,
     message:null,
-    loading: false
+    loading: false,
+    IsProfileLoading:false,
 }
 
 
@@ -19,13 +20,13 @@ const UserReducer = (state= initState,action) => {
            case types.FETCH_USER_PROFILE_START:
                return {
                    ...state, 
-                       loading:true
+                   IsProfileLoading:true
                }
            case types.FETCH_USER_PROFILE_SUCCECEDED:
                return {
                    ...state, 
-                       loading:false,
-                       profile:action.payload.profile
+                   IsProfileLoading:false,
+                    profile:action.payload.profile
                }
         case types.LOG_IN_FAIL:
             return {

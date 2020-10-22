@@ -41,7 +41,7 @@ const ProfileComponent = ({isLoggedin,userProfile}) => {
 
       <Button disable={disable}  value={value} onClick={() => {
         if(isLoggedin && userProfile.hasProfile) {
-          history.push("/profile")
+          history.push(`/profile/${userProfile._id}`)
         } else if(userProfile.hasProfile === false) {
           history.push("/updateprofile")
         }

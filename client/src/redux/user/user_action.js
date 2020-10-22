@@ -44,10 +44,6 @@ export const loggingInUser = (userInput) =>{
       const data = await resp.json()
           if(data.type === 'success') {
             dispatch(loginSucceced(data))
-            dispatch(fecthUserProfileStart())
-            const resp = await fetch(`/getuserprofile/${data.userId}`)
-            const profile = await resp.json()
-             dispatch(fecthUserProfileSucceced(profile))
           } else if(data.type === 'error') {
             dispatch(loginFail(data.message))
           }
@@ -57,4 +53,15 @@ export const loggingInUser = (userInput) =>{
       }
 }
 
+}
+
+export const onFetchUserProfile = (userId) => async dispatch => {
+   try {
+    dispatch(fecthUserProfileStart())
+    const resp = await fetch(`/getuserprofile/${userId}`)
+    const profile = await resp.json()
+    dispatch(fecthUserProfileSucceced(profile))
+   } catch (error) {
+     console.log(error)
+   }
 }

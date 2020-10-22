@@ -26,7 +26,6 @@ export const onFechingProfiles = (pageNun) => async (dispacth) => {
      try {
         const resp = await fetch(`/getProfiles/4/${pageNun}`)
         const profiles = await resp.json()
-        console.log(profiles)
         dispacth(fecthProfileSucceced(profiles))
      } catch (error) {
          dispacth(fetchProfilesFails(error.message))
@@ -43,11 +42,11 @@ export const fecthFilterProfileSucceced = (profiles) => ({
     payload:profiles
 })
 
-export const onFechingFilterProfiles = (pageNun,FilteredData) => async (dispacth) => {
-    
+export const onFechingFilterProfiles = (FilteredData) => async (dispacth) => {
+    console.log(FilteredData)
     dispacth(fetchProfilesStart)
      try {
-        const resp = await fetch(`/getfilteredProfiles/4/${pageNun}`,{
+        const resp = await fetch(`/getfilteredProfiles`,{
             method:'post',
             headers: {
                 'Content-Type':'application/json'

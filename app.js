@@ -10,12 +10,9 @@ const ProfileRoutes = require("./routes/UserProfile");
 const ChatRoutes = require("./routes/chat");
 const multer = require("multer");
 const socketio = require("socket.io");
-const moment = require('moment')
+const moment = require("moment");
 
 const { getRoom, upadateMessages, createRoom } = require("./utils/socket");
-
-
-
 
 const MONGO_URI = " mongodb://127.0.0.1:27017/findme";
 const server = http.createServer(app);
@@ -48,16 +45,16 @@ app.use("*", (req, resp) =>
   resp.sendFile(path.join(__dirname, "client", "build", "index.html"))
 );
 
-io.set('transports', ['websocket'])
+io.set("transports", ["websocket"]);
 io.on("connection", (socket) => {
   let theRoom;
   socket.on("join", async ({ roomId, name, userId2 }) => {
     console.log(`${name} has joined and the room ${roomId}`);
 
     // const room = await getRoom(roomId);
-    theRoom = roomId
+    theRoom = roomId;
     await socket.join(roomId);
-    console.log(socket.rooms)
+    console.log(socket.rooms);
     socket.on("message", async ({ roomId, name, msg }) => {
       //recieve the message and then save it to the database
       console.log(`${name} has send message  and the roomNo is ${roomId}`);
@@ -66,12 +63,16 @@ io.on("connection", (socket) => {
       // const newRoom = await upadateMessages(roomId, { name, msg });
 
       // io.to(roomId).emit("recievedMsg", { name, msg });
-      io.to(roomId).emit("recievedMsg", { name, msg, time: moment().format('h:m a')});
-        upadateMessages(roomId,{
-          name,
-          msg,
-          time: moment().format('h:m a')
-        })
+      io.to(roomId).emit("recievedMsg", {
+        name,
+        msg,
+        time: moment().format("h:m a"),
+      });
+      upadateMessages(roomId, {
+        name,
+        msg,
+        time: moment().format("h:m a"),
+      });
       socket.emit("sendMessage", () => {
         //after saving send back to the client
       });
@@ -83,9 +84,9 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.on("disconnect", ({name}) => {
-   console.log('someone has diconnected' + ' ' + name)
-    io.to(theRoom).emit('disconnect', 1)
+  socket.on("disconnect", ({ name }) => {
+    console.log("someone has diconnected" + " " + name);
+    io.to(theRoom).emit("disconnect", 1);
   });
 });
 

@@ -22,7 +22,7 @@ exports.postSigningUp = async (req,resp,next) => {
            to: email,
            from: "voldimuyumba2001@gmail.com",
            subject: "verify email ",
-           html: `<p> to very your email please click <a href="http://localhost:5000/getcredentials/?uva=${token}&&name=${name}&& email=${email}"> here</a> </p>`,
+           html: `<p> to very your email please click <a href="http://localhost:5000/getcredentials/?uva=${token}&&name=${name}&&email=${email}"> here</a> </p>`,
          }).then(() => {
              return resp.redirect('/emailverification')
 

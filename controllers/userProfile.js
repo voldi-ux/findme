@@ -36,8 +36,8 @@ exports.getProfiles = async (req, resp, next) => {
 
 //constructor function
 
-function FilterObj(age, country, town, gender,name,surname) {
-  age ? (this.age = age) : null;
+function FilterObj(name, country, town, gender,name,surname) {
+  name ? (this.name = name) : null;
   country ? (this.country = country) : null;
   town ? (this.town = town) : null;
   gender ? (this.gender = gender) : null;
@@ -51,15 +51,20 @@ function isEmpty(obj) {
 
 exports.getfilteredProfiles = async (req, resp, next) => {
   console.log(req.body)
-  const { pageItems, pageNum } = await req.params;
-  const { age, country, town, gender,name,surname } = req.body;
-  const filterObj = new FilterObj(age, country, town, gender,name,surname);
+  const { name, country, town, gender,surname } = req.body;
+
+  const filterObj = new FilterObj(name, country, town, gender,name,surname);
   const filter = isEmpty(filterObj) ? null : filterObj
 
-  console.log(filterObj)
+  
   try {
-    const profiles = await Profile.find(filter).populate('userId').exec()
-      
+    const profiles = await Profile.find({
+      $or: [
+        {name:name}, {$or: [{surname},{surname:name}] }, {country:country},{gender}, {town},
+      ]
+    }).populate('userId').exec()
+  
+    console.log(profiles)
 
     return resp.json({
       message: "success",
