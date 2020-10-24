@@ -92,7 +92,7 @@ let dicsonnectCount = 0
           </div>
           <form className="major__form" onSubmit={onSubmit}>
             <div className="major__form__group">
-              <input
+              <textarea
                 placeholder="type message..."
                 onChange={handleChange}
                 type="text"
@@ -114,8 +114,5 @@ const mapStateToProps = (state) => ({
   isLoading:state.Chat.loading,
   room:state.Chat.room
 });
-const mapDispatchToProps = (dispatch) => ({
-  getPartner: id => dispatch(onGettingChatPrtner(id))
-});
 
-export default connect(mapStateToProps,mapDispatchToProps)(withRouter(MajorRoom));
+export default connect(mapStateToProps)(withRouter(MajorRoom));

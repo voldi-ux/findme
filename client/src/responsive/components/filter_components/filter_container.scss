@@ -13,7 +13,7 @@
 
     transition: .4s all;
     @media (max-width:900px) {
-        display: none;
+        display: block;
         left: -100%;
     &.slide-left {
         left:0;
@@ -51,4 +51,14 @@
     }
 
     
+}
+
+.close {
+    position:absolute;
+    top: 5%;
+    right: 5%;
+    font-size: 3rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
 }

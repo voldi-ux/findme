@@ -4,21 +4,17 @@ import MinorRoom from  './minor_chat_room'
 import {connect} from 'react-redux'
 
 import './minor_chat_room.scss'
-import { modifiedChatArray } from '../../../utils/chats.utils';
+import { modifiedChatArray,isMessagesEmpty,CustomCompose } from '../../../utils/chats.utils';
 
 const MinorRoomContainer =  ({chats, currentUser}) => {
-  const modifiedChats = chats.length ? modifiedChatArray(chats,currentUser) : []
-  
-  console.log('modified',modifiedChats)
-  console.log('old chats',chats)
-  
+  const newChats = CustomCompose(chats,currentUser)(isMessagesEmpty,modifiedChatArray)
   return <div className='chatroom__container__inner'>
   <h1 className='chatroom__heading'>
       Chats
   </h1>
    <div className='chatroom__minor'>
-       {modifiedChats.length ? modifiedChats.map((chat,i) => chat.messages.length ? <MinorRoom key={i} chat={chat} />: null) : <h1>
-           no chats
+       { newChats.length ? newChats.map((chat,i) => <MinorRoom key={i} chat={chat} /> ): <h1>
+           You currently have no chats
        </h1> }
    </div>
 </div>

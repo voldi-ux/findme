@@ -31,6 +31,11 @@ app.use(
   "/postprofile",
   getImages.fields([{ name: "gallaries", maxCount: 10 }])
 );
+app.use(
+  "/update-profile",
+  getImages.fields([{ name: "profile-image", maxCount: 1 }])
+);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());

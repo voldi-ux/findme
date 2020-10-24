@@ -3,7 +3,7 @@ const router = express.Router()
 const {getByUserId,getChats,getRoom} = require('../controllers/chat')
 
 //post routes
-router.get('/getuserbyprofileId/:userId',getByUserId)
+router.get('/getuserbyId/:userId',getByUserId)
 router.get('/getroom/:userId1/:userId2',getRoom)
 router.get('/getchats/:userId',getChats)
 

@@ -12,11 +12,23 @@
         align-items: center;
         user-select: none;
         cursor: pointer;
+        
 
     }
     &__content {
         display: flex;
+        flex-direction: column;
+        // align-items: center;
+    }
+
+    &__content-top {
+        display: flex;
         align-items: center;
+    }
+    &__last-msg {
+        width: 100%;
+        margin-left: 50%;
+        font-size: 1.4rem;
     }
     &__name {
        font-size: 1.4rem;

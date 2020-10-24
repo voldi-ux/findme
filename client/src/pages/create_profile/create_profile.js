@@ -20,7 +20,6 @@ const CreateProfilePage = ({match,userId}) => {
         },
         imagesPreview: []
     })
-    console.log(profile)
     const handleChange= (e) => {
     const {name,value} = e.target
     setProfile({
@@ -94,6 +93,6 @@ const CreateProfilePage = ({match,userId}) => {
 }
 
 const mapStateToProps = (state) => ({
- userId: state.user.CurrentUser || 'sdfsdfwerewrvwewrwerdffs'
+ userId: state.user.CurrentUser._id 
 })
 export default connect(mapStateToProps)(CreateProfilePage)

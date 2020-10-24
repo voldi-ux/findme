@@ -1,5 +1,5 @@
-import React from "react";
-import { FaMapMarkerAlt, FaMapMarkedAlt, FaFlag,FaPhone,FaMailBulk } from "react-icons/fa";
+import React,{useRef,useState } from "react";
+import { FaMapMarkerAlt, FaMapMarkedAlt, FaFlag,FaPhone,FaMailBulk,FaImage } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import {useHistory} from 'react-router-dom'
 
@@ -7,12 +7,38 @@ import "./profile_page_copomenent.scss";
 import Button from "../../components/buttons/button";
 import { connect } from "react-redux";
 const ProfilePageComponent = ({ match, isLoggedin, userProfile,profiles,currentUser }) => {
+  const [imageSelected,selectImage] = useState(false)
   const history  = useHistory()
+ const fileInput = useRef(null)
+
+
+ const handleChange = e => {
+    if(e.target.files.length === 1) {
+      console.log(e.target.files)
+      selectImage(true)
+    }
+ }
+ const onSubmit = (e) => {
+  //  selectImage(false)
+ }
+ const handleClick = () => {
+   fileInput.current.click()
+ }
   return (
     <div className="profile_page__container">
       <div className="profile_page__details">
-        <img src={userProfile.avatarUrl} />
-
+        <img src={`/images/${userProfile.avatarUrl}`} />
+      <IconContext.Provider value={{size:'4rem', className:'profile_page__details__image-icon'}}>
+      {
+          currentUser._id === userProfile.userId._id ?  <FaImage onClick={handleClick} /> : null
+        }
+        
+      </IconContext.Provider>
+        <form onSubmit={onSubmit} action='/update-profile' method='post' encType="multipart/form-data">
+           <input ref={fileInput} name='profile-image' type='file' style={{display:'none'}} onChange={handleChange} />
+           <input type='hidden'  value={currentUser._id} name='userId'/>
+           {imageSelected ? <button>Save</button> : null}
+        </form>
         <div className="profile_page__content">
           <div className="profile_page__name">
             {userProfile.name} {userProfile.surname}
@@ -62,20 +88,14 @@ const ProfilePageComponent = ({ match, isLoggedin, userProfile,profiles,currentU
         </div>
       </div>
       <div className="profile_page__gallary">
-        <h1>Photos</h1>
-          {userProfile.name === 'test' ?  <div className="profile_page__gallary__container ">
+        <h1 className='profile_page__bio__heading'>Photos</h1>
+           <div className="profile_page__gallary__container ">
           {userProfile.gallary.map((item) => (
             <div key={item} className="profile_page__gallary__item">
-              <img src={`/images/${item}`} alt={`imaget`} />
+              <img src={`/images/${item}`} alt={'gallery item'} />
             </div>
           ))}
-        </div>: <div className="profile_page__gallary__container ">
-          {userProfile.gallary.map((item) => (
-            <div key={item} className="profile_page__gallary__item">
-              <img src={item} alt={`imaget`} />
-            </div>
-          ))}
-        </div>}
+        </div>
         {
           currentUser._id === userProfile.userId._id ? <Button value="add photos" /> : null
         }

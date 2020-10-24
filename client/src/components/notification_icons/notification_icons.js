@@ -1,6 +1,6 @@
 import React from 'react'
 import { ImBubble2 } from 'react-icons/im'
-import {FaBell} from 'react-icons/fa'
+import {FaBell, FaCommentAlt} from 'react-icons/fa'
 import {IconContext} from 'react-icons'
 import {useHistory}from 'react-router-dom'
 

@@ -45,7 +45,7 @@ export const onGettingChatPrtner = (id) => async dispatch => {
    
     try {
         dispatch(gettingPatnerStart())
-        const res = await fetch(`/getuserbyprofileId/${id}`)
+        const res = await fetch(`/getuserbyId/${id}`)
         const partner = await res.json()
         dispatch(gettingPatnerSucceced(partner))
     } catch (error) {    

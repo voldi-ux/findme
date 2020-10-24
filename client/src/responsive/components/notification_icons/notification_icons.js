@@ -14,7 +14,7 @@ const NotificationContainer = ({isLoggedin,logout}) => {
 const history = useHistory()
    return (<div className='resp-notification__container'>
    <span className='resp-notification__icons' >
-      <IconContext.Provider value={{className:'resp-notification__icon',size:'2rem'}} >
+      <IconContext.Provider value={{className:'resp-notification__icon',size:'3rem'}} >
        <span className=' resp-notification__icon__container' onClick={()=> history.push('/chatroom')}>
           <ImBubble2 />
           <span className='resp-notification__icon__count'>

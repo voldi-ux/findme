@@ -2,10 +2,15 @@
 
 .major {
   &__container {
-    &__inner {
-      min-width: 50rem;
+    word-wrap: wrap;
+    width: 50rem;
+    @media (max-width: 750px) {
+      width: 40rem;
+    }
+    @media (max-width: 400px) {
       width: 100%;
-      max-height: 60rem;
+    }
+    &__inner {
       background: $color-white-light;
       user-select: none;
     }
@@ -72,6 +77,7 @@
       color: $color-blue-light;
       border-radius: 0.4rem;
       margin: 0.5rem 0.3rem;
+      padding-bottom: 2rem;
     }
 
     &__right {
@@ -94,16 +100,16 @@
   &__textInput {
     flex: 0 0 80%;
     outline: none;
-    border: 1px solid $color-white-light;
+    border: 2px solid $color-white-dark;
     border-radius: 2rem;
     height: 3rem;
     padding: 0 1rem;
   }
   &__button {
     width: 6rem;
-    border: none;
+    border: 2px solid $color-white-dark;
     font-size: 1.2rem;
-    color: $color-blue-light;
+    color: $color-blue-dark;
     font-weight: 500;
     height: 2.5rem;
     background: #fff;
@@ -111,9 +117,8 @@
   }
 }
 
-
 .time {
-  font-size: .9rem;
+  font-size: 0.9rem;
   position: absolute;
   bottom: 0;
   right: 2%;

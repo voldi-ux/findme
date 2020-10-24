@@ -20,13 +20,13 @@ const ProfileComponent = ({isLoggedin,userProfile}) => {
     value = 'Not Signed In'
   }
 
-
+ const url = `/images/${userProfile.avatarUrl}`
   return (
     <div className={`profile ${isLoggedin ? '' : 'profile__disable'}`}>
       <div className="profile__image">
         {/* must insery the user's avatar url here */}
-        {console.log(userProfile.avatarUrl)}
-        <img src={`${isLoggedin && userProfile.avatarUrl ? userProfile.avatarUrl: 'https://dmrmechanical.com/wp-content/uploads/2018/01/avatar-1577909_640.png'}`} />
+        {console.log(isLoggedin && userProfile.avatarUrl)}
+        <img src={`${isLoggedin && userProfile.avatarUrl ? url: 'https://dmrmechanical.com/wp-content/uploads/2018/01/avatar-1577909_640.png'}`} />
       </div>
       <div>
   <h3 className="profile__name">{`${isLoggedin && userProfile? userProfile.userName : 'Please sign in to view your profile'}`}</h3>

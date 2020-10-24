@@ -9,9 +9,10 @@ import Radio from '../../../components/form_inputs_components/radio'
 import { filterData, onFechingFilterProfiles } from '../../../redux/app_data_reducer/data_actions'
 import { FilterProfileContext } from '../../../context/filter_Data_context/filter.data'
 import TextInputComponent from '../../../components/form_inputs_components/text'
+import { ToggleSlideInleft } from '../../../redux/user/user_action'
 
 
-const FilterContainerResp = ({onfilter, showNav}) => {
+const FilterContainerResp = ({onfilter, showNav,toggleNav}) => {
   const context = useContext(FilterProfileContext)
   const {filterData} = useContext(FilterProfileContext)
   const history = useHistory() 
@@ -35,6 +36,7 @@ const FilterContainerResp = ({onfilter, showNav}) => {
   const countries = ['select country','USA', 'canada', 'SA', 'DRC' ]
   const towns = ['select town','JHB', 'BOSTON', 'Durban', 'NY']
   return (<form onSubmit={onSubmit}  className={`Resp-filter_container  ${showNav ? 'slide-left' :null}`}>
+    <span onClick={toggleNav} className='close'>X</span>
        <div className='Resp-filter_inner_container'>
        <h3>Advance Search</h3>
   <div className='filter_group' >
@@ -64,8 +66,9 @@ const FilterContainerResp = ({onfilter, showNav}) => {
  </form>)
  
 }
-const mapDispatchToProps = dispacth => ({
-  onfilter: (data) => dispacth(onFechingFilterProfiles(data))
+const mapDispatchToProps = dispatch => ({
+  onfilter: (data) => dispatch(onFechingFilterProfiles(data)),
+  toggleNav: () => dispatch(ToggleSlideInleft())
 })
 const mapStateToProps = ({user}) => ({
   showNav:user.LeftNavVisible

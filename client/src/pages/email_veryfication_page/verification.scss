@@ -1,9 +1,10 @@
+
 @import '../../colors';
 
-.home_page {
+.Veri-landing_page__container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 
     padding: 1rem 5rem;
@@ -13,4 +14,16 @@
     background-position: center;
     background-repeat: repeat-y;
     min-height: 100vh;
+
+    p {
+        line-height: 1.6rem;
+        min-height: 30rem;
+        width: 40rem;
+        text-align: justify;
+        padding: 3rem;
+        font-size: 1.7rem;
+        font-weight: 500;
+        color: #fff;
+        background: rgba(0,0,0, .5);
+    }
 }

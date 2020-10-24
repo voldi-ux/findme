@@ -9,6 +9,9 @@ const UserChema = new Schema({
     hasProfile: {
       type:Boolean
     },
+    avatarUrl: {
+      type:String,
+    },
     email: {
       type:String,
       required:true

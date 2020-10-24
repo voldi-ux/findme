@@ -7,10 +7,15 @@ const MinorRoom =  ({match, id,chat}) => {
 
     return <div className='minor__container' onClick={()=> history.push(`${match.path}/singlechat/${chat._id}`)}>
                  <div className='minor__content'>
-                    <img className='minor__image' src={chat.avatarUrl} alt='avatar'/>
-                    <h3 className='minor__name'>
-                       {chat.userName}
-                    </h3>
+                      <div className='minor__content-top'>
+                        <img className='minor__image' src={chat.avatarUrl} alt='avatar'/>
+                        <h3 className='minor__name'>
+                           {chat.name}
+                        </h3>
+                      </div>
+                    <p className='minor__last-msg'>
+                       {chat.messages.msg.slice(0, 10) + '...'}
+                    </p>
                  </div>
             </div>
 }

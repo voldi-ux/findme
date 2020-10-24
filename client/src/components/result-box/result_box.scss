@@ -6,7 +6,7 @@
         width: 45rem;
 
         @media (max-width:750px) {
-            margin: 2rem 0;
+            // margin: 2rem 0;
             width: 100%;
             
         }
@@ -36,19 +36,24 @@
         &-1 {
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            background: $color-blue-light;
+            padding: .5rem 2rem;
+            border-radius: 5px;
         }
     }
 
     &__name {
         text-transform: capitalize;
         font-size: 2rem;
-        color: $color-blue-light;
+        color: #fff;
     }
 
     &__img {
        img {
         display: block;
-        width: 5rem;
+        width: 3.5rem;
+        height: 3.5rem;
         border-radius: 500rem;;
        }
     }

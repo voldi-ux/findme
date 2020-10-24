@@ -12,7 +12,6 @@ const ChatBoxWithSpinner = withSpinner(chatBox)
 
 const MajorRoom = ({ isLoading, match,getPartner,getRoom ,currentUserId,loading,room}) => {
   const userId1 = match.params.userId;
-console.log(isLoading,room,'from room')
     useEffect(()=> {
       getRoom(userId1,currentUserId)
       getPartner(userId1)
