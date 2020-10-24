@@ -6,28 +6,37 @@
     position: relative;
     display: flex;
     align-items: center;
+    @media (max-width: 750px) {
+      margin-right: 0;
+    }
   }
 
   &__input {
     width: 30rem;
-    padding: .5rem 3rem;
+    padding: 0.5rem 3rem;
     border-radius: 10rem;
     border: none;
-    transition: all .5s ;
+    transition: all 0.5s;
+    @media (max-width: 750px) {
+      width: 20rem;
+      &:focus {
+        width: 23rem !important;
+      }
+    }
     &::placeholder {
-        font-size: 1.6rem;
-        color: $color-white-dark;
+      font-size: 1.6rem;
+      color: $color-white-dark;
     }
 
     &:focus {
-        user-select: none;
-        outline:none;
-        width: 35rem;
+      user-select: none;
+      outline: none;
+      width: 35rem;
     }
   }
 
   &__icon {
-    color: $color-white-light;
+    color: $color-white-dark;
     margin-left: -3rem;
   }
 }

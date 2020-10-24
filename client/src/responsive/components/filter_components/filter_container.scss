@@ -1,0 +1,54 @@
+@import '../../../colors';
+@import '../../../sass/mixins.scss';
+
+.Resp-filter_container {
+     width: 100%;
+    display: none;
+    @include positionfixed;
+    min-height: 100%;
+    top: 0;
+    left: 0%;
+    z-index: 999;
+    background-color: rgba(0,0,0,.5);
+
+    transition: .4s all;
+    @media (max-width:900px) {
+        display: none;
+        left: -100%;
+    &.slide-left {
+        left:0;
+    }       
+    }
+}
+
+
+.Resp-filter_inner_container {
+    height: 100vh;
+    width: 20rem;
+    padding: 2rem;
+    box-shadow: 0 0 1rem  rgba(0,0,0,.2);  
+    background: #fff;
+    padding-top: 15rem ;
+
+}
+
+.Resp-filter_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    z-index: -444;
+}
+.filter_group {
+    text-transform: capitalize;
+    margin: 1rem 0;
+
+    h3 {
+        font-size: 1.6rem;
+        margin: .5rem 0;
+    }
+
+    
+}

@@ -1,13 +1,12 @@
-@import "../../colors";
+@import "../../../colors";
 
-.notification {
+.resp-notification {
   &__container {
     flex: 0 0 20%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-around;
-
-   
   }
 
   &__icons {
@@ -15,13 +14,10 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    @media (max-width: 750px) {
-      display: none;
-    }
   }
 
   &__icon {
-    color: $color-white-light;
+    color: $color-white-dark;
     margin: 0 1rem;
 
     &__container {
@@ -48,28 +44,11 @@
   }
 
   &__login {
+    display: block;
     font-size: 2rem;
-    color: $color-white-light;
+    color: $color-blue-light;
     text-transform: capitalize;
     user-select: none;
     cursor: pointer;
-    @media (max-width: 750px) {
-      display: none;
-    }
-  }
-
-  &__photo {
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    
-    display: none;
-    img {
-      width: 100%;
-      border-radius: 10rem;
-    }
-    @media (max-width:750px) {
-      display: block;
-    }
   }
 }

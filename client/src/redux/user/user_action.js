@@ -65,3 +65,14 @@ export const onFetchUserProfile = (userId) => async dispatch => {
      console.log(error)
    }
 }
+
+
+//for navigation 
+
+export const ToggleSlideInleft = () => ({
+  type:types.TOGGLE_SLIDE_IN_LEFT
+})
+
+export const ToggleSlideInRight = () => ({
+  type:types.TOGGLE_SLIDE_IN_RIGHT
+})

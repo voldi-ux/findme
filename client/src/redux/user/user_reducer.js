@@ -3,9 +3,12 @@ import types from './user_types'
 const initState = {
     loggedIn:false,
     profile:null,
+    CurrentUser:{},
     message:null,
     loading: false,
     IsProfileLoading:false,
+    LeftNavVisible:false,
+    RightNavVisible:false,
 }
 
 
@@ -36,8 +39,19 @@ const UserReducer = (state= initState,action) => {
                 return {
                     ...state,
                     profile: null,
+                    CurrentUser:{},
                     loggedIn:false
                 }
+        case types.TOGGLE_SLIDE_IN_LEFT: 
+        return {
+            ...state,
+            LeftNavVisible:!state.LeftNavVisible
+        }
+        case types.TOGGLE_SLIDE_IN_RIGHT: 
+        return {
+            ...state,
+            RightNavVisible:!state.RightNavVisible
+        }
            default:
                return state
     }

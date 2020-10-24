@@ -60,7 +60,7 @@ exports.getfilteredProfiles = async (req, resp, next) => {
   try {
     const profiles = await Profile.find({
       $or: [
-        {name:name}, {$or: [{surname},{surname:name}] }, {country:country},{gender}, {town},
+        {name:name}, {$or: [{surname:surname || 'not vallid'},{surname:name || 'not vallid'}] }, {country:country || 'not vallid'},{gender:gender || 'not vallid'}, {town:town || 'not vallid'},
       ]
     }).populate('userId').exec()
   
@@ -71,7 +71,7 @@ exports.getfilteredProfiles = async (req, resp, next) => {
       profiles: profiles,
     });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 };
 
