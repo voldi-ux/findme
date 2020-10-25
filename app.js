@@ -14,10 +14,11 @@ const moment = require("moment");
 
 const { getRoom, upadateMessages, createRoom } = require("./utils/socket");
 
-const MONGO_URI = "mongodb+srv://voldi2:findme@cluster0.gulxq.mongodb.net/findme?retryWrites=true&w=majority";
+const MONGO_URI =
+  "mongodb+srv://voldi2:findme@cluster0.gulxq.mongodb.net/findme?retryWrites=true&w=majority";
 const server = http.createServer(app);
 const io = socketio(server);
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 5000;
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "images"));
@@ -27,10 +28,6 @@ const storage = multer.diskStorage({
   },
 });
 
-const getImages = multer({ storage: storage });
-app.use('/', (req,res) => {
-  return res.send('hellllo')
-})
 app.use(
   "/postprofile",
   getImages.fields([{ name: "gallaries", maxCount: 10 }])
@@ -47,11 +44,11 @@ app.use(cors());
 app.use(ProfileRoutes);
 app.use(authRoutes);
 app.use(ChatRoutes);
-app.use(express.static(path.join(__dirname, "client", "build")));
+app.use(express.static(path.join(__dirname, "client/build")));
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use("*", (req, resp) =>
-  resp.sendFile(path.join(__dirname, "client", "build", "index.html"))
+  resp.sendFile(path.join(__dirname, "client/build", "index.html"))
 );
 
 io.set("transports", ["websocket"]);
@@ -120,7 +117,6 @@ mongoose
   )
   .then(() => {
     server.listen(port, () => {
-  console.log('connected')
-    }
-    );
+      console.log("connected");
+    });
   });
