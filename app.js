@@ -28,6 +28,9 @@ const storage = multer.diskStorage({
 });
 
 const getImages = multer({ storage: storage });
+app.use('/', (req,res) => {
+  return res.send('hellllo')
+})
 app.use(
   "/postprofile",
   getImages.fields([{ name: "gallaries", maxCount: 10 }])
