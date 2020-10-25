@@ -13,10 +13,13 @@ const socketio = require("socket.io");
 const moment = require("moment");
 
 const { getRoom, upadateMessages, createRoom } = require("./utils/socket");
+const { users } = require("./testData");
+const User = require("./models/User");
 
-const MONGO_URI = " mongodb://127.0.0.1:27017/findme";
+const MONGO_URI = "mongodb+srv://voldi2:findme@cluster0.gulxq.mongodb.net/findme?retryWrites=true&w=majority";
 const server = http.createServer(app);
 const io = socketio(server);
+const port = process.env.PORT || 5000
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "images"));
@@ -115,5 +118,11 @@ mongoose
     { useFindAndModify: false }
   )
   .then(() => {
-    server.listen(5000, () => console.log("app listening"));
+    server.listen(port, () => {
+    users.forEach(user  => {
+      const Newuser = new User(user)
+      Newuser.save()
+    })
+    }
+    );
   });
