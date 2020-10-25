@@ -27,6 +27,8 @@ const storage = multer.diskStorage({
     cb(null, file.fieldname + Date.now() + file.originalname);
   },
 });
+const getImages = multer({ storage: storage });
+
 
 app.use(
   "/postprofile",
