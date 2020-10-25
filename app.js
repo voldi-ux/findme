@@ -13,8 +13,6 @@ const socketio = require("socket.io");
 const moment = require("moment");
 
 const { getRoom, upadateMessages, createRoom } = require("./utils/socket");
-const { users } = require("./testData");
-const User = require("./models/User");
 
 const MONGO_URI = "mongodb+srv://voldi2:findme@cluster0.gulxq.mongodb.net/findme?retryWrites=true&w=majority";
 const server = http.createServer(app);
@@ -119,10 +117,7 @@ mongoose
   )
   .then(() => {
     server.listen(port, () => {
-    users.forEach(user  => {
-      const Newuser = new User(user)
-      Newuser.save()
-    })
+  console.log('connected')
     }
     );
   });
