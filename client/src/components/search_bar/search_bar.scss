@@ -19,7 +19,7 @@
     transition: all 0.5s;
     @media (max-width: 750px) {
       width: 20rem;
-      padding: 1rem 3rem;
+      padding: 4px 3rem;
       &:focus {
         width: 23rem !important;
       }
