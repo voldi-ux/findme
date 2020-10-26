@@ -27,6 +27,45 @@ export const fecthUserProfileSucceced = (profile) => ({
   type:userTypes.FETCH_USER_PROFILE_SUCCECEDED,
   payload:profile
 })
+export const uptdateUserProfileStart = () => ({
+  type:userTypes.UPDATE_USER_PROFILE_START
+})
+
+export const uptdateUserProfileSucceced = (profile) => ({
+  type:userTypes.UPDATE_USER_PROFILE_SUCCECEDED,
+  payload:profile
+})
+
+export const onUserProfileUpdate = (profile) => async dispatch => {
+  dispatch(uptdateUserProfileStart())
+   try {
+          
+        const resp = await fetch('/postprofile', {
+            method:'post',
+            headers: {
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify(profile) 
+        }) } catch(err) {
+          console.log(err)
+        }
+}
+
+export const onUserProfilePicUpdate = (profile) => async dispatch => {
+  dispatch(uptdateUserProfileStart())
+   try {
+          
+        const resp = await fetch('/update-profile', {
+            method:'post',
+            headers: {
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify(profile) 
+        }) } catch(err) {
+          console.log(err)
+        }
+}
+
 
 export const loggingInUser = (userInput) =>{ 
     
@@ -76,3 +115,5 @@ export const ToggleSlideInleft = () => ({
 export const ToggleSlideInRight = () => ({
   type:types.TOGGLE_SLIDE_IN_RIGHT
 })
+
+

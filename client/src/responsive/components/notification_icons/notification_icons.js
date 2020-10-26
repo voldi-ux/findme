@@ -12,6 +12,7 @@ import { logOut } from '../../../redux/user/user_action'
 
 const NotificationContainer = ({isLoggedin,logout}) => {
 const history = useHistory()
+
    return (<div className='resp-notification__container'>
    <span className='resp-notification__icons' >
       <IconContext.Provider value={{className:'resp-notification__icon',size:'3rem'}} >

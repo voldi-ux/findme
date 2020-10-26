@@ -21,7 +21,6 @@ exports.getUserProfile = async (req, resp, next) => {
 };
 
 exports.getProfiles = async (req, resp, next) => {
-  console.log(req.params);
   const { pageItems, pageNum } = await req.params;
   try {
     const profiles = await Profile.find()
@@ -53,7 +52,6 @@ exports.getProfiles = async (req, resp, next) => {
 // }
 
 exports.getfilteredProfiles = async (req, resp, next) => {
-  console.log(req.body);
   const { name, country, town, gender, surname } = req.body;
 
   // const filterObj = new FilterObj(name, country, town, gender, name, surname);
@@ -77,7 +75,7 @@ exports.getfilteredProfiles = async (req, resp, next) => {
       .populate("userId")
       .exec();
 
-    console.log(profiles);
+    
 
     return resp.json({
       message: "success",
@@ -90,14 +88,14 @@ exports.getfilteredProfiles = async (req, resp, next) => {
 
 exports.postProfile = async (req, resp, next) => {
   try {
-    const imagesPath = req.files["gallaries"].map((image) => image.filename);
+    const gallery = await req.body.gallery
     const profile = await new Profile({
       ...req.body,
-      gallary: imagesPath,
+      gallary: gallery,
       avatarUrl:
         "https://dmrmechanical.com/wp-content/uploads/2018/01/avatar-1577909_640.png",
     });
-    await findOneAndUpdate({ _id: req.body.userId }, { hasProfile: true });
+    await User.findOneAndUpdate({ _id: req.body.userId }, { hasProfile: true });
     await profile.save();
     return resp.redirect("/home");
   } catch (err) {
@@ -108,21 +106,20 @@ exports.postProfile = async (req, resp, next) => {
 //update the user profile
 
 exports.updateProfile = async (req, resp, next) => {
-  const userId = req.body.userId;
-  const imagePath = await req.files["profile-image"][0].filename;
-  const profile = await Profile.findByIdAndUpdate(
-     userId, 
-    {
-      avatarUrl: imagePath,
-    }
-  );
+   try {
+    const {userId, profileUrl} = req.body;
+    console.log('updating user profile')
+    const profile = await Profile.findOneAndUpdate({userId}, {
+      avatarUrl: profileUrl,
+    });
   
-  const user = await User.findByIdAndUpdate(
-     userId, 
-    {
-      avatarUrl: imagePath,
-    }
-  );
-  console.log(user)
-  resp.redirect(`/profile/${userId}`);
+    const user = await User.findByIdAndUpdate(userId, {
+      avatarUrl: profileUrl,
+    });
+    
+    
+    return resp.json({msg:'success'});
+   } catch (error) {
+     console.log(error.message)
+   }
 };

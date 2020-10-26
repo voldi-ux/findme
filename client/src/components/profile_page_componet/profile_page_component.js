@@ -6,36 +6,55 @@ import {useHistory} from 'react-router-dom'
 import "./profile_page_copomenent.scss";
 import Button from "../../components/buttons/button";
 import { connect } from "react-redux";
-const ProfilePageComponent = ({ match, isLoggedin, userProfile,profiles,currentUser }) => {
-  const [imageSelected,selectImage] = useState(false)
+import { onUserProfilePicUpdate } from "../../redux/user/user_action";
+import SButton from "../buttons/secondary-btn";
+const ProfilePageComponent = ({ match, isLoggedin, userProfile,profiles,currentUser,updateProfile }) => {
+  const [imageSelected,selectImage] = useState(null)
   const history  = useHistory()
  const fileInput = useRef(null)
-
+ const uri = 'data:image/png;base64,'
 
  const handleChange = e => {
     if(e.target.files.length === 1) {
-      console.log(e.target.files)
-      selectImage(true)
+       let file = e.target.files[0]
+      const reader = new FileReader()
+      
+      reader.onload = (e) => {
+       const result = e.target.result
+       selectImage(btoa(result).toString())
+      }
+
+      reader.readAsBinaryString(file)
+
+      
     }
  }
  const onSubmit = (e) => {
-  //  selectImage(false)
+   e.preventDefault()
+   if(imageSelected) {
+      updateProfile({
+        profileUrl:imageSelected,
+        userId:currentUser._id
+      })
+   }
  }
+
  const handleClick = () => {
    fileInput.current.click()
  }
   return (
     <div className="profile_page__container">
       <div className="profile_page__details">
-        <img src={`/images/${userProfile.avatarUrl}`} />
+        <SButton value='Home' onClick={() => history.push('/home')} />
+        <img src={uri + userProfile.avatarUrl} />
       <IconContext.Provider value={{size:'4rem', className:'profile_page__details__image-icon'}}>
       {
           currentUser._id === userProfile.userId._id ?  <FaImage onClick={handleClick} /> : null
         }
         
       </IconContext.Provider>
-        <form onSubmit={onSubmit} action='/update-profile' method='post' encType="multipart/form-data">
-           <input ref={fileInput} name='profile-image' type='file' style={{display:'none'}} onChange={handleChange} />
+        <form onSubmit={onSubmit}  method='post' encType="multipart/form-data">
+           <input ref={fileInput} accept='image/*' name='profile-image' type='file' style={{display:'none'}} onChange={handleChange} />
            <input type='hidden'  value={currentUser._id} name='userId'/>
            {imageSelected ? <button>Save</button> : null}
         </form>
@@ -92,7 +111,7 @@ const ProfilePageComponent = ({ match, isLoggedin, userProfile,profiles,currentU
            <div className="profile_page__gallary__container ">
           {userProfile.gallary.map((item) => (
             <div key={item} className="profile_page__gallary__item">
-              <img src={`/images/${item}`} alt={'gallery item'} />
+              <img src={uri + item} alt={'gallery item'} />
             </div>
           ))}
         </div>
@@ -113,4 +132,8 @@ const mapStateToProps = (state) => ({
   currentUser: state.user.CurrentUser || {}
 });
 
-export default connect(mapStateToProps)(ProfilePageComponent);
+const mapDispatchToprops = dispatch => ({
+  updateProfile: profile => dispatch(onUserProfilePicUpdate(profile))
+})
+
+export default connect(mapStateToProps,mapDispatchToprops)(ProfilePageComponent);

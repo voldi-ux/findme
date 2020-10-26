@@ -36,7 +36,7 @@ const UserChema = new Schema({
         required:true
     },
     gallary: {
-        type:Array
+        type:[{type:String}]
        },
        userId: {
         type: mongoose.Types.ObjectId,

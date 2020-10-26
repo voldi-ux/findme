@@ -9,7 +9,7 @@ const ResultBox = ({profile}) => {
   <div className='result__group-1'>
     <span className='result__name'>{profile.name}  {profile.surname}</span>
     <span className='result__img'>
-        <img src={profile.avatarUrl}  /> 
+        <img src={'data:image/png;base64,' + profile.avatarUrl}  /> 
     </span>
     </div>
   <div className='result__group-2'>

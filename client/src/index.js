@@ -10,7 +10,7 @@ import store, { persistor } from './redux/store/store'
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
     <Router >
@@ -18,7 +18,8 @@ ReactDOM.render(
     </Router >
     </PersistGate>
     </Provider>
-  </React.StrictMode>,
+  // </React.StrictMode>,
+  ,
   document.getElementById('root')
 );
 

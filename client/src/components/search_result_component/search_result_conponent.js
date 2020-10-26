@@ -14,14 +14,19 @@ const SearchResult = ({
   search
 }) => (
   <div className="search_result_container">
-    {profiles.map((profile) => (
-      <ResultBox key={profile._id} profile={profile} />
-    ))}
+    {
+      profiles.length ? profiles.map((profile) => (
+        <ResultBox key={profile._id} profile={profile} />
+      )) :  <h1>
+         Oops, nothing to show here
+      </h1>
+    }
 
    {
      search ? null : <div className="control__botton">
      {pageNunber > 1 ? (
        <Button
+       small
          onClick={async() => {
            await decrementPageNum()
            //   getProfiles(pageNunber)
@@ -30,6 +35,7 @@ const SearchResult = ({
        />
      ) : null}
      <Button
+     small
        value="next"
        onClick={async() => {
         await incrementPageNum()

@@ -12,6 +12,7 @@ import { logOut, ToggleSlideInRight } from '../../redux/user/user_action'
 
 const NotificationContainer = ({isLoggedin,logout,currentUserPhoto,toggleNav}) => {
 const history = useHistory()
+
    return (<div className='notification__container'>
    <span className='notification__icons' >
       <IconContext.Provider value={{className:'notification__icon',size:'2rem'}} >
@@ -36,7 +37,7 @@ const history = useHistory()
        signin
     </Link>}
     <span className='notification__photo' onClick={toggleNav}>
-        <img src={currentUserPhoto} alt='avatar' />
+        <img src={'data:image/png;base64,' +  currentUserPhoto} alt='avatar' />
       </span>
 </div>)
 }

@@ -15,7 +15,10 @@ const moment = require("moment");
 const { getRoom, upadateMessages, createRoom } = require("./utils/socket");
 
 const MONGO_URI =
-  "mongodb+srv://voldi2:findme@cluster0.gulxq.mongodb.net/findme?retryWrites=true&w=majority";
+  process.env.NODE_ENV === "production"
+    ? "mongodb+srv://voldi2:findme@cluster0.gulxq.mongodb.net/findme?retryWrites=true&w=majority"
+    : "mongodb://127.0.0.1:27017/findme";
+
 const server = http.createServer(app);
 const io = socketio(server);
 const port = process.env.PORT || 5000;
@@ -29,6 +32,9 @@ const storage = multer.diskStorage({
 });
 const getImages = multer({ storage: storage });
 
+app.use(bodyParser.json({ limit: 50000000000 }));
+app.use(bodyParser.urlencoded({ extended: true, limit: 500000000 }));
+app.use(cors());
 
 app.use(
   "/postprofile",
@@ -38,10 +44,6 @@ app.use(
   "/update-profile",
   getImages.fields([{ name: "profile-image", maxCount: 1 }])
 );
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
 
 app.use(ProfileRoutes);
 app.use(authRoutes);

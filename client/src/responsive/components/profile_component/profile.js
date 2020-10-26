@@ -27,7 +27,7 @@ const ProfileComponentResp = ({isLoggedin,userProfile,showNav,toggleNav}) => {
     <div onClick={toggleNav} className={`resp-profile-container ${showNav ? 'slide-right' :null}`}>
          <div className={`Resp-profile ${isLoggedin ? '' : 'Resp-profile__disable'}`}>
       <div className="Resp-profile__image">
-        <img src={`${isLoggedin && userProfile.avatarUrl ? userProfile.avatarUrl: 'https://dmrmechanical.com/wp-content/uploads/2018/01/avatar-1577909_640.png'}`} />
+        <img src={`${isLoggedin && userProfile.avatarUrl ? 'data:image/png;base64,' + userProfile.avatarUrl: 'https://dmrmechanical.com/wp-content/uploads/2018/01/avatar-1577909_640.png'}`} />
       </div>
       <div>
   <h3 className="Resp-profile__name">{`${isLoggedin && userProfile? userProfile.userName : 'Please sign in to view your profile'}`}</h3>
