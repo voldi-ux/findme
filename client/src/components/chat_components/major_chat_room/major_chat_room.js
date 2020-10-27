@@ -6,7 +6,8 @@ import io from "socket.io-client";
 import chatData from "../../../testData/chat_data";
 import { onGettingChatPrtner } from "../../../redux/chat/chat_actions";
 
-const URI_STRING = "http://localhost:5000/";
+const URI_STRING = process.env.NODE_ENV === 'production'? 'https://findme-vol.herokuapp.com/' : "http://localhost:5000/";
+
 let socket;
 
 const MajorRoom = ({ location, currentUser, match,partner,room }) => {
@@ -34,7 +35,7 @@ const MajorRoom = ({ location, currentUser, match,partner,room }) => {
     });
     SetMessage("");
   };
-let dicsonnectCount = 0
+
    
 
   useEffect(() => {
