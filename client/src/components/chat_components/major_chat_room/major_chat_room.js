@@ -54,14 +54,14 @@ const MajorRoom = ({ location, currentUser, match,partner,room }) => {
       socket.off();
       socket.emit("disconnect", {name:currentUser.userName});
     };
-  }, [dicsonnectCount,match.url]);
+  }, [match.url]);
 
   useEffect(() => {
     socket.on("recievedMsg", (msg) => {
       SetMessages([...messages, msg]);
     });
     socket.on("disconnect", (count) => {
-      dicsonnectCount += count
+      
     });
   },[messages])
 
