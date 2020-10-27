@@ -8,6 +8,8 @@ import { onGettingChatPrtner } from "../../../redux/chat/chat_actions";
 
 const URI_STRING = process.env.NODE_ENV === 'production'? 'https://findme-vol.herokuapp.com/' : "http://localhost:5000/";
 
+console.log(URI_STRING)
+
 let socket;
 
 const MajorRoom = ({ location, currentUser, match,partner,room }) => {
