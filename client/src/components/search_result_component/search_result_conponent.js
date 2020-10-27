@@ -26,7 +26,7 @@ const SearchResult = ({
      search ? null : <div className="control__botton">
      {pageNunber > 1 ? (
        <Button
-       small
+      
          onClick={async() => {
            await decrementPageNum()
            //   getProfiles(pageNunber)
@@ -35,7 +35,7 @@ const SearchResult = ({
        />
      ) : null}
      <Button
-     small
+    
        value="next"
        onClick={async() => {
         await incrementPageNum()

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { connect} from 'react-redux'
 import TextInputComponent from '../../components/form_inputs_components/text'
+import {useHistory } from 'react-router-dom'
 import Radio from '../../components/form_inputs_components/radio'
 
 import './create_profile.scss'
@@ -8,6 +9,7 @@ import Button from '../../components/buttons/button'
 import { onUserProfileUpdate } from '../../redux/user/user_action';
 
 const CreateProfilePage = ({match,userId, updateProfile}) => {
+    const history = useHistory()
     const uri = 'data:image/png;base64,'
     const [profile,setProfile] = useState({
         UserProfile: {
@@ -85,13 +87,11 @@ const CreateProfilePage = ({match,userId, updateProfile}) => {
             profile.UserProfile.currentLocation === ''  ) return false
 
             updateProfile(profile.UserProfile)
-            
-
-
+            history.push('/home')
         }
 
    return (
-      <div className='updateProfile.UserProfile'>
+      <div className='updateProfile UserProfile'>
            <form onSubmit={onSubmit} className='form__updateProfile' action='/postprofile' method='post' encType="multipart/form-data">
            <div className='form__group'>
            <TextInputComponent handleChange={handleChange} type='text' name='name'label='name' placeholder ='name'/>

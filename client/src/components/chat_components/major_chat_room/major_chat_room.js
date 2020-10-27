@@ -76,7 +76,7 @@ const MajorRoom = ({ location, currentUser, match,partner,room }) => {
         <div className="major__header">
           <img
             className="major__image"
-            src={partner.avatarUrl}
+            src={'data:image/png;base64,' + partner.avatarUrl}
             alt="avatar"
           />
           <h3 className="major__name">{partner.userName}</h3>

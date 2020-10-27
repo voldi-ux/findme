@@ -21,7 +21,7 @@ const MONGO_URI =
 
 const server = http.createServer(app);
 const io = socketio(server);
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5004;
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "images"));
