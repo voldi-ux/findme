@@ -1,46 +1,64 @@
-@import './../../colors';
+@import "./../../colors";
 
 .button {
-    text-align: center;
-    color: $color-white-light;
-    background: $color-blue-light;
-    border: 1px solid $color-blue-light;
-    min-width: 100px;
-    cursor: pointer;
-    padding: 1rem 2rem;
-    font-weight: 500;
-    font-size: 1.3rem;
-    transition: .4s;
+  text-align: center;
+  color: #fff;
+  // background: $color-blue-light;
+  border: none;
+  min-width: 100px;
+  cursor: pointer;
+  padding: 1rem 2rem;
+  font-weight: 700;
+  font-size: 1.3rem;
+  transition: 0.4s;
+  border-radius: 300rem;
+  margin: 5px;
 
-    &:not(.disable):hover {
-        opacity: .7;
+  &:not(.outline):hover {
+    background: #1d43eefd;
+    // background: linear-gradient(to left,#146cd8e8, #105cb9e8,#1258afe8, $color-blue-light);
+  }
+  &:not(.outline) {
+    // background: linear-gradient(to right, $color-blue-light,#1258afe8, #105cb9e8,#146cd8e8);
+    background: #1d89ee;
+  }
+  &:active,
+  &:focus {
+    outline: none;
+  }
+  &.outline {
+    background-color: transparent;
+    border: 1px solid #1d43eefd;
+    color: $color-blue-light;
+    
+    &:hover {
+      background: #1d89ee;
+      color: #fff;
+      border: 1px solid transparent;
+      
     }
-    &:active,&:focus {
-        outline: none;
-    }
+  }
 }
 .btn-sec {
-    text-align: center;
-    color: $color-white-light;
-    background: $color-blue-light;
-    min-width: 100px;
-    cursor: pointer;
-    padding: 1rem 2rem;
-    font-weight: 500;
-    font-size: 1.3rem;
-    transition: .4s;
-    margin-right: 10px;
-    &:not(.disable):hover {
-        opacity: .7;
-    }
-    &:active,&:focus {
-        outline: none;
-    }
+  text-align: center;
+  color: $color-white-light;
+  background: $color-blue-light;
+  min-width: 100px;
+  cursor: pointer;
+  padding: 1rem 2rem;
+  font-weight: 500;
+  font-size: 1.3rem;
+  transition: 0.4s;
+  margin-right: 10px;
+  &:not(.disable):hover {
+    opacity: 0.7;
+  }
+  &:active,
+  &:focus {
+    outline: none;
+  }
 }
 
-
-
-
 .disable {
-    opacity: .4;
+  opacity: 0.4;
 }

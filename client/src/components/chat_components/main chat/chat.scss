@@ -1,0 +1,129 @@
+.main-chat {
+  background-color: #eaeef0a9;
+  flex: 0 0 60%;
+
+  &__message {
+    &__left {
+     
+
+    }
+    &__right {
+      right: 0;
+      margin-left: auto;
+    }
+    border: transparent;
+
+    width: 50%;
+
+    img {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 2rem;
+      align-self: flex-end;
+    }
+
+    &__content {
+      padding: 1rem;
+      font-size: 1.4rem;
+      line-height: 2rem !important;
+      border-radius: 6px;
+
+      &__right {
+      background-color: #fff;
+
+      }
+      &__left {
+        background-color: #1d43eefd;
+        color: #fff;
+      }
+
+    }
+    &__time {
+    }
+  }
+
+  &__header {
+    height: 10%;
+    background-color: #fff;
+    padding: 4px 2rem;
+    img {
+      width: 7rem;
+      height: 7rem;
+      border-radius: 5rem;
+      margin-right: 1rem;
+    }
+
+    div {
+      align-self: center;
+      margin-right: auto;
+    }
+    small {
+      color: green;
+    }
+  }
+
+  &__main {
+    height: 80%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 1rem 3rem;
+
+    &::-webkit-scrollbar {
+        width: 0.5rem;
+      }
+  
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+  
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background: #1d43eefd;
+        border-radius: 20rem;
+      }
+  
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background: #f1f1f1;
+
+      }
+  }
+
+  &__footer {
+    height: 10%;
+    background-color: #fff;
+
+    &__icons {
+      margin: 0rem 1rem 0 3rem;
+      align-self: center;
+    }
+    &__input {
+      flex: 1;
+      font-size: 1.6rem;
+      border: transparent;
+      padding: 0.5rem 1rem;
+      &:focus,
+      &:active {
+        outline: none;
+        border: transparent;
+      }
+    }
+  }
+}
+
+.paper-plane {
+  margin: 0 2rem;
+  color: #fff;
+  background-color: #1d43eefd;
+  // padding: 1rem;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 40rem;
+  cursor: pointer;
+}
+
+.paper-clip {
+  margin: 0;
+  cursor: pointer;
+}

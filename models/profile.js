@@ -35,6 +35,12 @@ const UserChema = new Schema({
         type:String,
         required:true
     },
+    phone:{
+        type:String
+    },
+    email:{
+        type:String
+    },
     gallary: {
         type:[{type:String}]
        },

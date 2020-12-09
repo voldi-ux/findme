@@ -46,7 +46,7 @@ export const onFechingFilterProfiles = (FilteredData) => async (dispacth) => {
     console.log(FilteredData)
     dispacth(fetchProfilesStart)
      try {
-        const resp = await fetch(`http://localhost:5000/getfilteredProfiles`,{
+        const resp = await fetch(`/getfilteredProfiles`,{
             method:'post',
             headers: {
                 'Content-Type':'application/json'

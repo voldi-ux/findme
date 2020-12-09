@@ -3,13 +3,9 @@
 
 .chatroom {
   &__container {
-      background: #106EDF;
       // background: url('../../assets/images/background-image-2.jpg');
       height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: .8rem;
+      
       &__inner {
         width: 50rem;
         min-height: 60rem;

@@ -1,6 +1,7 @@
 import React from 'react'
 import { ImBubble2 } from 'react-icons/im'
-import {FaBell, FaCommentAlt} from 'react-icons/fa'
+import { AiOutlineLogout } from 'react-icons/ai'
+import {FaBell, FaCommentAlt, } from 'react-icons/fa'
 import {IconContext} from 'react-icons'
 import {useHistory}from 'react-router-dom'
 
@@ -17,28 +18,15 @@ const history = useHistory()
    <span className='notification__icons' >
       <IconContext.Provider value={{className:'notification__icon',size:'2rem'}} >
        <span className=' notification__icon__container' onClick={()=> history.push('/chatroom')}>
-          <ImBubble2 />
-          <span className='notification__icon__count'>
-               5
+          <AiOutlineLogout />
           </span>
-          </span>
-       <span className=' notification__icon__container'>
-            <FaBell />
-            <span className='notification__icon__count'>
-               50
-          </span>
-          </span>
+          <span className='notification__login' onClick={logout}>
+          LogOut
+      </span>
       </IconContext.Provider>
       
       </span>
-      {isLoggedin ? <span className='notification__login' onClick={logout}>
-         signOut
-      </span> : <Link to='/signin' className='notification__login'>
-       signin
-    </Link>}
-    <span className='notification__photo' onClick={toggleNav}>
-        <img src={'data:image/png;base64,' +  currentUserPhoto} alt='avatar' />
-      </span>
+
 </div>)
 }
 

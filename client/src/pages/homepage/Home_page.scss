@@ -1,39 +1,33 @@
-@import '../../colors';
+@import "../../colors";
 
 .home_page {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+  background-color:#eaeef0a9;
+  // background-position: 10% 60%;
+  background-size: 100%;
+  height: calc(100vh - 6rem);
 
-    padding: 1rem 5rem;
-
-    // background-image: url('../../assets/images/background-img-1.jpg');
-    background:#fff;
-    background-size: cover;
-    background-position: center;
-    background-repeat: repeat-y;
-    min-height: 100vh;
-
-    @media (max-width:750px) {
-       padding: 0 .8rem !important;
-    }
-  
+  @media (max-width: 750px) {
+    padding: 0 0.8rem !important;
+  }
 }
 
 .advance-s-btn {
-    position: absolute;
-    top: 0;
-    left: 10%;
-    border: none;
-    background:$color-blue-light;
-    color: #fff;
-    cursor: pointer;
-    padding: .7rem;
-    margin: 1rem 0;
-    display: none;
-    @media (max-width:900px) {
-        display: inline-block;
-    }
+  position: absolute;
+  top: 0;
+  left: 10%;
+  border: none;
+  background: $color-blue-light;
+  color: #fff;
+  cursor: pointer;
+  padding: 0.7rem;
+  margin: 1rem 0;
+  display: none;
+  @media (max-width: 900px) {
+    display: inline-block;
+  }
 }

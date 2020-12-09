@@ -2,8 +2,8 @@ import React from 'react'
 
 import './button.scss'
 
-const Button = ({value,disable,...props}) => (<button {...props} className={`button ${disable ? 'disable':true}`}> 
-    {value}
+const Button = ({value,outline,...props}) => (<button {...props} className={`button ${outline ? 'outline':true}`}> 
+    {value ? value : props.children}
 </button>)
 
 export default Button

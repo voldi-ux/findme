@@ -1,61 +1,87 @@
-@import '../../colors';
+@import "../../colors";
 
 .result {
-    &__box {
-        padding: 2rem 2rem;
-        width: 45rem;
+  &__footer {
+    display: flex;
+  }
+  &__footerDetail {
+    font-size: 1.6rem;
+    flex-direction: column;
+  }
 
-        @media (max-width:750px) {
-            // margin: 2rem 0;
-            width: 100%;
-            
-        }
-        &:not(:last-child) {
-            margin-bottom: 1rem;
-        }
-        
-        strong {
-            text-transform: capitalize;
-            // color: $color-blue-dark;
-            font-size: 1.5rem;
+  &__icon {
+    color:#1d89ee;
 
-            margin-right:.5rem;
-        }
-        p {
-            margin: .5rem 0;
-            // color: $color-blue-light;
-            font-size: 1.3rem;
-            font-weight: 600;
+  }
+  &__title {
+    font-size: 1.3rem;
+    color:$color-blue-dark;
 
-            &:last-child{
-                margin-bottom: .5rem;
-            }
-        }
+  }
+   &__box {
+    padding: 2rem 2rem;
+    width: 45rem;
+    background-color: $color-white-light3;
+    border-radius: 5px;
+    @media (max-width: 750px) {
+      // margin: 2rem 0;
+      width: 100%;
+    }
+    &:not(:last-child) {
+      margin-bottom: 1rem;
     }
 
-    &__group {
-        &-1 {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: $color-blue-light;
-            padding: .5rem 2rem;
-            border-radius: 5px;
-        }
-    }
+    strong {
+      text-transform: capitalize;
+      // color: $color-blue-dark;
+      font-size: 1.5rem;
 
-    &__name {
-        text-transform: capitalize;
-        font-size: 2rem;
-        color: #fff;
+      margin-right: 0.5rem;
     }
+    p {
+      margin: 0.5rem 0;
+      // color: $color-blue-light;
+      font-size: 1.3rem;
+      font-weight: 600;
 
-    &__img {
-       img {
-        display: block;
-        width: 3.5rem;
-        height: 3.5rem;
-        border-radius: 500rem;;
-       }
+      &:last-child {
+        margin-bottom: 0.5rem;
+      }
     }
+  }
+  button {
+    display: flex;
+  }
+  &__group {
+    &-1 {
+      display: flex;
+      align-items: center;
+      // background: $color-blue-light;
+      padding: 0.5rem 2rem;
+      border-radius: 5px;
+    }
+  }
+  &__group {
+    &-2 {
+      display: flex;
+      align-items: center;
+      padding: 3rem 2rem;
+    }
+  }
+
+  &__name {
+    text-transform: capitalize;
+    font-size: 2rem;
+    color:$color-blue-dark;
+  }
+
+  &__img {
+    img {
+      display: block;
+      width: 4rem;
+      height: 4rem;
+      border-radius: 500rem;
+      margin-right: 10px;
+    }
+  }
 }

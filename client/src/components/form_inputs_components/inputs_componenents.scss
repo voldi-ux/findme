@@ -1,57 +1,59 @@
-@import '../../colors';
+@import "../../colors";
 
 .select_container {
-  
-    select {
-        width: 100%;
-        padding: .5rem 1rem ;
-        margin: 1rem 0;
-
-        &:focus {
-            outline: none;
-        }
+  select {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    height: 4rem;
+    font-size: 1.6rem;
+    color: $color-blue-dark;
+    border-radius: 10px;
+    &:focus {
+      outline: none;
     }
-
-    
+  }
 }
 
 .text {
-
-    &__input {
-        padding: .7rem 1rem;
-        width: 100%;
-        transition: all .3s;
-        outline: 1px solid $color-blue-dark;
-        border: 3px solid transparent;
-        margin-bottom: 1rem;
-        &:focus {
-            outline: none;
-            border: 3px solid $color-blue-dark;
-        }
-
-        &::placeholder {
-            font-family: lato;
-            color: inherit;
-            font-size: 1.6;
-            text-transform: capitalize;
-            
-        }
+  &__input {
+    padding: 0.7rem 1rem;
+    height: 3rem;
+    width: 100%;
+    transition: all 0.3s;
+    outline: 1px solid $color-blue-dark;
+    border: 3px solid transparent;
+    margin-bottom: 1rem;
+    &:focus {
+      outline: none;
+      border: 3px solid $color-blue-dark;
     }
+
+    &::placeholder {
+      font-family: lato;
+      color: inherit;
+      font-size: 1.6;
+      text-transform: capitalize;
+    }
+  }
 }
 
 .radio {
-    font-size: 1.2rem;
-    margin: .7rem;
+  font-size: 1.2rem;
+  margin: 0.7rem;
 
-    label {
-        margin: 0 .4rem;
-    }
+  label {
+    margin: 0 0.4rem;
+  }
 }
 
 .label {
-    display: block;
-    font-size: 1.4rem;
-    text-transform: capitalize;
-    font-weight: 600;
-    margin: .5rem;
+  display: block;
+  font-size: 1.4rem;
+  text-transform: capitalize;
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: $color-blue-dark;
+
+  margin: 0.5rem;
 }

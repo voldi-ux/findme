@@ -6,9 +6,10 @@ exports.getUserProfile = async (req, resp, next) => {
   try {
     const { userId } = req.params;
     console.log(userId);
+
     const profile = await (
       await Profile.findOne({ userId: userId })
-    ).execPopulate("userId");
+    ).execPopulate(["userId"]);
 
     return resp.json({
       type: "success",
@@ -22,10 +23,12 @@ exports.getUserProfile = async (req, resp, next) => {
 
 exports.getProfiles = async (req, resp, next) => {
   const { pageItems, pageNum } = await req.params;
+  // const res = await Profile.updateMany({}, {email:'randomemail@gmail.com',
+  // phone:094745723})
+  
   try {
     const profiles = await Profile.find()
       .skip(+pageItems * +pageNum - 4)
-      .limit(+pageItems)
       .populate("userId")
       .exec();
     resp.json({
@@ -75,8 +78,6 @@ exports.getfilteredProfiles = async (req, resp, next) => {
       .populate("userId")
       .exec();
 
-    
-
     return resp.json({
       message: "success",
       profiles: profiles,
@@ -88,7 +89,7 @@ exports.getfilteredProfiles = async (req, resp, next) => {
 
 exports.postProfile = async (req, resp, next) => {
   try {
-    const gallery = await req.body.gallery
+    const gallery = await req.body.gallery;
     const profile = await new Profile({
       ...req.body,
       gallary: gallery,
@@ -106,20 +107,43 @@ exports.postProfile = async (req, resp, next) => {
 //update the user profile
 
 exports.updateProfile = async (req, resp, next) => {
-   try {
-    const {userId, profileUrl} = req.body;
-    console.log('updating user profile')
-    const profile = await Profile.findOneAndUpdate({userId}, {
-      avatarUrl: profileUrl,
-    });
-  
+  try {
+    const { userId, profileUrl } = req.body;
+    console.log("updating user profile");
+    const profile = await Profile.findOneAndUpdate(
+      { userId },
+      {
+        avatarUrl: profileUrl,
+      }
+    );
+
     const user = await User.findByIdAndUpdate(userId, {
       avatarUrl: profileUrl,
     });
-    
-    
-    return resp.json({msg:'success'});
-   } catch (error) {
-     console.log(error.message)
-   }
+
+    return resp.json({ msg: "success" });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+//mobile controllers
+exports.getProfilesMobile = async (req, resp, next) => {
+  const { itemsCount } = await req.params;
+  // const res = await Profile.updateMany({}, {email:'randomemail@gmail.com',
+  // phone:094745723})
+
+  try {
+    const profiles = await Profile.find()
+      .skip(+itemsCount)
+      .limit(20)
+      .populate("userId")
+      .exec();
+
+    return resp.json({
+      profiles: profiles,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };

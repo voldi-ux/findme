@@ -6,6 +6,8 @@ import MajorRoom from '../../components/chat_components/major_chat_room/major_co
 import {Route} from 'react-router-dom'
 import { fetchingChats } from '../../redux/chat/chat_actions'
 import withSpinner from '../../components/spinner/spinner'
+import SideNav from '../../components/side nav/sideNav'
+import MainChatComponent from '../../components/chat_components/main chat/chat'
 
 
 import './chat_room.scss'
@@ -17,10 +19,14 @@ const ChatRoom = ({match,chats,getChats,curentUser,isLoading,isGettingRoom}) => 
        getChats(curentUser._id)
 
    },[match.path])
- console.log('from the room',isLoading)
-  return <div className='chatroom__container'>
-        <Route exact path={match.path} render={() => <MinorRoomContainerWithSpinner  isLoading={isLoading} height='40rem' />} />
+ 
+  return <div className='chatroom__container d-flex flex-row'>
+        {/* <Route exact path={match.path} render={() => <MinorRoomContainerWithSpinner  isLoading={isLoading} height='40rem' />} />
         <Route path={`${match.path}/singlechat/:userId`} render={(props) => <MajorRoom  {...props} />}/>
+         */}
+         
+         <SideNav />
+         <MainChatComponent />
     </div>
 }
 

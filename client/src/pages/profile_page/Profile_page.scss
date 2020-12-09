@@ -1,11 +1,7 @@
 .profile_page {
-   padding: 7rem 5rem;
-   min-height: 100vh;
-   background: #106EDF;
-   background-size: cover;
-   background-position: center;
-   background-repeat: no-repeat ;
-   @media (max-width:750px) {
-     padding: .5rem 1rem;
-   }
+  background-color: #eaeef0a9;
+
+  @media (max-width: 750px) {
+    padding: 0.5rem 1rem;
+  }
 }

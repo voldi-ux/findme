@@ -2,7 +2,7 @@ import React from 'react'
 import './inputs_componenents.scss'
 
 const SelectComponent = ({handleChange,options,...props}) => (<div className='select_container'>
-       <select onChange={handleChange} {...props} >
+       <select className='form-select ' onChange={handleChange} {...props} >
            {options.map(option => <option key={option} value={option}>
                  {option}
            </option>)}

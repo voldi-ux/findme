@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import "./major_chat_room.scss";
-import io from "socket.io-client";
+import {io} from "socket.io-client";
 import chatData from "../../../testData/chat_data";
 import { onGettingChatPrtner } from "../../../redux/chat/chat_actions";
 
-const URI_STRING = process.env.NODE_ENV === 'production'? 'https://findme-vol.herokuapp.com/' : "http://localhost:5000/";
+const URI_STRING = process.env.NODE_ENV === 'production'? 'http://localhost:5005/' : "http://localhost:5000/";
 
 console.log(URI_STRING)
 
@@ -43,16 +43,13 @@ const MajorRoom = ({ location, currentUser, match,partner,room }) => {
   useEffect(() => {
    console.log(room)
 
-    socket = io(URI_STRING,{transports:['websocket']});
+    socket = io(URI_STRING);
    
       socket.emit("join", { roomId:room._id ,name: currentUser.userName,});
-    
-
-    
-
+      
     return () => {
       socket.off();
-      socket.emit("disconnect", {name:currentUser.userName});
+      socket.disconnect();
     };
   }, [match.url]);
 
@@ -60,11 +57,15 @@ const MajorRoom = ({ location, currentUser, match,partner,room }) => {
     socket.on("recievedMsg", (msg) => {
       SetMessages([...messages, msg]);
     });
-    socket.on("disconnect", (count) => {
-      
-    });
+    
   },[messages])
+ 
+  useEffect(()=> {
+    socket.on("disconnect", (reason) => {
+       console.log('reason for the disconnection is',reason)
 
+    })
+  },[])
   const handleChange = (e) => {
     const { name, value } = e.target;
     SetMessage(value);

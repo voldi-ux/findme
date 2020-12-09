@@ -2,11 +2,10 @@
 
 .notification {
   &__container {
-    flex: 0 0 20%;
     display: flex;
     align-items: center;
-    justify-content: space-around;
-
+    border: 1px solid #fff;
+    padding:.3rem;
    
   }
 
@@ -14,7 +13,6 @@
     flex: 0 0 70%;
     display: flex;
     align-items: center;
-    justify-content: space-around;
     @media (max-width: 750px) {
       display: none;
     }
@@ -22,7 +20,7 @@
 
   &__icon {
     color: $color-white-light;
-    margin: 0 1rem;
+    margin: 0 .5rem;
 
     &__container {
       position: relative;
@@ -48,7 +46,7 @@
   }
 
   &__login {
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: $color-white-light;
     text-transform: capitalize;
     user-select: none;

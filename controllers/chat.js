@@ -9,7 +9,6 @@ exports.getChats = async (req, res) => {
       $or: [{ user1: userId }, { user2: userId }],
     })
     .populate(["user2", "user1"]).exec();
-  console.log(rooms);
   return res.json(rooms);
 };
 
@@ -61,6 +60,27 @@ exports.getRoom = async (req, res) => {
 
     newchatroom.save();
     return res.json(newchatroom);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+
+exports.getRoomsMobile= async (req, res) => {
+  try {
+    const { userId } = req.params;
+  
+    let rooms;
+
+    rooms = await  chatroom.find({
+      $or: [
+        { user1: userId }, { user2: userId }
+      ],
+    }).populate(["user1", 'user2']).exec();
+;
+console.log(rooms)
+
+   return res.json(rooms);
   } catch (error) {
     console.log(error.message);
   }

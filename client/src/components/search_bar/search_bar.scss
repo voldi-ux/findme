@@ -2,7 +2,7 @@
 
 .search_bar {
   &__container {
-    margin-right: -15rem;
+    margin-right: 8rem;
     position: relative;
     display: flex;
     align-items: center;
@@ -15,7 +15,10 @@
     width: 30rem;
     padding: 0.5rem 3rem;
     border-radius: 10rem;
-    border: none;
+    height:3rem;
+    background-color:#fff;
+    font-size: 1.5rem;
+    border: transparent;
     transition: all 0.5s;
     @media (max-width: 750px) {
       width: 20rem;
@@ -26,7 +29,7 @@
     }
     &::placeholder {
       font-size: 1.6rem;
-      color: $color-white-dark;
+      color: $color-white-light;
     }
 
     &:focus {
@@ -37,7 +40,7 @@
   }
 
   &__icon {
-    color: $color-white-dark;
+    color: $color-white-light;
     margin-left: -3rem;
   }
 }

@@ -22,29 +22,7 @@ const SearchResult = ({
       </h1>
     }
 
-   {
-     search ? null : <div className="control__botton">
-     {pageNunber > 1 ? (
-       <Button
-      
-         onClick={async() => {
-           await decrementPageNum()
-           //   getProfiles(pageNunber)
-         }}
-         value="previuos"
-       />
-     ) : null}
-     <Button
-    
-       value="next"
-       onClick={async() => {
-        await incrementPageNum()
-        //  getProfiles(pageNunber)
-       }}
-     />
-   </div>
-   }
-  </div>
+    </div>
 );
 
 const mapStateToProps = (state) => ({

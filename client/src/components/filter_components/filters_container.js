@@ -33,19 +33,17 @@ const FilterContainer = ({onfilter}) => {
        [name] : value
      })
   }
-  const countries = ['select country','USA', 'canada', 'SA', 'DRC' ]
+  const countries = ['select province','USA', 'canada', 'SA', 'DRC' ]
   const towns = ['select town','JHB', 'BOSTON', 'Durban', 'NY']
   return (<form onSubmit={onSubmit}  className='filter_container'>
-      <h3>Advance Search</h3>
-  <div className='filter_group' >
-      <TextInputComponent placeholder='Search' name='name' value={filterData.name} handleChange={handleChange}/>
+      <h3>Filter</h3>
+  
+   <div className='filter_group' >
+   <h3> Province</h3>
+   <SelectComponent value={filterData.country} name='pronvice' options={countries} handleChange={handleChange}/>
    </div>
    <div className='filter_group' >
-   <h3> country</h3>
-   <SelectComponent value={filterData.country} name='country' options={countries} handleChange={handleChange}/>
-   </div>
-   <div className='filter_group' >
-   <h3> town</h3>
+   <h3> City</h3>
    <SelectComponent value={filterData.town} name='town' options={towns} handleChange={handleChange}/>
    </div>
    <div className='filter_group'>
@@ -56,10 +54,7 @@ const FilterContainer = ({onfilter}) => {
      <Radio  handleChange={handleChange}  label='female' name='gender' value='Female'checked={context.gender === 'female'}/>
      <Radio handleChange={handleChange}   label='other' name='gender' value='other' checked={context.gender === 'other'}/>
    </div>
-   <Button value='Search' onClick={() => {
   
-  
-   }}/>
  </form>)
  
 }

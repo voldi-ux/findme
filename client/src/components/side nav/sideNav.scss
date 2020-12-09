@@ -1,0 +1,115 @@
+@import "../../colors";
+
+.side-nav {
+  flex: 0 0 40%;
+
+
+  &__link {
+      user-select: none;
+      cursor: pointer;
+  }
+  &__search {
+    //    align-self: center;
+    //    margin-left:-3rem
+    background-color: transparent;
+    border: 1px solid transparent;
+  }
+  &__input {
+    border: 1px solid transparent;
+    height: 4rem;
+    background-color: #fff;
+    font-size: 1.4rem;
+    //  flex:0 0 90%;
+
+    &__container {
+      padding: 1rem;
+      //   display: flex;
+      //   justify-content: center;
+      background-color: #fff;
+      border-radius: 1rem;
+    }
+  }
+  &__icons {
+    color: #fff;
+
+    &__container {
+      flex: 1;
+
+      h4 {
+        color: $color-white-light;
+      }
+    }
+  }
+  &__bar {
+    padding: 0.5rem;
+    padding-top: 3rem;
+    background-color: red;
+    // flex: 0 0 15%;
+    width: 20%;
+    background: linear-gradient(
+      to bottom,
+      #1d89ee,
+      #0855b3e8,
+      #105cb9e8,
+      #1d43eefd
+    );
+  }
+  &__chats {
+    background-color: $color-white-light3;
+    width: 80%;
+    padding: 1rem;
+    &__chat {
+        // min-height: 6rem;
+        background-color: #Fff;
+        border: transparent;
+        padding: 1rem;
+        &__name {
+           font-weight:700;
+           font-size:1.6rem;
+        }
+
+        &__msg {
+           font-size: 1.3rem;
+        }
+        &__time {
+           font-size:1rem
+        }
+    }
+    h1 {
+      font-weight: 700;
+      // margin: 1rem 0;
+    }
+    main {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 85%;
+
+              
+        img {
+            width:5rem;
+            height:5rem;
+            border-radius: 5rem;
+
+        }
+        &::-webkit-scrollbar {
+            width: 0.5rem;
+          }
+      
+          /* Track */
+          &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+          }
+      
+          /* Handle */
+          &::-webkit-scrollbar-thumb {
+            background: #1d43eefd;
+            border-radius: 20rem;
+          }
+      
+          /* Handle on hover */
+          &::-webkit-scrollbar-thumb:hover {
+            background:red;
+          }
+    }
+  }
+}

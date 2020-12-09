@@ -20,8 +20,11 @@ const MONGO_URI =
     : "mongodb://127.0.0.1:27017/findme";
 
 const server = http.createServer(app);
-const io = socketio(server);
-const port = process.env.PORT || 5004;
+const io = socketio(server, {
+  pingInterval:.5,
+  pingTimeout:8000
+});
+const port = process.env.PORT || 5005;
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "images"));
@@ -55,8 +58,12 @@ app.use("*", (req, resp) =>
   resp.sendFile(path.join(__dirname, "client/build", "index.html"))
 );
 
-io.set("transports", ["websocket"]);
+// io.set("transports", ["websocket"]);
+
 io.on("connection", (socket) => {
+  console.log("someone has connected" + " " );
+
+
   let theRoom;
   socket.on("join", async ({ roomId, name, userId2 }) => {
     console.log(`${name} has joined and the room ${roomId}`);
@@ -93,10 +100,13 @@ io.on("connection", (socket) => {
       console.log(userId1, userId2);
     });
   });
+  //mobile app connections
 
+  socket.on("msg", (msg) => console.log(msg));
+ 
   socket.on("disconnect", ({ name }) => {
-    console.log("someone has diconnected" + " " + name);
-    io.to(theRoom).emit("disconnect", 1);
+    console.log("someone has disconnected" + " " + name);
+    
   });
 });
 
@@ -122,5 +132,6 @@ mongoose
   .then(() => {
     server.listen(port, () => {
       console.log("connected");
+      
     });
   });

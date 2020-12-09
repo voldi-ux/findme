@@ -1,20 +1,36 @@
 @import "../../colors";
 @import "../../sass/mixins.scss";
 .profile {
-  
-  width: 20rem;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+
   padding: 2rem;
   position: relative;
+  flex: 0 0 30%;
   display: flex;
-  align-items: center;
+  // align-items: center;
   flex-direction: column;
-  background: #fff;
-  @include positionfixed;
-  right: 6%;
   text-align: center;
   min-height: 39.8rem;
+  background-color: $color-white-light3;
+  
+  &__icon {
+    margin-right: 10px;
+    color:#1d89ee;
+  }
 
+  &__content {
+    &-top {
+      background-color: #ededf3c2;
+      border-radius: 10px;
+    }
+
+    &-bottom {
+      background-color: #ededf3c2;
+      padding: 0 4rem;
+      font-size:1.5rem;
+      border-radius: 10px;
+      
+    }
+  }
   @media (max-width:750px) {
     display: none;
 }
