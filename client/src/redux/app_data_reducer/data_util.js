@@ -26,3 +26,10 @@ export const decrentPageNum = (state) => {
     
     }
 } 
+
+//filter the  users with the hasProfile property set to true, and return them.
+
+export const fliterUsers = (profiles) => {
+console.log(profiles)
+    return profiles.filter((profile => profile.hasProfile === true))
+} 

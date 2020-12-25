@@ -12,18 +12,32 @@ const SearchResult = ({
   incrementPageNum,
   decrementPageNum,
   search
-}) => (
-  <div className="search_result_container">
-    {
-      profiles.length ? profiles.map((profile) => (
-        <ResultBox key={profile._id} profile={profile} />
-      )) :  <h1>
-         Oops, nothing to show here
-      </h1>
-    }
+}) => {
+  const handleScroll = (e) => {
 
-    </div>
-);
+    const isBottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight
+    if(isBottom) {
+      console.log({
+        scrollHeight:e.target.scrollHeight,
+        scrollTop:e.target.scrollTop,
+        clientHeight:e.target.clientHeight
+      })
+  
+    }
+  }
+  return (
+    <div className="search_result_container" onScroll={handleScroll}>
+      {
+        profiles.length ? profiles.map((profile) => (
+          <ResultBox key={profile._id} profile={profile} />
+        )) :  <h1>
+           Oops, nothing to show here
+        </h1>
+      }
+  
+      </div>
+  );
+}
 
 const mapStateToProps = (state) => ({
   pageNunber: state.appData.page,

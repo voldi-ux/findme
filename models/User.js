@@ -20,11 +20,56 @@ const UserChema = new Schema({
       type:String,
       required:true
     },
-    chatroomIds: [],
-    profileId: {
-             type:mongoose.Types.ObjectId,
-             ref: 'profile'
-    }
+    chatroomIds: [{
+      type:mongoose.Types.ObjectId,
+      ref: 'chatroom'
+    }],
+    profile: {
+      name: {
+        type: String,
+       
+      },
+      surname: {
+        type: String,
+       
+      },
+    
+      avatarUrl: {
+        type: String,
+        default:
+          "https://dmrmechanical.com/wp-content/uploads/2018/01/avatar-1577909_640.png",
+      },
+      city: {
+        type: String,
+       
+      },
+    
+      country: {
+        type: String,
+        default: "South Africa",
+      },
+      bio: {
+        type: String,
+       
+      },
+      phone: {
+        type: String,
+      },
+      province: {
+        type: String,
+      },
+      email: {
+        type: String,
+      },
+      title: {
+        type: String,
+      },
+      
+    },
+    skills: {
+      type: [{ type: String }],
+    },
+
 })
 
 module.exports = mongoose.model('user', UserChema)

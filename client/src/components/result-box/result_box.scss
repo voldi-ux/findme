@@ -3,6 +3,9 @@
 .result {
   &__footer {
     display: flex;
+    @media (max-width: 550px) {
+      flex-direction: column;
+    }
   }
   &__footerDetail {
     font-size: 1.6rem;
@@ -10,18 +13,22 @@
   }
 
   &__icon {
-    color:#1d89ee;
-
+    color: #1d89ee;
+    @media (max-width: 550px) {
+     font-size: 1.4rem;
+      }
+  
   }
   &__title {
     font-size: 1.3rem;
-    color:$color-blue-dark;
-
+    color: $color-blue-dark;
   }
-   &__box {
+  &__box {
     padding: 2rem 2rem;
     width: 45rem;
     background-color: $color-white-light3;
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+
     border-radius: 5px;
     @media (max-width: 750px) {
       // margin: 2rem 0;
@@ -66,13 +73,17 @@
       display: flex;
       align-items: center;
       padding: 3rem 2rem;
+      @media (max-width: 550px) {
+       padding: 1rem;
+        }
+    
     }
   }
 
   &__name {
     text-transform: capitalize;
     font-size: 2rem;
-    color:$color-blue-dark;
+    color: $color-blue-dark;
   }
 
   &__img {

@@ -15,12 +15,12 @@ const NotificationContainer = ({isLoggedin,logout,currentUserPhoto,toggleNav}) =
 const history = useHistory()
 
    return (<div className='notification__container'>
-   <span className='notification__icons' >
+   <span className='notification__icons' onClick={logout}>
       <IconContext.Provider value={{className:'notification__icon',size:'2rem'}} >
        <span className=' notification__icon__container' onClick={()=> history.push('/chatroom')}>
           <AiOutlineLogout />
           </span>
-          <span className='notification__login' onClick={logout}>
+          <span className='notification__login' >
           LogOut
       </span>
       </IconContext.Provider>

@@ -7,24 +7,18 @@ const LandingPage = ({match}) => {
 
     if(match.path === '/') {
         return  (<div className='landing_page__container'>
+            <img src='http://localhost:5005/images/background-image-1.png' alt='back image'/>
+
         <div className='landing_page__content'>
             <div className='landing_page__content-1'> 
-             <h1 className='landing_page__heading_primary'>
-                   WELCOME TO <span className='find'>FIND</span><span className='me'>ME</span>
-               </h1>
-             <p>
-                Start finding people you know
-             </p>
-             <Link to='/home'>
-                <span className='find'>&#8594;  FIND</span><span className='me'>ME</span>
-                </Link>
+             
             </div>
    
             <div className='landing_page__content-2'> 
                  <h1 className='landing_page__heading'>
-                     SignIn
+                     SIGN IN
                  </h1>
-               <SignInComponent black = 'true'/>              
+               <SignInComponent/>              
             </div>
         </div>
    </div>)

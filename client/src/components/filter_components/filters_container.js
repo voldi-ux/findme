@@ -10,49 +10,51 @@ import Radio from '../form_inputs_components/radio'
 import { filterData, onFechingFilterProfiles } from '../../redux/app_data_reducer/data_actions'
 import { FilterProfileContext } from '../../context/filter_Data_context/filter.data'
 import TextInputComponent from '../form_inputs_components/text'
+import { provinces,ObjectCities} from '../../utils/citiesAndprovinces'
 
 
 const FilterContainer = ({onfilter}) => {
-  const context = useContext(FilterProfileContext)
-  const {filterData} = useContext(FilterProfileContext)
+
   const history = useHistory() 
+  const [profile, setProfile] = useState({
+      province:'',
+      city: "",
+      gender:''
+  });
+
+  const cities = ObjectCities[profile.province] || ['select a province first']
+
   const onSubmit = (e) => {
-    e.preventDefault()
-    if(filterData.name === '' || filterData.country ==='select country'|| filterData.gender === '' ||  filterData.town === 'select town') {
-      return false;
-    }
-    history.push('/home/advance-search')
-    onfilter(filterData)
+ 
     //  context.clearState()
     // filter(filterData)
   }
 
   const handleChange = (event) => {
     const {name,value} = event.target;
-     context.setState({
+     setProfile({...profile,
        [name] : value
      })
   }
-  const countries = ['select province','USA', 'canada', 'SA', 'DRC' ]
-  const towns = ['select town','JHB', 'BOSTON', 'Durban', 'NY']
+  
   return (<form onSubmit={onSubmit}  className='filter_container'>
       <h3>Filter</h3>
   
    <div className='filter_group' >
    <h3> Province</h3>
-   <SelectComponent value={filterData.country} name='pronvice' options={countries} handleChange={handleChange}/>
+   <SelectComponent value={profile.province} name='province' options={provinces} handleChange={handleChange}/>
    </div>
    <div className='filter_group' >
    <h3> City</h3>
-   <SelectComponent value={filterData.town} name='town' options={towns} handleChange={handleChange}/>
+   <SelectComponent value={profile.city} name='city' options={cities} handleChange={handleChange}/>
    </div>
    <div className='filter_group'>
      <h3>
         gender
      </h3>
-     <Radio handleChange={handleChange}  label='male' name='gender' checked={context.gender === 'male'} value='male'/>
-     <Radio  handleChange={handleChange}  label='female' name='gender' value='Female'checked={context.gender === 'female'}/>
-     <Radio handleChange={handleChange}   label='other' name='gender' value='other' checked={context.gender === 'other'}/>
+     <Radio handleChange={handleChange}  label='male' name='gender' checked={profile.gender === 'male'} value='male'/>
+     <Radio  handleChange={handleChange}  label='female' name='gender' value='Female'checked={profile.gender === 'female'}/>
+     <Radio handleChange={handleChange}   label='other' name='gender' value='other' checked={profile.gender === 'other'}/>
    </div>
   
  </form>)

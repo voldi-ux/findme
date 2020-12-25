@@ -4,8 +4,10 @@
   &__container {
     display: flex;
     align-items: center;
-    border: 1px solid #fff;
+    color:#0855b3e8;
+    border: 1px solid #0855b3e8 ;
     padding:.3rem;
+    border-radius: 2px;
    
   }
 
@@ -14,12 +16,12 @@
     display: flex;
     align-items: center;
     @media (max-width: 750px) {
-      display: none;
+      // display: none;
     }
   }
 
   &__icon {
-    color: $color-white-light;
+    color:#0855b3e8;
     margin: 0 .5rem;
 
     &__container {
@@ -47,7 +49,6 @@
 
   &__login {
     font-size: 1.5rem;
-    color: $color-white-light;
     text-transform: capitalize;
     user-select: none;
     cursor: pointer;

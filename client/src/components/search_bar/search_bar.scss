@@ -3,12 +3,20 @@
 .search_bar {
   &__container {
     margin-right: 8rem;
+    align-self:center;
     position: relative;
     display: flex;
     align-items: center;
+    form {
+      width: 100%;
+    }
     @media (max-width: 750px) {
       margin-right: 0;
     }
+    @media (max-width: 550px) {
+      // margin-right: -10%;
+      width: 80%;
+  }
   }
 
   &__input {
@@ -19,17 +27,21 @@
     background-color:#fff;
     font-size: 1.5rem;
     border: transparent;
-    transition: all 0.5s;
+    transition: all 0.3s;
+    border-bottom: 1px solid #ccc;
     @media (max-width: 750px) {
-      width: 20rem;
+      width: 100%;
       padding: 4px 3rem;
       &:focus {
-        width: 23rem !important;
+        width: 100% !important;
       }
     }
+    @media (max-width: 550px) {
+    width: 90%;
+    }
+
     &::placeholder {
       font-size: 1.6rem;
-      color: $color-white-light;
     }
 
     &:focus {
@@ -40,7 +52,6 @@
   }
 
   &__icon {
-    color: $color-white-light;
-    margin-left: -3rem;
+    margin-left: -5rem;
   }
 }

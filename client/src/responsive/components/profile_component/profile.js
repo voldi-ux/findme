@@ -2,66 +2,109 @@ import React from "react";
 import "./profile.scss";
 import Button from "../../../components/buttons/button";
 import { useHistory } from "react-router-dom";
-import {connect} from 'react-redux'
+import { connect } from "react-redux";
+import { BsChatSquare } from "react-icons/bs";
+import { MdAccountCircle } from "react-icons/md";
+import { AiTwotoneMail } from "react-icons/ai";
+import { ImLocation } from "react-icons/im";
+import { AiOutlinePhone } from "react-icons/ai";
+import { MdLocationCity } from "react-icons/md";
+import { IconContext } from "react-icons";
+import { setChatData } from "../../../redux/chat/chat_actions";
+import LogoutBtn from '../../../components/notification_icons/notification_icons'
+import { toggleProfileComponent } from "../../../redux/controls/actions";
+//should beautify the design
 
-import NotficationsIcons from '../notification_icons/notification_icons'
-import { ToggleSlideInRight } from "../../../redux/user/user_action";
-
-//should beautify the design 
- 
-const ProfileComponentResp = ({isLoggedin,userProfile,showNav,toggleNav}) => {
-  const disable =  isLoggedin && userProfile ?'':'true'
+const ProfileComponent = ({ isLoggedin, userProfile, setSearchProfile,showProfileComponent,toggleProfileComponent }) => {
+  const disable = isLoggedin && userProfile ? "" : "true";
   const history = useHistory();
-  let value;
+  let value = "GO TO PROFILE";
 
-  if(isLoggedin && userProfile.hasProfile) {
-    value = 'Go to Your Profile'
-  } else if(userProfile.hasProfile === false) {
-    value = 'Create Profile'
-  } else {
-    value = 'Not Signed In'
-  }
+  return (<div className={`resp-profile-container ${showProfileComponent ? 'slide-right':null}`} >
+  <span className='close' onClick={toggleProfileComponent} >
+    x
+  </span>
+<div className={`profile  Resp-profile`}>
+      <div className="profile__content-top">
+        <div className="profile__image">
+          <img src={userProfile.avatarUrl} />
+        </div>
+        <div
+          className="d-flex flex-column .align-items-center
+ "
+        >
+          <h3 className="profile__name">
+            {userProfile.name} {userProfile.surname}
+          </h3>
+          <h3 className="profile__title">{userProfile.title}</h3>
+        </div>
+        <div>
+          <span className="profile__online">
+            <span className="profile__online__dot"></span>
+            <span className="profile__online__text">online</span>
+          </span>
+        </div>
+      </div>
+      <div className="profile__content-bottom d-flex flex-column ">
+        <IconContext.Provider
+          value={{ className: "profile__icon", size: "2.5rem" }}
+        >
+          <div
+            onClick={() => {
+              setSearchProfile({
+                profile: null,
+                room: null,
+                messages: null,
+              });
+              history.push("/chatroom");
+            }}
+            className="d-flex chat align-items-center justify-content-center"
+          >
+            <BsChatSquare />
+            {/* <MdAccountCircle /> */}
+            <span>Chats</span>
+          </div>
 
-
-  return (
-    <div onClick={toggleNav} className={`resp-profile-container ${showNav ? 'slide-right' :null}`}>
-         <div className={`Resp-profile ${isLoggedin ? '' : 'Resp-profile__disable'}`}>
-      <div className="Resp-profile__image">
-        <img src={`${isLoggedin && userProfile.avatarUrl ? 'data:image/png;base64,' + userProfile.avatarUrl: 'https://dmrmechanical.com/wp-content/uploads/2018/01/avatar-1577909_640.png'}`} />
+          <div className="text-centered">
+            <span className="d-flex mb-2 align-items-center">
+              <AiTwotoneMail />
+              <span>{userProfile.email}</span>
+            </span>
+            <span className="d-flex mb-2 align-items-center">
+              <AiOutlinePhone />
+              <span>{userProfile.phone}</span>
+            </span>
+            <span className="d-flex mb-2 align-items-center">
+              <MdLocationCity />
+              <span>{userProfile.city}</span>
+            </span>
+            <span className="d-flex mb-2 align-items-center">
+              <ImLocation />
+              <span>{userProfile.province}</span>
+            </span>
+          </div>
+        </IconContext.Provider>
       </div>
-      <div>
-  <h3 className="Resp-profile__name">{`${isLoggedin && userProfile? userProfile.userName : 'Please sign in to view your profile'}`}</h3>
-      </div>
-      <div>
-      <span className="Resp-profile__online">
-          <span className="Resp-profile__online__dot"></span>
-          <span className="Resp-profile__online__text">online</span>
-        </span>
-        
-      </div>
-       <NotficationsIcons />
-      <Button disable={disable}  value={value} onClick={() => {
-        if(isLoggedin && userProfile.hasProfile) {
-          history.push(`/profile/${userProfile._id}`)
-        } else if(userProfile.hasProfile === false) {
-          history.push("/updateprofile")
-        }
-        return false 
-      }} />
+      <Button
+        disable={disable}
+        value={value}
+        onClick={() => history.push(`/profile/?current=true`)}
+      />
+      <LogoutBtn />
     </div>
-    </div>
-    
+  </div>
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isLoggedin: state.user.loggedIn,
-  userProfile: state.user.CurrentUser || {},
-  showNav: state.user.RightNavVisible
-})
+  userProfile: state.user.profile,
+  showProfileComponent: state.controls.isProfileComponentIsVisible
+});
 
-const mapDispatchToProps = dispacth => ({
-  toggleNav:() => dispacth(ToggleSlideInRight())
-})
+const mapDispatch = (dispatch) => ({
+  setSearchProfile: (profile) => dispatch(setChatData(profile)),
+  toggleProfileComponent: () => dispatch(toggleProfileComponent())
+});
 
-export default connect(mapStateToProps,mapDispatchToProps)(ProfileComponentResp);
+export default connect(mapStateToProps, mapDispatch)(ProfileComponent);

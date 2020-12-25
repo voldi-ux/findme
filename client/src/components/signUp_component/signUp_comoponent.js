@@ -2,9 +2,9 @@ import React , {useState}from 'react'
 import './signUp_comoponent.scss'
 import TextInputComponent from '../form_inputs_components/text'
 import Button from '../buttons/button'
-import { Link ,withRouter } from 'react-router-dom'
+import { Link ,withRouter , useHistory} from 'react-router-dom'
 
-const SignUpComponent = ({match,location}) => {
+const SignUpComponent = ({match,location , history}) => {
   let endpiont;
   if(match.path === '/signup') {
     endpiont = 'signingup'
@@ -40,15 +40,16 @@ const SignUpComponent = ({match,location}) => {
     if(match.path === '/signup') {
       
    return   (<div className='form__signUp'>
-        <h1 className='form__signUp__heading'>SignUp</h1>
-        <form action='/signingup' method='post' onSubmit={onSubmit} className='form '>
+        <h1 className='form__signUp__heading'>SIGN UP</h1>
+        <form action='/credentials' method='post' onSubmit={onSubmit} className='form '>
           <TextInputComponent type='text' handleChange={handleChange} placeholder='name' type='text' name='name'/>
-          <TextInputComponent type='email'handleChange={handleChange} placeholder='email' type='email' name='email' />
+          <TextInputComponent type='email'handleChange={handleChange}placeholder='email'  name='email' />
+          <TextInputComponent type='password'handleChange={handleChange}placeholder='password'  name='password' />
+          <TextInputComponent type='password'handleChange={handleChange}placeholder='confirm password'  name='confirmPassword' />
           <Button value='SignUp'/>
+          <Button value='Signin' outline onClick={() => history.push('/')}/>
         </form>
-        <p>
-          already have an account ? <Link to='/signin' >Signin</Link>
-        </p>
+
         </div>
     )
     } else if(match.path === '/getcredentials') {

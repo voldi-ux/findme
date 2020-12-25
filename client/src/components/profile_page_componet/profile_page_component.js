@@ -21,7 +21,7 @@ const ProfilePageComponent = ({
   isLoggedin,
   userProfile,
   profiles,
-  currentUser,
+  ProfileId,
   updateProfile,
 }) => {
   const [imageSelected, selectImage] = useState(null);
@@ -47,7 +47,7 @@ const ProfilePageComponent = ({
     if (imageSelected) {
       updateProfile({
         profileUrl: imageSelected,
-        userId: currentUser._id,
+        ProfileId:ProfileId,
       });
     }
   };
@@ -70,7 +70,7 @@ const ProfilePageComponent = ({
                     className: "profile_page__details__image-icon",
                   }}
                 >
-                  {currentUser._id === userProfile.userId._id ? (
+                  {ProfileId === userProfile._id ? (
                     <FaImage onClick={handleClick} />
                   ) : null}
                 </IconContext.Provider>
@@ -88,7 +88,7 @@ const ProfilePageComponent = ({
                   style={{ display: "none" }}
                   onChange={handleChange}
                 />
-                <input type="hidden" value={currentUser._id} name="userId" />
+                <input type="hidden" value={ProfileId} name="ProfileId" />
                 {imageSelected ? <button>Save</button> : null}
               </form>
             </div>
@@ -96,7 +96,7 @@ const ProfilePageComponent = ({
               <h1 className="mb-2">
                 {userProfile.name} {userProfile.surname}
               </h1>
-              <h3>FullStack developer</h3>
+                  <h3>{userProfile.title}</h3>
             </div>
           </div>
 
@@ -114,8 +114,10 @@ const ProfilePageComponent = ({
 
               <div className="profile_page__detail">
                 <span>
-                  <h4>Current Location</h4>
-                  <span>{userProfile.currentLocation}</span>
+                  <h4>
+                    Province
+                  </h4>
+                  <span>{userProfile.province}</span>
                 </span>
                 <FaMapMarkedAlt />
               </div>
@@ -123,28 +125,28 @@ const ProfilePageComponent = ({
                 <span>
                   <h4>City</h4>
 
-                  {userProfile.town}
+                  {userProfile.city}
                 </span>
                 <FaMapMarkerAlt />
               </div>
               <div className="profile_page__detail">
                 <span>
                   <h4>E-mail</h4>
-                  <span>findmeat@gmail.com</span>
+                  <span>{userProfile.email}</span>
                 </span>
                 <FaMailBulk />
               </div>
               <div className="profile_page__detail">
                 <span>
                   <h4>Phone</h4>
-                  <span>078 783 3732</span>
+                  <span>{userProfile.phone}</span>
                 </span>
                 <FaPhone />
               </div>
             </div>
           </IconContext.Provider>
 
-          {currentUser._id === userProfile.userId._id ? (
+          {ProfileId=== userProfile._id ? (
             <Button outline={true} value="edit profile" />
           ) : null}
         </div>
@@ -195,17 +197,17 @@ const ProfilePageComponent = ({
             </IconContext.Provider>
           </div>
         </div>
-        {currentUser._id === userProfile.userId._id ? (
+        {ProfileId === userProfile._id ? (
           <Button outline={true} value="Edit" />
         ) : null}
       </div>
-      {currentUser._id === userProfile.userId._id ? null : (
+      {ProfileId === userProfile._id ? null : (
         <p className="profile_page__infor">
           is this the person you are looking for ?{" "}
           <Button
             className="profile_page__btn"
             onClick={() =>
-              history.push(`/chatroom/singlechat/${userProfile.userId._id}`)
+              history.push(`/chatroom/singlechat/${userProfile._id}`)
             }
           >
             leave a message
@@ -224,9 +226,7 @@ const ProfilePageComponent = ({
 };
 const mapStateToProps = (state) => ({
   isLoggedin: state.user.loggedIn,
-  userProfile: state.user.profile,
-  profiles: state.appData.data,
-  currentUser: state.user.CurrentUser || {},
+  ProfileId: state.user.CurrentUser.profileId
 });
 
 const mapDispatchToprops = (dispatch) => ({

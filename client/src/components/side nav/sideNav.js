@@ -8,12 +8,65 @@ import { AiOutlinePhone } from "react-icons/ai";
 import { MdLocationCity } from "react-icons/md";
 import { IconContext } from "react-icons";
 import LogOutBtn from "../notification_icons/notification_icons";
+import { connect } from "react-redux";
+import { fetchingChats, setChatData } from "../../redux/chat/chat_actions";
+import {CustomCompose, modifiedChatArray, isMessagesEmpty} from '../../utils/chats.utils'
+import moment from 'moment'
 
 import "./sideNav.scss";
+import { toggleSideNav } from "../../redux/controls/actions";
 
-const SideNav = () => {
+const SideNav = ({chats, currentUser , setChatData ,getCurrentUserChats, userId,toggleSide, showNav}) => {
+
+  const modifiedChats = CustomCompose(chats,currentUser)(isMessagesEmpty,modifiedChatArray)
+  
+React.useEffect(() => {
+  getCurrentUserChats(userId)
+  console.log(showNav)
+  return () => {
+    showNav === true ? toggleSide() : console.log(showNav)
+  }
+},[])
+  const renderChats = (chat,index,arr) => {
+   
+    return <div key={chat._id} className="list-group  mb-4" onClick={() => {
+     setChatData({
+      room:chat.room,
+      profile:chat,
+      messages:chat.messages
+     })
+     toggleSide()
+    }}>
+    <div
+      className="list-group-item side-nav__chats__chat list-group-item-action d-flex"
+      aria-current="true"
+    >
+      <img
+        alt="..ddd"
+        src={chat.profile.avatarUrl}
+      />
+      <div className='ms-3 w-100'>
+        <div className="d-flex w-100 justify-content-between ">
+          <h5 className="mb-4 side-nav__chats__chat__name">
+            {chat.profile.name} {chat.profile.surname}
+          </h5>
+          <small className="side-nav__chats__chat__time">
+          {/* {moment(chat.messages[chat.messages.length -1].time, '"YYYYMMDD"').fromNow()} */}
+
+            {moment(chat.messages[chat.messages.length -1].time, 'MMDDYYYY').fromNow()}
+          </small>
+        </div>
+        <p className=" side-nav__chats__chat__msg">
+        {chat.messages[chat.messages.length -1].msg}
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  }
+
   return (
-    <div className="side-nav d-flex ">
+    <div className={`side-nav d-flex ${showNav ? 'show' : null}`} >
       <aside className="side-nav__bar d-flex flex-column">
         <div className="side-nav__icons__container">
           <IconContext.Provider
@@ -40,7 +93,7 @@ const SideNav = () => {
             <div className='input-group mb-3 w-100" side-nav__input__container my-4'>
               <input
                 type="text"
-                class="form-control side-nav__input"
+                className="form-control side-nav__input"
                 placeholder="Search for chats"
                 aria-label="Recipient's username"
                 aria-describedby="basic-addon2"
@@ -55,110 +108,32 @@ const SideNav = () => {
           </IconContext.Provider>
         </header>
         <main>
-          <div className="list-group  mb-4">
-            <div
-              className="list-group-item side-nav__chats__chat list-group-item-action d-flex"
-              aria-current="true"
-            >
-              <img
-                alt="..ddd"
-                src="https://i.guim.co.uk/img/media/35eeb4f8297b0a0771a8dd6312e71058a3249e4a/0_102_2441_1464/master/2441.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=3960b3510fc62983d7fbe6ba096238b5"
-              />
-              <div className='ms-3'>
-                <div className="d-flex w-100 justify-content-between ">
-                  <h5 className="mb-4 side-nav__chats__chat__name">
-                    Voldi Muyumba
-                  </h5>
-                  <small className="side-nav__chats__chat__time">
-                    3 days ago
-                  </small>
-                </div>
-                <p className=" side-nav__chats__chat__msg">
-                  Donec id elit non mi porta gravida at eget metus. Maecenas sed
-                  diam eget risus varius blandit.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="list-group  mb-4">
-            <div
-              className="list-group-item side-nav__chats__chat list-group-item-action d-flex"
-              aria-current="true"
-            >
-              <img
-                alt="..ddd"
-                src="https://i.guim.co.uk/img/media/35eeb4f8297b0a0771a8dd6312e71058a3249e4a/0_102_2441_1464/master/2441.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=3960b3510fc62983d7fbe6ba096238b5"
-              />
-              <div className='ms-3'>
-                <div className="d-flex w-100 justify-content-between ">
-                  <h5 className="mb-4 side-nav__chats__chat__name">
-                    Voldi Muyumba
-                  </h5>
-                  <small className="side-nav__chats__chat__time">
-                    3 days ago
-                  </small>
-                </div>
-                <p className=" side-nav__chats__chat__msg">
-                  Donec id elit non mi porta gravida at eget metus. Maecenas sed
-                  diam eget risus varius blandit.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="list-group  mb-4">
-            <div
-              className="list-group-item side-nav__chats__chat list-group-item-action d-flex"
-              aria-current="true"
-            >
-              <img
-                alt="..ddd"
-                src="https://i.guim.co.uk/img/media/35eeb4f8297b0a0771a8dd6312e71058a3249e4a/0_102_2441_1464/master/2441.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=3960b3510fc62983d7fbe6ba096238b5"
-              />
-              <div className='ms-3'>
-                <div className="d-flex w-100 justify-content-between ">
-                  <h5 className="mb-4 side-nav__chats__chat__name">
-                    Voldi Muyumba
-                  </h5>
-                  <small className="side-nav__chats__chat__time">
-                    3 days ago
-                  </small>
-                </div>
-                <p className=" side-nav__chats__chat__msg">
-                  Donec id elit non mi porta gravida at eget metus. Maecenas sed
-                  diam eget risus varius blandit.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="list-group  mb-4">
-            <div
-              className="list-group-item side-nav__chats__chat list-group-item-action d-flex"
-              aria-current="true"
-            >
-              <img
-                alt="..ddd"
-                src="https://i.guim.co.uk/img/media/35eeb4f8297b0a0771a8dd6312e71058a3249e4a/0_102_2441_1464/master/2441.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=3960b3510fc62983d7fbe6ba096238b5"
-              />
-              <div className='ms-3'>
-                <div className="d-flex w-100 justify-content-between ">
-                  <h5 className="mb-4 side-nav__chats__chat__name">
-                    Voldi Muyumba
-                  </h5>
-                  <small className="side-nav__chats__chat__time">
-                    3 days ago
-                  </small>
-                </div>
-                <p className=" side-nav__chats__chat__msg">
-                  Donec id elit non mi porta gravida at eget metus. Maecenas sed
-                  diam eget risus varius blandit.
-                </p>
-              </div>
-            </div>
-          </div>
+          
+          {
+            modifiedChats.length ? modifiedChats.map(renderChats) : <h1> you have no chats</h1>
+          }
         </main>
       </aside>
     </div>
   );
 };
 
-export default SideNav;
+const mapState = ({ Chat, user,controls }) => ({
+ 
+  chats: Chat.chats,
+  currentUser: user.CurrentUser,
+  userId: user.CurrentUser._id,
+  showNav:controls.isSideNavVisible
+  
+});
+
+const mapDispatch = (dispatch) => ({
+  setChatData: (data) => dispatch(setChatData(data)),
+  getCurrentUserChats: id => dispatch(fetchingChats(id)),
+  toggleSide: () => dispatch(toggleSideNav())
+
+});
+
+
+
+export default connect(mapState, mapDispatch)(SideNav);

@@ -1,12 +1,13 @@
 import types from './data_types'
 import TestData from '../../testData/user'
-import { decrentPageNum, filteredData, increntPageNum } from './data_util'
+import { decrentPageNum, filteredData, increntPageNum, fliterUsers } from './data_util'
 const InitialState = {
     data:null,
     itemsPerPage:4,
      page:1,
     loading:true,
-    msg:null
+    msg:null,
+    profilesCount:0,
 }
 
 
@@ -27,9 +28,10 @@ const AppDataReducer = (state=InitialState,action) => {
             case types.FETCHING_PROFILES_SUCCECED:
                 return {
                     ...state, 
+                    profilesCount:state.profilesCount + action.payload.profiles.length,
                     msg:null,
                     loading:false,
-                    data:action.payload.profiles
+                    data:fliterUsers(action.payload.profiles)
                 }
             case types.FETCHING_FilTER_DATA_FAIL:
                 return {

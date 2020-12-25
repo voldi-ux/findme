@@ -13,11 +13,14 @@ import { onFechingProfiles } from "../../redux/app_data_reducer/data_actions";
 import { connect } from "react-redux";
 import withSpinner from "../../components/spinner/spinner";
 import { ToggleSlideInleft } from "../../redux/user/user_action";
+import NavigationBar from "../../components/navigation_bar/navigation_bar";
 
 const HomeContentWithSpinner = withSpinner(HomeContent);
 
 const HomePage = ({ getProfiles, profiles, isLoading, match, toggleNav }) => {
   return (
+    <>
+    <NavigationBar />
     <div className="home_page">
       <FilterComponent />
       <HomeContentWithSpinner
@@ -26,7 +29,9 @@ const HomePage = ({ getProfiles, profiles, isLoading, match, toggleNav }) => {
         isLoading={isLoading}
       />
       <ProfileComponent />
+      <RespProfile />
     </div>
+    </>
   );
 };
 

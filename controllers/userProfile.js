@@ -27,9 +27,9 @@ exports.getProfiles = async (req, resp, next) => {
   // phone:094745723})
   
   try {
-    const profiles = await Profile.find()
+    const profiles = await User.find()
       .skip(+pageItems * +pageNum - 4)
-      .populate("userId")
+      .populate("profileId")
       .exec();
     resp.json({
       profiles: profiles,

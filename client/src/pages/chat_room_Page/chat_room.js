@@ -16,7 +16,7 @@ const MinorRoomContainerWithSpinner = withSpinner(MinorRoomContainer)
 
 const ChatRoom = ({match,chats,getChats,curentUser,isLoading,isGettingRoom}) => {
    useEffect(()=> {
-       getChats(curentUser._id)
+    //    getChats(curentUser._id)
 
    },[match.path])
  

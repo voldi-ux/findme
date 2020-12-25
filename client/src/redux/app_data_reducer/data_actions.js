@@ -20,6 +20,18 @@ export const fecthProfileSucceced = (profiles) => ({
     type:types.FETCHING_PROFILES_SUCCECED,
     payload:profiles
 })
+export const fetchMoreProfilesStart = () => ({
+    type:types.FETCHING_MORE_PROFILES_FAIL
+})
+
+export const fetchMoreProfilesFails = (msg) => ({
+    type:types.FETCHING_MORE_PROFILES_FAIL,
+    payload:msg
+})
+export const fecthMoreProfileSucceced = (profiles) => ({
+    type:types.FETCHING_MORE_PROFILES_SUCCECED,
+    payload:profiles
+})
 
 export const onFechingProfiles = (pageNun) => async (dispacth) => {
     dispacth(fetchProfilesStart)
@@ -29,6 +41,19 @@ export const onFechingProfiles = (pageNun) => async (dispacth) => {
         dispacth(fecthProfileSucceced(profiles))
      } catch (error) {
          dispacth(fetchProfilesFails(error.message))
+     }
+}
+
+
+
+export const onFechingMoreProfiles = (profilesCount) => async (dispacth) => {
+    dispacth(fetchMoreProfilesStart)
+     try {
+        const resp = await fetch(`/getProfiles/4/${profilesCount}`)
+        const profiles = await resp.json()
+        dispacth(fecthMoreProfileSucceced(profiles))
+     } catch (error) {
+         dispacth(fetchMoreProfilesFails(error.message))
      }
 }
 

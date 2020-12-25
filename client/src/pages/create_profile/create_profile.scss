@@ -1,55 +1,81 @@
+@import "../../colors";
+
 .updateProfile {
-    // background: #106EDF;
-    background: #fff;
-    padding: 3rem;
+  // background: #106EDF;
+  background-color: #eaeef0a9;
+  height: 100vh;
+  padding: 3rem;
 }
 
 .form {
   &__updateProfile {
     //   color: #fff;
+    background: #fff;
     padding: 2rem 3rem;
     max-width: 60rem;
     width: 100%;
     margin: 0 auto;
-    box-shadow: 0 0 10px rgba(0,0,0, .3);
-   
   }
   &__group {
- 
+    img {
+      width: 7rem;
+      height:7rem;
+      border-radius:5rem;
+      margin-right: 1rem;
+    }
+
+    &__buttons {
+        align-self:center;
+      button{
+        font-size: 1.4rem;
+        padding: .5rem;
+        width: 6rem;
+        margin-right: 1rem;
+      }
+    }
     &__bio {
-        &__area {
-            min-height: 20rem;
-            width: 100%;
-            margin: 1rem 0;
-        }
+      &__area {
+        min-height: 20rem;
+        width: 100%;
+        margin: 1rem 0;
+        font-size: 1.5rem;
+        color: $color-blue-dark;
 
-        &__heading {
-            font-size: 1.8rem;
-            text-transform: capitalize;
-            font-weight: 600;            
+        border: 3px solid transparent;
+        background-color: rgb(240, 244, 247);
+        &:focus {
+          outline: none;
         }
+      }
 
+      &__heading {
+        font-size: 1.8rem;
+        text-transform: capitalize;
+        font-weight: 600;
+        font-size: 1.6rem;
+        color: $color-blue-dark;
+      }
     }
     &__images {
-        margin: 1rem 0;
-        width: 100%;
-        min-height: 20rem;
-        border: 1px dashed #000;
-        background: #fff;
-        &__preview {
-            display: inline-block;
-            width: 20%;
-            height: 10rem;
-        }
+      margin: 1rem 0;
+      width: 100%;
+      min-height: 20rem;
+      border: 1px dashed #000;
+      background: #fff;
+      &__preview {
+        display: inline-block;
+        width: 20%;
+        height: 10rem;
+      }
     }
   }
 }
 
-
 .gender {
-    font-size: 1.8rem;
-    text-transform: capitalize;
-    font-weight: 600; 
-    margin: 1rem;
-}
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: $color-blue-dark;
 
+  text-transform: capitalize;
+  margin: 1rem;
+}

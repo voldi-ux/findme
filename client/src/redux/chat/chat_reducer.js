@@ -15,7 +15,7 @@ const intial = {
 
 const chatReducer = (state = intial, action) => {
   switch (action.type) {
-    case types.GET_CHAT_PARTNER_START:
+    case types.GET_ROOM_START:
       return {
         ...state,
         isGettingPartner: true,
@@ -46,12 +46,17 @@ const chatReducer = (state = intial, action) => {
         loading: false,
         chats: action.payload,
       };
-    case userTypes.LOG_IN_SUCCECEDED:
+      case types.UPDATE_MESSSAGE: 
       return {
         ...state,
-        partner:null,
-        chats: [],
-        room:null,
+        messages:[...state.messages,action.payload]
+      }
+    case types.SET_CHAT_DATA:
+      return {
+        ...state,
+        partner:action.payload.profile,
+        messages: action.payload.messages,
+        room:action.payload.room,
       };
       // case types.FETCHING_CHATS_FAIL:
       // case types.GET_CHAT_PARTNER_FAIL:

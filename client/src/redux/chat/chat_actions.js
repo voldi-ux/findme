@@ -13,6 +13,13 @@ const fetchingChatsSucceced= (chats) => ({
     payload:chats
 }) 
 
+export const setChatData = data => (
+     {
+         type:types.SET_CHAT_DATA,
+         payload:data
+     }
+)
+
 
 export const fetchingChats= (id1) => async dispatch => {
     try {
@@ -25,6 +32,8 @@ export const fetchingChats= (id1) => async dispatch => {
        dispatch(fetchingChatsFail())
     }
 } 
+
+
 
 // getting a chat partner from a database
 
@@ -93,9 +102,14 @@ const gettingRoomFail= (err) => ({
     payload:err
 })
 
-const gettingRoomSucceced= (Room) => ({
+const gettingRoomSucceded= (Room) => ({
     type:types.GET_ROOM_SUCCECED,
     payload:Room
+})
+
+export const onrecieveMessage= (msg) => ({
+    type:types.UPDATE_MESSSAGE,
+    payload:msg
 })
 
 export const onGettingRoom = (id1,id2) => async dispatch => {
@@ -103,7 +117,7 @@ export const onGettingRoom = (id1,id2) => async dispatch => {
         dispatch(gettingRoomStart())
         const res = await fetch(`/getroom/${id1}/${id2}`)
         const Room = await res.json()
-        dispatch(gettingRoomSucceced(Room))
+        dispatch(gettingRoomSucceded(Room))
     } catch (error) {    
        dispatch(gettingRoomFail(error.message))
     }

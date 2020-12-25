@@ -1,35 +1,31 @@
-@import '../../colors';
+@import "../../colors";
 
 .form {
-   
-
-    &__signUp {
-        height: 40rem;
-        background: rgba(0, 0, 0,.4);
-        padding: 3rem 2rem;
-        &__heading {
-            letter-spacing: 1.4px;
-            font-size: 2rem;
-            margin: 2rem 0;
-            color:$color-white-light ;
-            font-weight: 600;
-            
-        }
-        p {
-            font-size: 1.7rem;
-            color:$color-white-light ;
-            margin: 1rem;
-        }
-        a,a:active,a:visited {
-            font-size: 2rem;
-            color:$color-white-light;
-            border-bottom: 1px solid $color-blue-dark;
-            transition: .3s all;
-            &:hover {
-                border: none;
-                color: $color-blue-light;
-            }
-            
-        }
+  &__signUp {
+    padding: 3rem 2rem;
+    background-color: #fff;
+   border-radius: 6px;
+  box-shadow: 0 2rem 5rem rgba(0,0,0,.06);
+   width: 50%;
+    &__heading {
+      letter-spacing: 1.5px;
+      font-size: 3rem;
+      margin: 2rem 0;
+      font-weight: 700;
     }
+    p {
+      font-size: 1.7rem;
+      margin: 1rem;
+    }
+    a,
+    a:active,
+    a:visited {
+      font-size: 2rem;
+      border-bottom: 1px solid $color-blue-dark;
+      transition: 0.3s all;
+      &:hover {
+        border: none;
+      }
+    }
+  }
 }

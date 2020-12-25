@@ -8,11 +8,11 @@ export const modifiedChatArray = (chats,currentUser) => {
         return chats.reduce((acc,chat,index) => {
             console.log('before modification',chats)
             if(chat.user1._id === currentUser._id) {
-                acc = [...acc,{...chat.user2,messages:chat.messages}]
+                acc = [...acc,{...chat.user2,messages:chat.messages,room:{_id:chat._id}}]
             } else if( chat.user2._id === currentUser._id) {
-                acc = [...acc, {...chat.user1,messages:chat.messages}]
+                acc = [...acc, {...chat.user1,messages:chat.messages,room:{_id:chat._id}}]
             }
-            console.log('after modification',acc)
+            console.log('after modification',)
             return acc
         },[])
     } else {
@@ -21,15 +21,20 @@ export const modifiedChatArray = (chats,currentUser) => {
 }
 
 //chek if the messages array is empty 
-export const isMessagesEmpty = (chats) => chats.reduce((acc,chat) => {
-        if(chat.messages.length) {
-           acc = [...acc, {_id:chat._id, name:chat.userName,messages:chat.messages[chat.messages.length -1], avatarUrl:chat.avatarUrl}]
-        }
-
-        return acc
-},[])
+export const isMessagesEmpty = (chats) => chats.filter(chat => chat.messages.length >= 1)
 
 //custom compose funtion
 export const CustomCompose = (chats,currentUser) => (f,g) => f(g(chats,currentUser)) 
+
+
+
+//check if the the users have a already estasblished a room, if yes, find the room and return it. else return a boolean and then dispatch an action that will creat a new room between the users. render a spinner while creating a room
+export  const checkRoom = (userId,ArrOfrooms) => {
+    const room = ArrOfrooms.find(room => room.user1 === userId || room.user2 === userId )
+    if(room) {
+        return room
+    }
+    return null
+}
 
 

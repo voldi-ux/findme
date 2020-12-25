@@ -35,6 +35,10 @@ export const uptdateUserProfileSucceced = (profile) => ({
   type:userTypes.UPDATE_USER_PROFILE_SUCCECEDED,
   payload:profile
 })
+export const setSearchedProfile = (profile) => ({
+  type:userTypes.SET_SEARCHED_PROFILE,
+  payload:profile
+})
 
 export const onUserProfileUpdate = (profile) => async dispatch => {
   dispatch(uptdateUserProfileStart())

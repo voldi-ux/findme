@@ -1,7 +1,6 @@
 @import "../../colors";
 @import "../../sass/mixins.scss";
 .profile {
-
   padding: 2rem;
   position: relative;
   flex: 0 0 30%;
@@ -11,32 +10,37 @@
   text-align: center;
   min-height: 39.8rem;
   background-color: $color-white-light3;
-  
+
   &__icon {
     margin-right: 10px;
-    color:#1d89ee;
+    color: #1d89ee;
+    user-select: none;
+    cursor: pointer;
   }
 
   &__content {
     &-top {
-      background-color: #ededf3c2;
+      background-color: #fff;
+      width: 100%;
+      box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.06);
       border-radius: 10px;
     }
 
     &-bottom {
-      background-color: #ededf3c2;
-      padding: 0 4rem;
-      font-size:1.5rem;
+      background-color: #fff;
+
+      box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+      padding: 1rem 4rem;
+      font-size: 1.5rem;
       border-radius: 10px;
-      
     }
   }
-  @media (max-width:750px) {
+  @media (max-width: 750px) {
     display: none;
-}
+  }
   div {
     margin: 1rem 0;
-  
+
     &::after {
       top: 0;
       left: 0;
@@ -47,7 +51,7 @@
   &__image {
     img {
       width: 10rem;
-      height:10rem;
+      height: 10rem;
       border-radius: 400rem;
     }
   }

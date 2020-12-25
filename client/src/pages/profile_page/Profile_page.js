@@ -6,13 +6,15 @@ import WithSpinner from '../../components/spinner/spinner'
 import { onFetchUserProfile } from "../../redux/user/user_action"
 
 const ProfilePageWithSpinner = WithSpinner(ProfilePageComponent)
-const ProfilePage = ({match,getProfile, isLoading,IsProfileLoading}) => {
-  
- useEffect(()=> {
-    getProfile(match.params.userId)
- },[match.params.userId])
+const ProfilePage = ({match,getProfile,userProfile,searchedProfile,isLoading,IsProfileLoading,history, ...props}) => {
+   if(history.location.search === '?current=true') {
+      return (<div className='profile_page'>
+      <ProfilePageWithSpinner current={true} userProfile={userProfile} height='20rem'  isLoading={false}/>
+      </div>)     
+   }
+ 
     return (<div className='profile_page'>
-    <ProfilePageWithSpinner height='20rem'  isLoading={!isLoading || IsProfileLoading}/>
+    <ProfilePageWithSpinner  userProfile={searchedProfile} height='20rem'  isLoading={false}/>
 </div>)
 }
 
@@ -22,6 +24,7 @@ getProfile: (id) => dispatch(onFetchUserProfile(id))
 })
 const mapStateToProps = state => ({
    IsProfileLoading:state.user.IsProfileLoading,
-   isLoading: !!state.user.profile
+   searchedProfile: state.user.searchedProfile,
+   userProfile: state.user.profile,
 })
 export default connect(mapStateToProps,mapDispatchToProps)(ProfilePage)

@@ -8,7 +8,8 @@ exports.getChats = async (req, res) => {
     .find({
       $or: [{ user1: userId }, { user2: userId }],
     })
-    .populate(["user2", "user1"]).exec();
+    .populate(["user2", "user1"])
+    .exec();
   return res.json(rooms);
 };
 
@@ -28,7 +29,7 @@ exports.getRoom = async (req, res) => {
     const { userId1, userId2 } = req.params;
     const arrOfIds = [userId1, userId2];
     let room;
-
+    console.log("getting rooom ");
     room = await chatroom.findOne({
       $or: [
         { $and: [{ user1: userId1 }, { user2: userId2 }] },
@@ -65,22 +66,21 @@ exports.getRoom = async (req, res) => {
   }
 };
 
-
-exports.getRoomsMobile= async (req, res) => {
+exports.getRoomsMobile = async (req, res) => {
   try {
     const { userId } = req.params;
-  
+
     let rooms;
 
-    rooms = await  chatroom.find({
-      $or: [
-        { user1: userId }, { user2: userId }
-      ],
-    }).populate(["user1", 'user2']).exec();
-;
-console.log(rooms)
+    rooms = await chatroom
+      .find({
+        $or: [{ user1: userId }, { user2: userId }],
+      })
+      .populate(["user1", "user2"])
+      .exec();
+    console.log(rooms);
 
-   return res.json(rooms);
+    return res.json(rooms);
   } catch (error) {
     console.log(error.message);
   }

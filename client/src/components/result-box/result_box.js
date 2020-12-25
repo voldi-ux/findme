@@ -1,46 +1,89 @@
-import React from 'react'
-import { useHistory} from 'react-router-dom'
-import './result_box.scss'
-import Button from '../buttons/button'
-import {AiOutlinePhone} from 'react-icons/ai'
-import {MdLocationCity} from 'react-icons/md'
-import {IconContext} from 'react-icons'
+import React from "react";
+import { useHistory } from "react-router-dom";
+import "./result_box.scss";
+import Button from "../buttons/button";
+import { AiOutlinePhone } from "react-icons/ai";
+import { MdLocationCity } from "react-icons/md";
+import { IconContext } from "react-icons";
+import { setSearchedProfile } from "../../redux/user/user_action";
+import { connect } from "react-redux";
+import { onGettingRoom, setChatData } from "../../redux/chat/chat_actions";
+import { checkRoom } from "../../utils/chats.utils";
 
-const ResultBox = ({profile}) => {
-  const history = useHistory()
-  return  (<div className='result__box'>
-  <div className='result__group-1'>
-    <span className='result__img'>
-        <img src={'data:image/png;base64,' + profile.avatarUrl}  /> 
-    </span>
-    <div className='result__details d-flex flex-column'> 
-    <span className='result__name mb-1' >{profile.name}  {profile.surname}</span>
-     <span className='result__title'>Mechanical Engineer </span>
-    </div>
-    </div>
-    <div className='result__footer'> 
-    <IconContext.Provider value={{className:'result__icon',size:'4rem'}}>  
-  <div className='result__group-2'>
-     <MdLocationCity />
-           <span className='result__footerDetail'>
-               Johannesburg
-           </span>
-  </div>
-  <div className='result__group-2'>
-     <AiOutlinePhone />
-           <span className='result__footerDetail'>
-               074626495
-           </span>
-  </div>
-    </IconContext.Provider>
-    </div>
-  <div className='buttons'> 
-  <Button value='profile' onClick={() => history.push(`/profile/${profile.userId._id}`)} />
-  
-  <Button value='message' outline={true} onClick={() => history.push(`/profile/${profile.userId._id}`)} />
+const ResultBox = ({ profile, setSearchProfile, setChat, rooms ,createRoom, userId}) => {
+  const history = useHistory();
+  return (
+    <div className="result__box">
+      <div className="result__group-1">
+        <span className="result__img">
+          <img src={profile.profile.avatarUrl} />
+        </span>
+        <div className="result__details d-flex flex-column">
+          <span className="result__name mb-1">
+            {profile.profile.name} {profile.profile.surname}
+          </span>
+          <span className="result__title"> {profile.profile.title} </span>
+        </div>
+      </div>
+      <div className="result__footer">
+        <IconContext.Provider
+          value={{ className: "result__icon", size: "4rem" }}
+        >
+          <div className="result__group-2">
+            <MdLocationCity />
+            <span className="result__footerDetail">{profile.profile.city}</span>
+          </div>
+          <div className="result__group-2">
+            <AiOutlinePhone />
+            <span className="result__footerDetail">{profile.profile.phone}</span>
+          </div>
+        </IconContext.Provider>
+      </div>
+      <div className="buttons">
+        <Button
+          value="profile"
+          onClick={() => {
+            setSearchProfile(profile.profile);
+            history.push(`/profile/`);
+          }}
+        />
 
-  </div>
-</div>)
-}
+        <Button
+          value="message"
+          outline={true}
+          onClick={() => {
+            const room = checkRoom(profile._id, rooms);
+            if (room) {
+              setChat({
+                profile,
+                room:room,
+                messages:room.messages
+              })
+              history.push(`/chatroom`);
+              return;
+            }
+            setChat({
+              profile,
+              room:null,
+              messages:null
+            })
+            createRoom(userId,profile._id)
+            history.push(`/chat`);
+          }}
+        />
+      </div>
+    </div>
+  );
+};
 
-export default ResultBox
+const mapDispatch = (dispatch) => ({
+  setSearchProfile: (profile) => dispatch(setSearchedProfile(profile)),
+  setChat: (data) => dispatch(setChatData(data)),
+  createRoom:(id1,id2) => dispatch(onGettingRoom(id1,id2)),
+
+});
+const mapState = ({ user }) => ({
+  rooms: user.CurrentUser.chatroomIds,
+  userId:user.CurrentUser._id
+});
+export default connect(mapState, mapDispatch)(ResultBox);
