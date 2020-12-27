@@ -31,7 +31,7 @@ const SeacrhBar = ({onSearch}) => {
    <form onSubmit={onSubmit}>
       <input type='text' onChange={handleChange} name='searchQuery'  className='search_bar__input' placeholder='seacrh...' />  
    </form>
-<IconContext.Provider value={{size:'2rem', className:'search_bar__icon' }}>
+<IconContext.Provider value={{size:'3rem', className:'search_bar__icon' }}>
    <ImSearch />
 </IconContext.Provider>
 

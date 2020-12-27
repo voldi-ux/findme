@@ -10,7 +10,14 @@ import { connect } from "react-redux";
 import { onGettingRoom, setChatData } from "../../redux/chat/chat_actions";
 import { checkRoom } from "../../utils/chats.utils";
 
-const ResultBox = ({ profile, setSearchProfile, setChat, rooms ,createRoom, userId}) => {
+const ResultBox = ({
+  profile,
+  setSearchProfile,
+  setChat,
+  rooms,
+  createRoom,
+  userId,
+}) => {
   const history = useHistory();
   return (
     <div className="result__box">
@@ -35,7 +42,9 @@ const ResultBox = ({ profile, setSearchProfile, setChat, rooms ,createRoom, user
           </div>
           <div className="result__group-2">
             <AiOutlinePhone />
-            <span className="result__footerDetail">{profile.profile.phone}</span>
+            <span className="result__footerDetail">
+              {profile.profile.phone}
+            </span>
           </div>
         </IconContext.Provider>
       </div>
@@ -51,24 +60,30 @@ const ResultBox = ({ profile, setSearchProfile, setChat, rooms ,createRoom, user
         <Button
           value="message"
           outline={true}
-          onClick={() => {
+          onClick={async () => {
             const room = checkRoom(profile._id, rooms);
             if (room) {
+              await history.push(`/chatroom`);
+
               setChat({
                 profile,
-                room:room,
-                messages:room.messages
-              })
-              history.push(`/chatroom`);
+                room: room,
+                messages: room.messages,
+              });
               return;
             }
+
             setChat({
               profile,
-              room:null,
-              messages:null
-            })
-            createRoom(userId,profile._id)
-            history.push(`/chat`);
+              room: null,
+              messages: null,
+            });
+
+            await history.push(`/chatroom`);
+
+            setTimeout(() => {
+              createRoom(userId, profile._id);
+            }, 2000);
           }}
         />
       </div>
@@ -79,11 +94,10 @@ const ResultBox = ({ profile, setSearchProfile, setChat, rooms ,createRoom, user
 const mapDispatch = (dispatch) => ({
   setSearchProfile: (profile) => dispatch(setSearchedProfile(profile)),
   setChat: (data) => dispatch(setChatData(data)),
-  createRoom:(id1,id2) => dispatch(onGettingRoom(id1,id2)),
-
+  createRoom: (id1, id2) => dispatch(onGettingRoom(id1, id2)),
 });
 const mapState = ({ user }) => ({
   rooms: user.CurrentUser.chatroomIds,
-  userId:user.CurrentUser._id
+  userId: user.CurrentUser._id,
 });
 export default connect(mapState, mapDispatch)(ResultBox);

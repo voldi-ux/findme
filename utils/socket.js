@@ -33,7 +33,7 @@ const createProfile = async(userId,userProfile) => {
        profile:{
          ...userProfile,
          country:"South Africa",
-         avatarUrl:"https://dmrmechanical.com/wp-content/uploads/2018/01/avatar-1577909_640.png"
+        
        }
      },{
        new:true

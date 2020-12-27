@@ -89,10 +89,12 @@
   &__img {
     img {
       display: block;
-      width: 4rem;
-      height: 4rem;
+      width: 5rem;
+      height: 5rem;
       border-radius: 500rem;
       margin-right: 10px;
+      border: 2px solid rgb(37, 109, 202);
+
     }
   }
 }

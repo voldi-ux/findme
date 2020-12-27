@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const Profile = require("../models/profile");
 const {users} = require('../testData')
+const Avatar = require('../models/avatar')
+const {paths} = require('../avatarPaths')
 
 const api_key =
   "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";
@@ -36,10 +38,11 @@ exports.postSigningUp = async (req, resp, next) => {
 };
 
 exports.postSignin = async (req, resp, next) => {
-  // users.forEach(async user => {
-  //   console.log(user)
-  //   await new User(user).save()
+  // await paths.forEach(async path => {
+  //   console.log(path)
+  //   return new Avatar(path).save()
   // })
+
   const { password, email } = req.body;
 
   try {
@@ -54,7 +57,7 @@ exports.postSignin = async (req, resp, next) => {
   
     const match = await bcrypt.compare(password, user.password);
 
-    if (!match) throw Error("password do not match");
+    if (!match) throw Error("passwords do not match");
     const token = jwt.sign(
       {
         userId: user._id.toString(),

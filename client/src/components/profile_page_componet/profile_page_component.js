@@ -63,17 +63,8 @@ const ProfilePageComponent = ({
             {/* <Button value="Home" className='align-self-center4' onClick={() => history.push("/home")} /> */}
             <div className="mx-4">
               <div className="position-relative">
-                <img src={uri + userProfile.avatarUrl} />
-                <IconContext.Provider
-                  value={{
-                    size: "4rem",
-                    className: "profile_page__details__image-icon",
-                  }}
-                >
-                  {ProfileId === userProfile._id ? (
-                    <FaImage onClick={handleClick} />
-                  ) : null}
-                </IconContext.Provider>
+                <img src={userProfile.avatarUrl} />
+  
               </div>
               <form
                 onSubmit={onSubmit}

@@ -21,6 +21,8 @@
       height: 4rem;
       border-radius: 2rem;
       align-self: flex-end;
+      border: 2px solid rgb(37, 109, 202);
+
       @media (max-width: 550px) {
         width: 2rem;
         height: 2rem;
@@ -59,6 +61,8 @@
       height: 7rem;
       border-radius: 5rem;
       margin: 1rem;
+      border: 2px solid rgb(163, 37, 202);
+
       @media (max-width: 550px) {
         width: 4rem;
         height: 4rem;
@@ -148,5 +152,108 @@
 .footer__icons {
   @media (max-width: 550px) {
     font-size: 5rem !important;
+  }
+}
+
+
+.noProfileContainer {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  height: 100%;
+  width: 100%;
+  color: #1e64be;
+  
+  img {
+    width: 15rem;
+    height: 15rem;
+    border-radius: 100rem;
+    border: 3px solid rgb(187, 27, 62) ;
+    margin-bottom: 2rem;
+  }
+
+  span {
+    font-size: 1.5rem;
+    padding: .5rem 1rem;
+    border: 1px solid #1e64be;
+    user-select: none;
+    cursor:pointer;
+    display:none;
+    @media (max-width: 750px) {
+      display: inline-block;
+    }
+  }
+
+}
+
+.arrow-left {
+  font-size: 3rem;
+  user-select: none;
+  cursor: pointer;
+  display: none;
+  @media (max-width: 750px) {
+    display: inline-block !important;
+  }
+}
+
+.preloader-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.flex-center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.preloader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:#ffffff;
+  z-index: 99999999;
+}
+
+.dots .dot {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  margin: 0 10px 0 10px;
+  border-radius: 50%;
+  background: #3977d3;
+  -webkit-animation: dot-dot-dot 1.4s linear infinite;
+  animation: dot-dot-dot 1.4s linear infinite;
+}
+
+.dots .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dots .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes dot-dot-dot {
+  0%,
+  60%,
+  100% {
+    -webkit-transform: initial;
+    -ms-transform: initial;
+    transform: initial;
+  }
+  30% {
+    -webkit-transform: translateY(-25px);
+    -ms-transform: translateY(-25px);
+    transform: translateY(-25px);
   }
 }

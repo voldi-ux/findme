@@ -15,7 +15,7 @@ const NavigationBar = ({toggleProfileComponent})=> {
                ('../../assets/images/logo.png')}/>
               </Link>
               <span className='navigation_bar__bar navigation_bar__logo bar' onClick={toggleProfileComponent}>
-                 Bar
+                 &#9776;
               </span>
            </span>
         

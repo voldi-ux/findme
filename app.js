@@ -11,7 +11,7 @@ const ChatRoutes = require("./routes/chat");
 const multer = require("multer");
 const socketio = require("socket.io");
 const moment = require("moment");
-
+const {getAvatars} = require('./controllers/images')
 const {
   getRoom,
   upadateMessages,
@@ -24,15 +24,14 @@ const MONGO_URI =
     ? "mongodb+srv://voldi2:findme@cluster0.gulxq.mongodb.net/findme?retryWrites=true&w=majority"
     : "mongodb://127.0.0.1:27017/findme";
 
-
 const server = http.createServer(app);
 const io = socketio(server, {
   pingInterval: 0.5,
   pingTimeout: 8000,
   cors: {
     origin: "*",
-    methods: ["GET", "POST"]
-  }
+    methods: ["GET", "POST"],
+  },
 });
 const port = process.env.PORT || 5005;
 const storage = multer.diskStorage({
@@ -58,13 +57,16 @@ const getImages = multer({ storage: storage });
 
 app.use(bodyParser.json({ limit: 50000000000 }));
 app.use(bodyParser.urlencoded({ extended: true, limit: 500000000 }));
-app.use(cors({
-  "origin": "*",
-  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-  "preflightContinue": false,
-  "optionsSuccessStatus": 204
-}));
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  })
+);
 
+app.use('/getAvatars', getAvatars)
 app.use(
   "/postprofile",
   getImages.fields([{ name: "gallaries", maxCount: 10 }])
@@ -79,6 +81,7 @@ app.use(authRoutes);
 app.use(ChatRoutes);
 app.use(express.static(path.join(__dirname, "client/build")));
 app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/avatars", express.static(path.join(__dirname, "avatars")));
 
 app.use("*", (req, resp) =>
   resp.sendFile(path.join(__dirname, "client/build", "index.html"))
@@ -121,17 +124,17 @@ io.on("connection", (socket) => {
       // const newRoom = await upadateMessages(roomId, { name, msg });
 
       // io.to(roomId).emit("recievedMsg", { name, msg });
-      console.log(name, 'name ')
+      console.log(name, "name ");
       io.to(roomId).emit("recievedMsg", {
-        _id:Date.now()*Math.random(),
+        _id: Date.now() * Math.random(),
         name,
         msg,
-        time: moment().format("L"),
+        time: moment().format('LLLL'),
       });
       upadateMessages(roomId, {
         name,
         msg,
-        time: moment().format("L"),
+        time: moment().format('LLLL'),
       });
       socket.emit("sendMessage", () => {
         //after saving send back to the client

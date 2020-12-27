@@ -17,7 +17,13 @@ import NavigationBar from "../../components/navigation_bar/navigation_bar";
 
 const HomeContentWithSpinner = withSpinner(HomeContent);
 
+
 const HomePage = ({ getProfiles, profiles, isLoading, match, toggleNav }) => {
+  
+  useEffect(() => {
+    const width = window.innerWidth
+    console.log('window width',profiles)
+  })
   return (
     <>
     <NavigationBar />

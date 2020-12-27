@@ -47,19 +47,17 @@
   &__icons {
     color: rgb(30, 100, 190);
     @media (max-width: 550px) {
-     margin: 2rem 0;
+      margin: 2rem 0;
     }
-    
+
     &__container {
       flex: 1;
 
       h4 {
         color: rgb(30, 100, 190);
         @media (max-width: 550px) {
-          display:none !important;
+          display: none !important;
         }
-
-      
       }
     }
   }
@@ -108,6 +106,7 @@
         width: 5rem;
         height: 5rem;
         border-radius: 5rem;
+        border: 2px solid rgb(37, 202, 114);
       }
       &::-webkit-scrollbar {
         width: 0.5rem;
@@ -128,6 +127,22 @@
       &::-webkit-scrollbar-thumb:hover {
         background: red;
       }
+    }
+  }
+}
+
+
+.header__menu {
+  justify-content: space-between;
+  align-items: center;
+
+  span {
+    font-size: 3rem;
+    user-select: none;
+    cursor: pointer;
+    display: none;
+    @media (max-width: 750px) {
+      display: inline-block !important;
     }
   }
 }

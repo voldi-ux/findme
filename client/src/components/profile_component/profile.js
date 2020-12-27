@@ -23,7 +23,7 @@ const ProfileComponent = ({ isLoggedin, userProfile, setSearchProfile }) => {
     <div className={`profile ${isLoggedin ? "" : "profile__disable"}`}>
       <div className="profile__content-top">
         <div className="profile__image">
-          <img src={userProfile.avatarUrl} />
+          <img src={`${userProfile.avatarUrl}`} alt='avatar url' />
         </div>
         <div
           className="d-flex flex-column .align-items-center

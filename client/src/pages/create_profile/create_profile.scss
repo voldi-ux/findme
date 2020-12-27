@@ -18,18 +18,24 @@
   }
   &__group {
     img {
-      width: 7rem;
-      height:7rem;
-      border-radius:5rem;
+      position: relative;
+      width: 8rem;
+      height: 8rem;
+      border-radius: 5rem;
       margin-right: 1rem;
+      margin-bottom: 2rem;
+      border: 2px solid rgb(37, 109, 202);
+      z-index: 1;
+
+      
     }
 
     &__buttons {
-        align-self:center;
-      button{
+      align-self: center;
+      button {
         font-size: 1.4rem;
-        padding: .5rem;
-        width: 6rem;
+        padding: 0.5rem;
+        min-width: 6rem;
         margin-right: 1rem;
       }
     }
@@ -78,4 +84,12 @@
 
   text-transform: capitalize;
   margin: 1rem;
+}
+
+.avatars__container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  img {
+    width: 100%;
+  }
 }

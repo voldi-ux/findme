@@ -20,9 +20,9 @@
   }
 
   &__input {
-    width: 30rem;
-    padding: 0.5rem 3rem;
-    border-radius: 10rem;
+    width: 40rem;
+    padding: 0.5rem 4rem 0.5rem 1rem;
+    // border-radius: 10rem;
     height:3rem;
     background-color:#fff;
     font-size: 1.5rem;
@@ -30,13 +30,14 @@
     transition: all 0.3s;
     border-bottom: 1px solid #ccc;
     @media (max-width: 750px) {
-      width: 100%;
+      // width: 100%;
       padding: 4px 3rem;
       &:focus {
         width: 100% !important;
       }
     }
     @media (max-width: 550px) {
+      display: none;
     width: 90%;
     }
 
@@ -52,6 +53,10 @@
   }
 
   &__icon {
-    margin-left: -5rem;
+    margin-left: -3rem;
+    @media (max-width: 550px) {
+      font-size: 3rem!important;
+      }
+  
   }
 }

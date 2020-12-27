@@ -1,32 +1,49 @@
-import React from 'react'
-import SignInComponent from '../../components/signIn_component/signIn_comoponent'
-import './landing_page.scss'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import SignInComponent from "../../components/signIn_component/signIn_comoponent";
+import "./landing_page.scss";
+import { Link } from "react-router-dom";
 
-const LandingPage = ({match}) => {
+const LandingPage = ({ match }) => {
+  const [urlImg, setUrl] = useState("/images/desktop.png");
+  const [width, setWidth] = useState(window.innerWidth);
 
-    if(match.path === '/') {
-        return  (<div className='landing_page__container'>
-            <img src='http://localhost:5005/images/background-image-1.png' alt='back image'/>
+  const checkWindowSize = () => {
+    const Width = window.innerWidth;
+    setWidth(Width);
+    console.log(Width);
+    if (width < 760) {
+        setUrl('/images/phone.png')
+      } else {
+          setUrl('/images/desktop.png')
+      }
+  };
 
-        <div className='landing_page__content'>
-            <div className='landing_page__content-1'> 
-             
-            </div>
-   
-            <div className='landing_page__content-2'> 
-                 <h1 className='landing_page__heading'>
-                     SIGN IN
-                 </h1>
-               <SignInComponent/>              
-            </div>
+  useEffect(() => {
+    if (width < 760) {
+        setUrl('/images/phone.png')
+      }
+    window.addEventListener("resize", checkWindowSize);
+    return () => window.removeEventListener('resize', checkWindowSize)
+  }, [width]);
+
+  if (match.path === "/") {
+    return (
+      <div className="landing_page__container">
+        <img src={urlImg} />
+
+        <div className="landing_page__content">
+          <div className="landing_page__content-1"></div>
+
+          <div className="landing_page__content-2">
+            <h1 className="landing_page__heading">SIGN IN</h1>
+            <SignInComponent />
+          </div>
         </div>
-   </div>)
-    } else if (match.path === '/verifyemail')  {
-        return <h1>
-            please very your email 
-        </h1>
-    }
-}
+      </div>
+    );
+  } else if (match.path === "/verifyemail") {
+    return <h1>please very your email</h1>;
+  }
+};
 
-export default LandingPage
+export default LandingPage;
