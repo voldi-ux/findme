@@ -87,8 +87,6 @@ app.use("*", (req, resp) =>
   resp.sendFile(path.join(__dirname, "client/build", "index.html"))
 );
 
-// io.set("transports", ["websocket"]);
-console.log(moment("12/12/2020", "MMDDYYYY").fromNow());
 
 io.on("connection", (socket) => {
   console.log("someone has joined the socket");
@@ -155,15 +153,7 @@ io.on("connection", (socket) => {
   });
 });
 
-//  io.on('connection', (socket) => {
-//     console.log('we have a new connection')
-//     socket.on('jion', ({name,room}) => {
-//      console.log(name,room)
-//     })
-//       socket.on('disconnect', () => {
-//          console.log('user has left')
-//       })
-//   })
+
 
 mongoose
   .connect(
@@ -171,8 +161,9 @@ mongoose
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify: false
     },
-    { useFindAndModify: false }
+  
   )
   .then(() => {
     server.listen(port, () => {

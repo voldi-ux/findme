@@ -26,14 +26,14 @@ const CreateProfilePage = ({ match, userId, updateProfile }) => {
 
   useEffect(() => {
     const getImages = async () => {
-      const resp = await fetch('/getAvatars')
-      const images = await resp.json()
-      console.log(images)
-      setAvatars(images)
-    }
-    getImages()
+      const resp = await fetch("/getAvatars");
+      const images = await resp.json();
+
+      setAvatars(images);
+    };
+    getImages();
     socket = io.apply(URI_STRING);
-    alert(socket.disconnected)
+
     socket.emit("user room", userId);
     socket.on("profile created", (profile) => {
       updateProfile(profile);
@@ -121,8 +121,10 @@ const CreateProfilePage = ({ match, userId, updateProfile }) => {
     // )
     //   return false;
 
-      
-      socket.emit("save profile", {...profile.UserProfile,avatarUrl:defaultImagePath});
+    socket.emit("save profile", {
+      ...profile.UserProfile,
+      avatarUrl: defaultImagePath,
+    });
   };
 
   return (
@@ -135,17 +137,15 @@ const CreateProfilePage = ({ match, userId, updateProfile }) => {
         encType="multipart/form-data"
       >
         <div className="form__group d-flex w-100">
-          <img
-          
-         
-            alt="avatar"
-            src={defaultImagePath}
-          />
+          <img alt="avatar" src={defaultImagePath} />
           <div className="form__group__buttons">
-            <button  onClick={() => setVisible(!visible)} type="button" class="btn btn-success ">
-             Pick Profile Image
+            <button
+              onClick={() => setVisible(!visible)}
+              type="button"
+              className="btn btn-success "
+            >
+              Pick Profile Image
             </button>
-            
           </div>
         </div>
         <div className="form__group d-flex w-100">
@@ -249,10 +249,15 @@ const CreateProfilePage = ({ match, userId, updateProfile }) => {
       <Drawer onClose={() => setVisible(!visible)} isVisible={visible}>
         <div className="avatars__container">
           {avatars.map((avatar) => (
-            <img onClick={() => {
-              setImagePath(`/images${avatar.path}`)
-              setVisible(!visible)
-            }} key={avatar._id} src={`/images${avatar.path}`} alt="avatar" />
+            <img
+              onClick={() => {
+                setImagePath(`/images${avatar.path}`);
+                setVisible(!visible);
+              }}
+              key={avatar._id}
+              src={`/images${avatar.path}`}
+              alt="avatar"
+            />
           ))}
         </div>
       </Drawer>

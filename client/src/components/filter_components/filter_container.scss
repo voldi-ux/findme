@@ -2,14 +2,13 @@
 @import '../../sass/mixins.scss';
 
 .filter_container {
-    width: 20rem;
+    width: 100%;
     padding: 2rem;
     flex:0 0 20%;
-    background-color: $color-white-light3;
-
-    @media (max-width:900px) {
-        display: none;
-    }
+    background-color: #fff;
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+     border-radius: 5px;
+    
 }
 
 .filter_group {

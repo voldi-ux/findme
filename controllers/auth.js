@@ -4,9 +4,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const Profile = require("../models/profile");
-const {users} = require('../testData')
-const Avatar = require('../models/avatar')
-const {paths} = require('../avatarPaths')
+const { users } = require("../testData");
+const Avatar = require("../models/avatar");
+const { paths } = require("../avatarPaths");
 
 const api_key =
   "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";
@@ -17,7 +17,6 @@ sendGrid.setApiKey(api_key);
 exports.postSigningUp = async (req, resp, next) => {
   // return crypto.randomBytes(42, (err, buffer) => {
   //   const token = buffer.toString("hex");
-
   //   const { name, email } = req.body;
   //   try {
   //     sendGrid
@@ -48,35 +47,33 @@ exports.postSignin = async (req, resp, next) => {
   try {
     const user = await User.findOne({
       email: email,
-    })
+    });
 
     if (!user) {
       //    logic for email not found
       throw new Error(" a user a with that email does not exists");
     }
-  
+
     const match = await bcrypt.compare(password, user.password);
 
     if (!match) throw Error("passwords do not match");
     const token = jwt.sign(
       {
         userId: user._id.toString(),
-    
       },
       "voldi",
-      { }
+      {}
     );
 
-    
     return resp.status(201).json({
       type: "success",
       user: {
-        _id:user._id,
-        chatroomIds:user.chatroomIds,
-        userName:user.userName,
-        avatarUrl:user.avatarUrl,
-        hasProfile:user.hasProfile,
-        profile:user.profile
+        _id: user._id,
+        chatroomIds: user.chatroomIds,
+        userName: user.userName,
+        avatarUrl: user.avatarUrl,
+        hasProfile: user.hasProfile,
+        profile: user.profile,
       },
       token: token,
       message: "logged in successful",
@@ -90,32 +87,55 @@ exports.postSignin = async (req, resp, next) => {
 };
 
 //get the user passwords
-exports.postCredentials = async (req, resp, next) => {
+exports.signUp = async (req, resp, next) => {
   // const hidden = req.query;
   try {
-    const { password, confirmPassword, name ,email} = req.body;
+    const { password, confirmPassword, name, email } = req.body;
 
-   const existingUser = await User.find({email: email})
+    const existingUser = await User.findOne({ email: email });
+    console.log(existingUser);
+    if (existingUser) {
+      throw new Error(" a user with that email already exists");
+    }
 
-   if(existingUser) {
-       throw new Error(' a user with that email already exists')
-   }
-    
+    if (password !== confirmPassword) {
+      throw new Error("passwords do not match");
+    }
+
     const hashedPassword = await bcrypt.hash(password, 12);
     const user = await new User({
       userName: name,
       email: email,
       hasProfile: false,
-      avatarUrl:
-        "https://dmrmechanical.com/wp-content/uploads/2018/01/avatar-1577909_640.png",
       password: hashedPassword,
-    });
+    }).save();
 
-     await user.save();
-    
-    
-    return resp.redirect("/signin");
+    const token = jwt.sign(
+      {
+        userId: user._id.toString(),
+      },
+      "voldi",
+      {}
+    );
+
+    return resp.status(201).json({
+      type: "success",
+      user: {
+        _id: user._id,
+        chatroomIds: user.chatroomIds,
+        userName: user.userName,
+        avatarUrl: user.avatarUrl,
+        hasProfile: user.hasProfile,
+        profile: user.profile,
+      },
+      token: token,
+      message: "logged in successful",
+    });
   } catch (error) {
     console.log(error.message);
+    return resp.status(400).json({
+      type: "error",
+      message: error.message,
+    });
   }
 };

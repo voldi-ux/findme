@@ -11,13 +11,14 @@ const getRoom = (id) => {
 }
 
 const upadateMessages =async (roomId, msg) => {
+  console.log(roomId,msg)
+
   const room = await Chatroom.findOneAndUpdate({_id:roomId}, {
     $push: {
         'messages': msg
     }
   })
   
-  console.log(room)
 } 
 
 const createRoom = async(arrOfid) => {

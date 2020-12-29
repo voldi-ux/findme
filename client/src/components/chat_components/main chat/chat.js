@@ -15,7 +15,7 @@ import {
 import { toggleSideNav } from "../../../redux/controls/actions";
 const URI_STRING =
   process.env.NODE_ENV === "production"
-    ? "http://localhost:5005/"
+    ? "/"
     : "http://localhost:5005/";
 let socket;
 
@@ -34,7 +34,7 @@ const Chat = ({
   }, [msg, messages]);
 
   useEffect(() => {
-    socket = io("http://localhost:5005/");
+    socket = io.apply(URI_STRING);
     if (room && profile) {
       socket.emit("join", { roomId: room._id });
       socket.on("recievedMsg", (msg) => {
@@ -56,7 +56,7 @@ const Chat = ({
         <h1>
           Hey {currentUser.profile.name} click on a chat to start chatting😍
         </h1>
-        ;<span onClick={toggleSide}>Open chats</span>
+        <span onClick={toggleSide}>Open chats</span>
       </div>
     );
   }
@@ -74,12 +74,14 @@ const Chat = ({
     );
   }
   const handleSubmit = () => {
+    alert('msg sent')
     if (!msg) return;
     socket.emit("message", {
       roomId: room._id,
       name: currentUser.userName,
       msg,
     });
+    setMsg('')
   };
   const handleChange = (e) => setMsg(e.target.value);
 

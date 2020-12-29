@@ -157,13 +157,17 @@
 
 
 .noProfileContainer {
+ text-align: center;
   display:flex;
   flex-direction: column;
   justify-content: center;
   align-items:center;
   height: 100%;
   width: 100%;
-  color: #1e64be;
+  padding: 1rem;
+  color: #fff;
+  background: rgb(59,59,185);
+  background: linear-gradient(250deg, rgba(59,59,185,1) 0%, rgba(37,90,173,1) 30%, rgba(0,212,255,1) 100%);
   
   img {
     width: 15rem;
@@ -174,8 +178,8 @@
   }
 
   span {
-    font-size: 1.5rem;
-    padding: .5rem 1rem;
+    font-size: 2rem;
+    padding: 1rem 1rem;
     border: 1px solid #1e64be;
     user-select: none;
     cursor:pointer;

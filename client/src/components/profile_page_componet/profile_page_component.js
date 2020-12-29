@@ -136,7 +136,9 @@ const ProfilePageComponent = ({
               </div>
             </div>
           </IconContext.Provider>
-
+{
+  console.log( userProfile)
+}
           {ProfileId=== userProfile._id ? (
             <Button outline={true} value="edit profile" />
           ) : null}
@@ -148,7 +150,7 @@ const ProfilePageComponent = ({
           <p>{userProfile.bio}</p>
         </div>
         <h1 className="profile_page__bio__heading">
-          My skills and specialities
+          My skills/specialities and Hobbies
         </h1>
         <div>
           <div className="profile_page__content-right">
@@ -192,32 +194,13 @@ const ProfilePageComponent = ({
           <Button outline={true} value="Edit" />
         ) : null}
       </div>
-      {ProfileId === userProfile._id ? null : (
-        <p className="profile_page__infor">
-          is this the person you are looking for ?{" "}
-          <Button
-            className="profile_page__btn"
-            onClick={() =>
-              history.push(`/chatroom/singlechat/${userProfile._id}`)
-            }
-          >
-            leave a message
-          </Button>{" "}
-          or{" "}
-          <Button outline
-            className="profile_page__btn"
-            onClick={() => history.push("/home")}
-          >
-            keep searching
-          </Button>
-        </p>
-      )}
+     
     </div>
   );
 };
 const mapStateToProps = (state) => ({
   isLoggedin: state.user.loggedIn,
-  ProfileId: state.user.CurrentUser.profileId
+  ProfileId: state.user.CurrentUser._id
 });
 
 const mapDispatchToprops = (dispatch) => ({

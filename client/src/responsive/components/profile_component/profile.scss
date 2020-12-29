@@ -14,9 +14,10 @@
 
   @media (max-width: 750px) {
     display: block;
-    right: -100%;
+     transform: translate(100%);
     &.slide-right {
-      right: 0;
+      transform: translate(0);
+
     }
   }
 }

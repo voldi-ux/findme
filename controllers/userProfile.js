@@ -25,11 +25,11 @@ exports.getProfiles = async (req, resp, next) => {
   const { pageItems, pageNum } = await req.params;
   // const res = await Profile.updateMany({}, {email:'randomemail@gmail.com',
   // phone:094745723})
-  
+  console.log(pageItems)
   try {
-    const profiles = await User.find()
-      .skip(+pageItems * +pageNum - 4)
-      .populate("profileId")
+    const profiles = await User.find({hasProfile:true})
+      .skip(+pageItems)
+      .populate("profileId").limit(4)
       .exec();
     resp.json({
       profiles: profiles,

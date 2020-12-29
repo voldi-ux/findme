@@ -13,7 +13,7 @@ const getSpinnerSize = props =>  {
 
 export const SpinnerWrapper = style.div`
 text-align:center
-width: 100%;
+width: 100% !important;
 display: flex;
 justify-content: center;
 align-items: center;

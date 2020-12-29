@@ -1,6 +1,6 @@
-@import "../../colors.scss"; 
+@import "../../colors.scss";
 // =================================================
-// 
+//
 // 134889e8
 // 134889ca
 // 18549ce8
@@ -9,76 +9,75 @@
 // 105cb9e8
 //146cd8e8
 //=========================================
-.df P{
-    color:#0855b3e8
+.df P {
+  color: #0855b3e8;
 }
 .navigation_bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height:6rem;
-    padding: 1.5rem 3.5rem ;
-    background: #FFF;
-    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 6rem;
+  padding: 1.5rem 3.5rem;
+  background: #fff;
+  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.1);
+  &__bar {
+    display: none;
+    user-select: none;
+    cursor: pointer;
+    font-size: 3rem;
+    @media (max-width: 750px) {
+      display: inline-block;
+    }
+  }
+  @media (max-width: 750px) {
+    padding: 10px 10px;
+  }
+  z-index: 99999;
+  &__logo_container {
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: 700;
 
+    img {
+      width: 100px;
+    }
+    @media (max-width: 750px) {
+      font-size: 1.5rem;
+    }
+  }
 
-    &__bar {
+  &__logo {
+    color: rgb(22, 22, 21);
+    span {
+      font-family: Italianno;
+
+      color: $color-white-light;
+    }
+
+    &:not(.bar) {
+      @media (max-width: 750px) {
         display: none;
-        user-select: none;
-        cursor: pointer;
-        font-size: 3rem;
-        @media (max-width: 750px) {
-            display: inline-block;
-        }
-    }
-    @media (max-width:750px) {
-       padding: 10px 10px;
       }
-    z-index: 99999;
-    &__logo_container {
-        font-size:2rem;
-        text-transform: uppercase;
-        font-weight: 700;
-
-         img {
-             width:100px;
-             
-         }
-        @media (max-width:750px) {
-            font-size: 1.5rem;
-          }
     }
+  }
 
-    &__logo {
-        color: rgb(22, 22, 21);
-        span {
-            font-family: Italianno;
+  &__search_bar {
+    font-size: 2.5rem;
+    color: $color-white-light;
+  }
+  &__icons {
+    font-size: 2.5rem;
+    color: $color-white-light;
+  }
 
-            color: $color-white-light;
-        }
-        
-          &:not(.bar) {
-            @media (max-width:750px) {
-                display: none;
-                
-               } 
-          }
+  @media (max-width: 550px) {
+    .notification__container {
+      display: none;
     }
+  }
+}
 
-    &__search_bar {
-        font-size: 2.5rem;
-        color: $color-white-light;
-    }
-    &__icons {
-        font-size: 2.5rem;
-        color: $color-white-light;
-    }
 
-    
-    @media (max-width: 550px) {
-        .notification__container {
-            display: none;
-        }
-        }
-    
+.hide {
+    display: none;
 }

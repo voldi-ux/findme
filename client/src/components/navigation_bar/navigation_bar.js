@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import './navigation_bar.scss'
 
 import SeacrhBar from '../search_bar/search_bar'
@@ -6,10 +6,11 @@ import NotificationContainer from '../notification_icons/notification_icons'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { toggleProfileComponent } from '../../redux/controls/actions'
-const NavigationBar = ({toggleProfileComponent})=> {
+import SearchBox from '../searchBox/searchBox'
+const NavigationBar = ({toggleProfileComponent , search})=> {
 
     return <nav className='navigation_bar'>
-           <span className='navigation_bar__logo_container'>
+           <span className={`${search ? 'hide':null} navigation_bar__logo_container`}>
               <Link to='/' className='navigation_bar__logo' >
                 <img  src={require
                ('../../assets/images/logo.png')}/>
@@ -21,7 +22,7 @@ const NavigationBar = ({toggleProfileComponent})=> {
         
               <SeacrhBar className='navigation_bar__search_bar' />
            
-           <NotificationContainer className='navigation_bar__icons' />
+           <NotificationContainer className={`${search ? 'hide': null}navigation_bar__icons`} />
                
           
     </nav>

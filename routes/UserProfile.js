@@ -6,7 +6,7 @@ const {  getUserProfile,getProfiles,postProfile,getfilteredProfiles, updateProfi
 
 router.get('/getuserprofile/:userId',getUserProfile)
 //get routes
-router.get('/getProfiles/:pageItems/:pageNum',getProfiles)
+router.get('/getProfiles/:pageItems',getProfiles)
 
 
 router.post('/getfilteredProfiles',getfilteredProfiles)

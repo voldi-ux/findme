@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const {postSignin,postSigningUp,getCredentials,postCredentials} = require('../controllers/auth')
+const {postSignin,postSigningUp,getCredentials,postCredentials,signUp} = require('../controllers/auth')
 
 //post routes
 router.post('/signingup',postSigningUp)
-router.post('/credentials',postCredentials )
+router.post('/signUp',signUp )
 router.put('/signin',postSignin)
 router.get('/getprofile')
 //get routes

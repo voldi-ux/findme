@@ -16,7 +16,7 @@ import { fetchingChats } from "./redux/chat/chat_actions";
 
 function App({ isloggedin, getProfiles, pageNunber, hasProfile, getCurrentUserChats, userId}) {
   useEffect(() => {
-    getProfiles(pageNunber);
+    getProfiles(0);
   }, [getProfiles, pageNunber]);
     
   useEffect(() => {
