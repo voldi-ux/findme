@@ -14,9 +14,7 @@ import {
 } from "../../../redux/chat/chat_actions";
 import { toggleSideNav } from "../../../redux/controls/actions";
 const URI_STRING =
-  process.env.NODE_ENV === "production"
-    ? "/"
-    : "http://localhost:5005/";
+  process.env.NODE_ENV === "production" ? "/" : "http://localhost:5005/";
 let socket;
 
 const Chat = ({
@@ -74,14 +72,14 @@ const Chat = ({
     );
   }
   const handleSubmit = () => {
-    alert('msg sent')
+    alert("msg sent");
     if (!msg) return;
     socket.emit("message", {
       roomId: room._id,
       name: currentUser.userName,
       msg,
     });
-    setMsg('')
+    setMsg("");
   };
   const handleChange = (e) => setMsg(e.target.value);
 
@@ -130,8 +128,9 @@ const Chat = ({
     <div className="main-chat d-flex flex-column">
       <header className="main-chat__header d-flex align-items-center">
         <IconContext.Provider value={{ size: "2rem" }}>
-        <span  className='arrow-left' onClick={toggleSide}>&larr;</span>
-
+          <span className="arrow-left" onClick={toggleSide}>
+            &larr;
+          </span>
         </IconContext.Provider>
         <img alt="..ddd" src={profile.profile.avatarUrl} />
         <div>

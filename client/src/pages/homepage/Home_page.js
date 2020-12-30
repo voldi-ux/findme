@@ -17,30 +17,35 @@ import NavigationBar from "../../components/navigation_bar/navigation_bar";
 
 const HomeContentWithSpinner = withSpinner(HomeContent);
 
-
-const HomePage = ({ getProfiles, profiles, isLoading, match, toggleNav,location }) => {
-  
+const HomePage = ({
+  getProfiles,
+  profiles,
+  isLoading,
+  match,
+  toggleNav,
+  location,
+}) => {
   useEffect(() => {
-    const width = window.innerWidth
-    console.log('window width',profiles)
-  })
+    const width = window.innerWidth;
+    console.log("window width", profiles);
+  });
 
-  const isSearching= location.search ? true: false
+  const isSearching = location.search ? true : false;
   return (
     <>
-    <NavigationBar />
-    <div className="home_page">
-      <div className='filter'>
-      <FilterComponent />
+      <NavigationBar />
+      <div className="home_page">
+        <div className="filter">
+          <FilterComponent />
+        </div>
+        <HomeContentWithSpinner
+          height="50rem"
+          profiles={profiles}
+          isLoading={isLoading}
+        />
+        <ProfileComponent />
+        <RespProfile />
       </div>
-      <HomeContentWithSpinner
-        height="50rem"
-        profiles={profiles}
-        isLoading={isLoading}
-      />
-      <ProfileComponent />
-      <RespProfile />
-    </div>
     </>
   );
 };

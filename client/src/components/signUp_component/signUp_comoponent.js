@@ -33,7 +33,7 @@ const SignUpComponent = ({ match, location, history, logInSucceed }) => {
       });
       const data = await resp.json();
       if (data.type === "success") {
-        console.log(data)
+        console.log(data);
         logInSucceed(data);
       }
       console.log(data.message);

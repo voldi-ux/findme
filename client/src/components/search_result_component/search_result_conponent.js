@@ -24,12 +24,11 @@ const SearchResult = ({ profiles, search, profilesCount, fecthProfiles }) => {
         const profiles = await (
           await fetch(`/getProfiles/${profilesCount}`)
         ).json();
- console.log(profilesCount)
+        console.log(profilesCount);
         fecthProfiles(profiles);
-        if (profiles.length >=1) {
+        if (profiles.length >= 1) {
         }
         setLoading(false);
-
       } catch (error) {
         alert("oops could not load more data");
       }

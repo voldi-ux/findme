@@ -32,6 +32,9 @@
   @media (max-width: 750px) {
     padding: 10px 10px;
   }
+  @media (max-width: 550px) {
+ justify-content: normal;
+  }
   z-index: 99999;
   &__logo_container {
     font-size: 2rem;

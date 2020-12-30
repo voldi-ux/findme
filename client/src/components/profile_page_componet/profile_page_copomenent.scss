@@ -8,6 +8,10 @@
 
       padding: 2rem;
       border-radius: 5px;
+      @media (max-width: 600px) {
+        flex-direction: column;
+        align-items: center;
+         }
     }
     &-bottom {
       background-color: $color-white-light3;
@@ -71,6 +75,9 @@
     flex: 0 0 50%;
     padding: 2rem;
     // padding-left: 4rem;
+    @media (max-width: 600px) {
+      padding: 0;
+     }
     img {
       display: block;
       width: 15rem;
@@ -95,6 +102,9 @@
     font-weight: 600;
     text-transform: capitalize;
     margin: 3rem 0;
+    @media (max-width: 600px) {
+     text-align: center;
+    }
   }
 
   &__detail span {
@@ -147,6 +157,9 @@
     padding: 2rem;
     //  padding-right: 4rem;
     flex: 0 0 50%;
+    @media (max-width: 600px) {
+      padding: 0;
+     }
     &__container {
       padding: 2rem;
       display: grid;

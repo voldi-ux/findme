@@ -39,20 +39,25 @@ exports.getProfiles = async (req, resp, next) => {
   }
 };
 
-//constructor function
+exports.Search = async(req,resp,next) => {
+  // $regex: "s", $options: "i" 
+  try {
+    const {searchString} = req.params
+   const usersFound =await User.find({$or:[{
+     'profile.name':{$regex: searchString, $options: "i" }
+   },{
+    'profile.surnname':{$regex: searchString, $options: "i" }
+  },{
+    'profile.title':{$regex: searchString, $options: "i" }
+  },{
+    'profile.bio':{$regex: searchString, $options: "i" }
+  }]})
 
-// function FilterObj(name, country, town, gender, name, surname) {
-//   name ? (this.name = name) : null;
-//   country ? (this.country = country) : null;
-//   town ? (this.town = town) : null;
-//   gender ? (this.gender = gender) : null;
-//   name ? (this.name = name) : null;
-//   surname ? (this.surname = surname) : null;
-// }
-
-// function isEmpty(obj) {
-//   return Object.keys(obj).length === 0;
-// }
+ return resp.send(usersFound)
+  } catch (error) {
+    console.log(error.message)
+  }
+}
 
 exports.getfilteredProfiles = async (req, resp, next) => {
   const { name, country, town, gender, surname } = req.body;

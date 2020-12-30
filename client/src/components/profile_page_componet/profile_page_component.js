@@ -6,7 +6,7 @@ import {
   FaPhone,
   FaMailBulk,
   FaImage,
-  FaStar
+  FaStar,
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { useHistory } from "react-router-dom";
@@ -47,7 +47,7 @@ const ProfilePageComponent = ({
     if (imageSelected) {
       updateProfile({
         profileUrl: imageSelected,
-        ProfileId:ProfileId,
+        ProfileId: ProfileId,
       });
     }
   };
@@ -62,32 +62,13 @@ const ProfilePageComponent = ({
           <div className="profile_page__content-top d-flex mb-4">
             {/* <Button value="Home" className='align-self-center4' onClick={() => history.push("/home")} /> */}
             <div className="mx-4">
-              <div className="position-relative">
-                <img src={userProfile.avatarUrl} />
-  
-              </div>
-              <form
-                onSubmit={onSubmit}
-                method="post"
-                encType="multipart/form-data"
-              >
-                <input
-                  ref={fileInput}
-                  accept="image/*"
-                  name="profile-image"
-                  type="file"
-                  style={{ display: "none" }}
-                  onChange={handleChange}
-                />
-                <input type="hidden" value={ProfileId} name="ProfileId" />
-                {imageSelected ? <button>Save</button> : null}
-              </form>
+              <img src={userProfile.avatarUrl} />
             </div>
             <div className="profile_page__name align-self-cente ml-4 bt-3">
               <h1 className="mb-2">
                 {userProfile.name} {userProfile.surname}
               </h1>
-                  <h3>{userProfile.title}</h3>
+              <h3>{userProfile.title}</h3>
             </div>
           </div>
 
@@ -105,9 +86,7 @@ const ProfilePageComponent = ({
 
               <div className="profile_page__detail">
                 <span>
-                  <h4>
-                    Province
-                  </h4>
+                  <h4>Province</h4>
                   <span>{userProfile.province}</span>
                 </span>
                 <FaMapMarkedAlt />
@@ -136,10 +115,8 @@ const ProfilePageComponent = ({
               </div>
             </div>
           </IconContext.Provider>
-{
-  console.log( userProfile)
-}
-          {ProfileId=== userProfile._id ? (
+          {console.log(userProfile)}
+          {ProfileId === userProfile._id ? (
             <Button outline={true} value="edit profile" />
           ) : null}
         </div>
@@ -154,39 +131,40 @@ const ProfilePageComponent = ({
         </h1>
         <div>
           <div className="profile_page__content-right">
-          <IconContext.Provider
-            value={{ size: "2rem", className: "profile_page__right__icons" }} >
-            <div className="profile_page__right__detail d-flex justify-content-between ">
-              <span>
-                <h4>rugby player</h4>
-              </span>
-              <FaStar/>
-            </div>
+            <IconContext.Provider
+              value={{ size: "2rem", className: "profile_page__right__icons" }}
+            >
+              <div className="profile_page__right__detail d-flex justify-content-between ">
+                <span>
+                  <h4>rugby player</h4>
+                </span>
+                <FaStar />
+              </div>
 
-            <div className="profile_page__right__detail d-flex justify-content-between">
-              <span>
-                <h4>engineer</h4>
-              </span>
-              <FaStar />
-            </div>
-            <div className="profile_page__right__detail d-flex justify-content-between ">
-              <span>
-                <h4>singer</h4>
-              </span>
-              <FaStar />
-            </div>
-            <div className="profile_page__right__detail d-flex justify-content-between ">
-              <span>
-                <h4>Gamer</h4>
-              </span>
-              <FaStar />
-            </div>
-            <div className="profile_page__right__detail d-flex justify-content-between ">
-              <span>
-                <h4>footballer</h4>
-              </span>
-              <FaStar />
-            </div>
+              <div className="profile_page__right__detail d-flex justify-content-between">
+                <span>
+                  <h4>engineer</h4>
+                </span>
+                <FaStar />
+              </div>
+              <div className="profile_page__right__detail d-flex justify-content-between ">
+                <span>
+                  <h4>singer</h4>
+                </span>
+                <FaStar />
+              </div>
+              <div className="profile_page__right__detail d-flex justify-content-between ">
+                <span>
+                  <h4>Gamer</h4>
+                </span>
+                <FaStar />
+              </div>
+              <div className="profile_page__right__detail d-flex justify-content-between ">
+                <span>
+                  <h4>footballer</h4>
+                </span>
+                <FaStar />
+              </div>
             </IconContext.Provider>
           </div>
         </div>
@@ -194,13 +172,12 @@ const ProfilePageComponent = ({
           <Button outline={true} value="Edit" />
         ) : null}
       </div>
-     
     </div>
   );
 };
 const mapStateToProps = (state) => ({
   isLoggedin: state.user.loggedIn,
-  ProfileId: state.user.CurrentUser._id
+  ProfileId: state.user.CurrentUser._id,
 });
 
 const mapDispatchToprops = (dispatch) => ({

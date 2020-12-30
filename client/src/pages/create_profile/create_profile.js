@@ -13,7 +13,7 @@ import Drawer from "react-bottom-drawer";
 
 const URI_STRING =
   process.env.NODE_ENV === "production"
-    ? "http://localhost:5005/"
+    ? "/"
     : "http://localhost:5005/";
 let socket;
 

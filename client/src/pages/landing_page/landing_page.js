@@ -12,18 +12,18 @@ const LandingPage = ({ match }) => {
     setWidth(Width);
     console.log(Width);
     if (width < 760) {
-        setUrl('/images/phone.png')
-      } else {
-          setUrl('/images/desktop.png')
-      }
+      setUrl("/images/phone.png");
+    } else {
+      setUrl("/images/desktop.png");
+    }
   };
 
   useEffect(() => {
     if (width < 760) {
-        setUrl('/images/phone.png')
-      }
+      setUrl("/images/phone.png");
+    }
     window.addEventListener("resize", checkWindowSize);
-    return () => window.removeEventListener('resize', checkWindowSize)
+    return () => window.removeEventListener("resize", checkWindowSize);
   }, [width]);
 
   if (match.path === "/") {

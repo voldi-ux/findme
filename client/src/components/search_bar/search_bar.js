@@ -1,4 +1,10 @@
-import React, { useState } from "react";
+import React, {
+  useState,
+  useContext,
+  useEffect,
+  useRef,
+  usefocus,
+} from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { ImSearch } from "react-icons/im";
@@ -6,56 +12,86 @@ import { IconContext } from "react-icons";
 import "./search_bar.scss";
 import { onFechingFilterProfiles } from "../../redux/app_data_reducer/data_actions";
 import SearchBox from "../searchBox/searchBox";
+import { FilterProfileContext } from "../../context/filter_Data_context/filter.data";
+const URI_STRING =
+  process.env.NODE_ENV === "production" ? "/" : "http://localhost:5005/";
 
 const SeacrhBar = ({ onSearch }) => {
-  const [profiles, setProfiles] = useState([]);
-  const [searchTerm, setTerm] = useState("");
-  const [visible, setVisible] = useState(false);
+  const { setVisible, setProfiles, profiles, visible } = useContext(
+    FilterProfileContext
+  );
+  const [width, setWidth] = useState(window.innerWidth);
+  const [searchTerm, setTerm] = useState('');
 
-  const history = useHistory();
-  const [formInput, setFormInput] = useState({
-    searchQuery: "",
-  });
+  const checkWindowSize = () => {
+    const Width = window.innerWidth;
+    setWidth(Width);
+  };
   const onSubmit = (e) => {
     e.preventDefault();
-    if (formInput === "") return false;
-    history.push("/home");
-    const name = formInput.searchQuery.split(" ")[0];
-    const surname = formInput.searchQuery.split(" ")[1];
-    onSearch({
-      name,
-      surname,
-    });
   };
+
+  const onFocus = () => {};
+  const fetchProfiles = async (str) => {
+    const data = await (
+      await fetch(`${URI_STRING}search/${str}`)
+    ).json();
+    console.log(data);
+    setProfiles(data);
+  };
+  const onblur = () => {
+    setVisible(false);
+  };
+
   const handleChange = (e) => {
-    const { value, name } = e.target;
-    setFormInput({ ...formInput, searchQuery: value });
+    setTerm(e.target.value);
+    
   };
+
+  useEffect(() => {
+    if (width < 550) {
+      setVisible(false);
+    }
+    window.addEventListener("resize", checkWindowSize);
+    return () => window.removeEventListener("resize", checkWindowSize);
+  }, []);
+
+  useEffect(() => {
+    if (searchTerm.length){
+      fetchProfiles(searchTerm)
+    }else{
+      setProfiles([])
+    };
+  }, [searchTerm]);
+
+  const showSearchBar = () => {
+    if (width < 550) {
+      if (visible === false) {
+        setVisible(true);
+      }
+    }
+  };
+
   return (
     <div className="search_bar__container">
       <form onSubmit={onSubmit}>
         <input
+          onFocus={onFocus}
+          onBlur={onblur}
           type="text"
           onChange={handleChange}
+          value={searchTerm}
           name="searchQuery"
-          className="search_bar__input"
+          className={`search_bar__input ${visible ? "show" : null}`}
           placeholder="seacrh..."
         />
       </form>
-      {visible || searchTerm && 'width >  550' ? <input
-          type="text"
-          onChange={handleChange}
-          name="searchQuery"
-          className="search_bar__input"
-          placeholder="seacrh..."
-        />: null}
 
       <IconContext.Provider
         value={{ size: "2rem", className: "search_bar__icon" }}
       >
-        <ImSearch />
+        <ImSearch onClick={showSearchBar} />
       </IconContext.Provider>
-      {(profiles.length && <SearchBox profiles={"profiles"} />) || null}
     </div>
   );
 };

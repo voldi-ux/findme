@@ -17,7 +17,10 @@ const ResultBox = ({
   rooms,
   createRoom,
   userId,
+  Profile
 }) => {
+  let userProfile = profile || Profile
+   
   const history = useHistory();
   return (
     <div className="result__box">

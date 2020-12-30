@@ -1,12 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const {  getUserProfile,getProfiles,postProfile,getfilteredProfiles, updateProfile,getProfilesMobile } = require('../controllers/userProfile')
+const {  getUserProfile,getProfiles,postProfile,getfilteredProfiles, updateProfile,getProfilesMobile,Search } = require('../controllers/userProfile')
 
 //post routes
 
 router.get('/getuserprofile/:userId',getUserProfile)
 //get routes
 router.get('/getProfiles/:pageItems',getProfiles)
+router.get('/search/:searchString',Search)
 
 
 router.post('/getfilteredProfiles',getfilteredProfiles)

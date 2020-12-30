@@ -1,12 +1,32 @@
 .searchBox {
-    position: absolute;
-    top: 6rem;
-    max-width: 50rem;
-    width: 100%;
-    margin: 0 auto;
-    max-height: 80%;
-    z-index: 999999999;
-    left: 50%;
-    transform: translateX(-55%);
-    background: #fff;
+  position: absolute;
+  top: 6rem;
+  max-width: 60rem;
+  width: 100%;
+  margin: 0 auto;
+  max-height: 90%;
+  z-index: 999999999;
+  left: 50%;
+  transform: translateX(-55%);
+  background: rgb(101, 138, 219);
+  opacity: 0;
+  transition: 0.4s all;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  @media (max-width: 560px) {
+    left: 0;
+    right: 0;
+    transform: translate(0);
+  }
+  &.fadeIn {
+    opacity: 1;
+  }
+
+  &.fadeOut {
+    opacity: 0;
+  }
 }

@@ -1,82 +1,54 @@
 import React, { createContext, useReducer } from "react";
 
 const init = {
-  name: "",
-  country: "",
-  town: "",
-  gender: "",
+  visible: true,
+  profiles: [],
 };
 
 const types = {
-  CLEAR_STATE: "CLEAR_STATE",
-  SET_STATE: " SET_STATE",
-  INCREMENT_PAGE_NO: "INCREMENT_PAGE_NO",
-  DECREMENT_PAGE_NO: "DECREMENT_PAGE_NO",
+  SET_VISIBLE: "SET_VISIBLE",
+  SET_PROFILES: " SET_PROFILES",
 };
-// export const increntPageNum = (state) => {
-//     if(state.data.length) {
-//         return {
-//             ...state,
-//             page: state.page + 1
-//         }
-//     }
-//     return state
-// }
-// export const decrentPageNum = (state) => {
-
-//         return {
-//             ...state,
-//             page: state.page - 1
-
-//     }
-// }
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case types.SET_STATE:
+    case types.SET_PROFILES:
       return {
         ...state,
-        ...action.payload,
+        profiles:action.payload,
       };
-    case types.CLEAR_STATE:
+    case types.SET_VISIBLE:
       return {
         ...state,
-        name: "",
-        country: 'select country',
-        town: 'select town',
-        gender: "",
+        visible:!state.visible,
       };
     default:
       return state;
   }
 };
+
 export const FilterProfileContext = createContext();
 
-const FiltercontextProvider = (props) => {
+const FilterProfileContextProvider = (props) => {
   const [state, dispatch] = useReducer(reducer, init);
 
-  const clearState = () =>
+  const setVisible = () =>
     dispatch({
-      type: types.CLEAR_STATE,
+      type: types.SET_VISIBLE,
     });
 
-  const setState = (data) =>
+  const setProfiles = (data) =>
     dispatch({
-      type: types.SET_STATE,
+      type: types.SET_PROFILES,
       payload: data,
     });
 
   return (
     <FilterProfileContext.Provider
       value={{
-        filterData: {
-          name: state.name,
-          country: state.country,
-          town: state.town,
-          gender: state.gender,
-        },
-        setState,
-        clearState,
+        setProfiles,setVisible,
+      ...state
+
       }}
     >
       {props.children}
@@ -84,4 +56,4 @@ const FiltercontextProvider = (props) => {
   );
 };
 
-export default FiltercontextProvider;
+export default FilterProfileContextProvider;
