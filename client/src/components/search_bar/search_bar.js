@@ -21,7 +21,7 @@ const SeacrhBar = ({ onSearch }) => {
     FilterProfileContext
   );
   const [width, setWidth] = useState(window.innerWidth);
-  const [searchTerm, setTerm] = useState('');
+  const [searchTerm, setTerm] = useState("");
 
   const checkWindowSize = () => {
     const Width = window.innerWidth;
@@ -33,11 +33,13 @@ const SeacrhBar = ({ onSearch }) => {
 
   const onFocus = () => {};
   const fetchProfiles = async (str) => {
-    const data = await (
-      await fetch(`${URI_STRING}search/${str}`)
-    ).json();
-    console.log(data);
-    setProfiles(data);
+    try {
+      const data = await (await fetch(`${URI_STRING}search/${str}`)).json();
+      console.log(data);
+      setProfiles(data);
+    } catch (error) {
+      alert(error.message);
+    }
   };
   const onblur = () => {
     setVisible(false);
@@ -45,23 +47,22 @@ const SeacrhBar = ({ onSearch }) => {
 
   const handleChange = (e) => {
     setTerm(e.target.value);
-    
   };
 
   useEffect(() => {
-    if (width < 550) {
-      setVisible(false);
+    if (width < 550 && visible) {
+      setVisible(true);
     }
     window.addEventListener("resize", checkWindowSize);
     return () => window.removeEventListener("resize", checkWindowSize);
   }, []);
 
   useEffect(() => {
-    if (searchTerm.length){
-      fetchProfiles(searchTerm)
-    }else{
-      setProfiles([])
-    };
+    if (searchTerm.length) {
+      fetchProfiles(searchTerm);
+    } else {
+      setProfiles([]);
+    }
   }, [searchTerm]);
 
   const showSearchBar = () => {
@@ -74,16 +75,17 @@ const SeacrhBar = ({ onSearch }) => {
 
   return (
     <div className="search_bar__container">
-      <form onSubmit={onSubmit}>
+      <form autoComplete="off" onSubmit={onSubmit}>
         <input
+          autoComplete="off"
           onFocus={onFocus}
           onBlur={onblur}
           type="text"
           onChange={handleChange}
           value={searchTerm}
-          name="searchQuery"
+          name="searchquery"
           className={`search_bar__input ${visible ? "show" : null}`}
-          placeholder="seacrh..."
+          placeholder="Enter name or title/occupation..."
         />
       </form>
 

@@ -22,7 +22,7 @@ const NotificationContainer = ({
     <div className="notification__container">
       <span className="notification__icons" onClick={logout}>
         <IconContext.Provider
-          value={{ className: "notification__icon", size: "2rem" }}
+          value={{ className: "notification__icon", size: "2.5rem" }}
         >
           <span
             className=" notification__icon__container"

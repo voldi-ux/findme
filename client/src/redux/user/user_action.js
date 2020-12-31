@@ -14,7 +14,7 @@ export const loginFail = (msg) => ({
     payload:msg
 })
 
-export const loginSucceced = (data) => ({
+export const loginSucceed = (data) => ({
     type: userTypes.LOG_IN_SUCCECEDED,
     payload:data
 })
@@ -86,7 +86,7 @@ export const loggingInUser = (userInput) =>{
         })
       const data = await resp.json()
           if(data.type === 'success') {
-            dispatch(loginSucceced(data))
+            dispatch(loginSucceed(data))
           } else if(data.type === 'error') {
             dispatch(loginFail(data.message))
           }

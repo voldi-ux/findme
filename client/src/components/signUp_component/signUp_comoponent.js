@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./signUp_comoponent.scss";
 import TextInputComponent from "../form_inputs_components/text";
 import Button from "../buttons/button";
 import { Link, withRouter, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { loginSucceced } from "../../redux/user/user_action";
+import { loginSucceed } from "../../redux/user/user_action";
+import Alert from "../alert/alert";
 const SignUpComponent = ({ match, location, history, logInSucceed }) => {
+  const [err, setError] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
+
   const [signUpdata, setSignUpdata] = useState({
     name: "",
     email: "",
@@ -21,6 +25,8 @@ const SignUpComponent = ({ match, location, history, logInSucceed }) => {
       signUpdata.password === "" ||
       signUpdata.confirmPassword === ""
     ) {
+      setErrMsg("all fields must be filled");
+      setError(true);
       return false;
     }
     try {
@@ -35,10 +41,15 @@ const SignUpComponent = ({ match, location, history, logInSucceed }) => {
       if (data.type === "success") {
         console.log(data);
         logInSucceed(data);
+        return;
       }
+      setErrMsg(data.message);
+      setError(true);
       console.log(data.message);
     } catch (error) {
-      error.message = "sorry something went wrong, please try again latter";
+      error.message = "something went wrong, please try again later";
+      setErrMsg(error.message);
+      setError(true);
     }
   };
   const handleChange = (e) => {
@@ -49,13 +60,25 @@ const SignUpComponent = ({ match, location, history, logInSucceed }) => {
     });
   };
 
+  useEffect(() => {
+    if (err || errMsg.length) {
+      setTimeout(() => {
+        setErrMsg("");
+        setError(false);
+      }, 5000);
+    }
+  }, [err, errMsg]);
+
   return (
     <div className="form__signUp">
       <h1 className="form__signUp__heading">SIGN UP</h1>
       <form method="post" onSubmit={onSubmit} className="form">
+        {err ? <Alert message={errMsg} type="alert-danger" /> : null}
+
         <TextInputComponent
+          id="fdssfs"
           name="name"
-          value
+          err={err}
           type="text"
           handleChange={handleChange}
           placeholder="name"
@@ -63,6 +86,8 @@ const SignUpComponent = ({ match, location, history, logInSucceed }) => {
           value={signUpdata.name}
         />
         <TextInputComponent
+          err={err}
+          id="ffdsfs"
           type="email"
           handleChange={handleChange}
           placeholder="email"
@@ -70,6 +95,8 @@ const SignUpComponent = ({ match, location, history, logInSucceed }) => {
           value={signUpdata.email}
         />
         <TextInputComponent
+          err={err}
+          id="fdsfsd"
           type="password"
           handleChange={handleChange}
           placeholder="password"
@@ -77,13 +104,15 @@ const SignUpComponent = ({ match, location, history, logInSucceed }) => {
           value={signUpdata.password}
         />
         <TextInputComponent
+          id="fdsfs"
+          err={err}
           type="password"
           handleChange={handleChange}
           placeholder="confirPassword"
           name="confirmPassword"
           value={signUpdata.confirmPassword}
         />
-        <Button value="SignUp" />
+        <Button value="SignUp" onClick={onSubmit} />
         <Button value="Signin" outline onClick={() => history.push("/")} />
       </form>
     </div>
@@ -91,7 +120,7 @@ const SignUpComponent = ({ match, location, history, logInSucceed }) => {
 };
 
 const mapDispatch = (dispatch) => ({
-  logInSucceed: (user) => dispatch(loginSucceced(user)),
+  logInSucceed: (user) => dispatch(loginSucceed(user)),
 });
 
 export default connect(null, mapDispatch)(withRouter(SignUpComponent));

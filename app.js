@@ -13,9 +13,7 @@ const socketio = require("socket.io");
 const moment = require("moment");
 const {getAvatars} = require('./controllers/images')
 const {
-  getRoom,
   upadateMessages,
-  createRoom,
   createProfile,
 } = require("./utils/socket");
 
@@ -34,6 +32,7 @@ const io = socketio(server, {
   },
 });
 const port = process.env.PORT || 5005;
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "images"));
@@ -43,17 +42,6 @@ const storage = multer.diskStorage({
   },
 });
 const getImages = multer({ storage: storage });
-
-// app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader("Access-Control-Allow-Methods", "GET,PUT,DELETE,PATCH,POST");
-//   res.setHeader(
-//     "Access-Control-Allow-Headers",
-//     "Content-Type",
-//     "Authorization"
-//   );
-//   next();
-// });
 
 app.use(bodyParser.json({ limit: 50000000000 }));
 app.use(bodyParser.urlencoded({ extended: true, limit: 500000000 }));
@@ -66,10 +54,10 @@ app.use(
   })
 );
 
-app.use('/getAvatars', getAvatars)
+app.use('/getAvatar', getAvatars)
 app.use(
-  "/postprofile",
-  getImages.fields([{ name: "gallaries", maxCount: 10 }])
+  "/postprofil",
+  getImages.fields([{ name: "gallarierssss", maxCount: 10 }])
 );
 app.use(
   "/update-profile",

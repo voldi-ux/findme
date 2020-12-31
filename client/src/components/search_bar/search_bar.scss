@@ -15,8 +15,8 @@
     }
     @media (max-width: 550px) {
       // margin-right: -10%;
-      margin-left: auto;
-      padding-right: 2rem;
+      padding: 0 1rem;
+      flex: 1;
     }
   }
 
@@ -43,9 +43,8 @@
       display: none;
       &.show {
         display: inline-block;
-
+        width: 100%;
         // display: inline-block;
-        flex: 1;
       }
     }
   }
