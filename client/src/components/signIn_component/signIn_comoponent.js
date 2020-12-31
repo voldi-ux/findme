@@ -41,7 +41,7 @@ const SignInComponent = ({ black, startLogin }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (userInputs.email === "" || userInputs.password === "") {
-      setErrMsg("all field must be filled");
+      setErrMsg("all fields must be filled");
       setError(true);
       return;
     }
@@ -63,7 +63,7 @@ const SignInComponent = ({ black, startLogin }) => {
 
   return (
     <div className={`form__signIn ${black ? "black" : ""}`}>
-      <form onSubmit={onSubmit} className="form ">
+       <form autoComplete='off' onSubmit={onSubmit} className="form ">
         {err ? <Alert message={errMsg} type="alert-danger" /> : null}
         <TextInputComponent
           id="sdfa"

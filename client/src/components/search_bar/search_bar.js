@@ -38,6 +38,7 @@ const SeacrhBar = ({ onSearch }) => {
       console.log(data);
       setProfiles(data);
     } catch (error) {
+      error.message= 'oops, we are unable to load data right now, please make sure you have an internet connection and try again.'
       alert(error.message);
     }
   };

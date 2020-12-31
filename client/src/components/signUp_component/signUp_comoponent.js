@@ -72,7 +72,7 @@ const SignUpComponent = ({ match, location, history, logInSucceed }) => {
   return (
     <div className="form__signUp">
       <h1 className="form__signUp__heading">SIGN UP</h1>
-      <form method="post" onSubmit={onSubmit} className="form">
+      <form autoComplete='off' method="post" onSubmit={onSubmit} className="form">
         {err ? <Alert message={errMsg} type="alert-danger" /> : null}
 
         <TextInputComponent
@@ -108,7 +108,7 @@ const SignUpComponent = ({ match, location, history, logInSucceed }) => {
           err={err}
           type="password"
           handleChange={handleChange}
-          placeholder="confirPassword"
+          placeholder="confirmPassword"
           name="confirmPassword"
           value={signUpdata.confirmPassword}
         />

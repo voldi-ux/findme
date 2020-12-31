@@ -72,7 +72,6 @@ const Chat = ({
     );
   }
   const handleSubmit = () => {
-    alert("msg sent");
     if (!msg) return;
     socket.emit("message", {
       roomId: room._id,

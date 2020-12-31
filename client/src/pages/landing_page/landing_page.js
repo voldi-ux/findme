@@ -30,7 +30,6 @@ const LandingPage = ({ match }) => {
     return (
       <div className="landing_page__container">
         <img src={urlImg} />
-
         <div className="landing_page__content">
           <div className="landing_page__content-1"></div>
 

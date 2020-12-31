@@ -9,6 +9,7 @@ const TextInputComponent = ({ type, handleChange, label,err, ...props }) => (
       </label>
     ) : null}
     <input
+    autoComplete='off'
       {...props}
       id={`${label ? label : ""}`}
       type={type}
