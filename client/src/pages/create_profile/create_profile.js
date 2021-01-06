@@ -35,10 +35,14 @@ const CreateProfilePage = ({ match, userId, updateProfile }) => {
 
   useEffect(() => {
     const getImages = async () => {
-      const resp = await fetch("/getAvatars");
+      try{
+        const resp = await fetch(`${URI_STRING}getAvatars`);
       const images = await resp.json();
 
       setAvatars(images);
+      } catch(error) {
+        // alert(error.message)
+      }
     };
     getImages();
     socket = io.apply(URI_STRING);

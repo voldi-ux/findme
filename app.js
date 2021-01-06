@@ -54,7 +54,7 @@ app.use(
   })
 );
 
-app.use('/getAvatar', getAvatars)
+app.use('/getAvatars', getAvatars)
 app.use(
   "/postprofil",
   getImages.fields([{ name: "gallarierssss", maxCount: 10 }])
@@ -136,8 +136,8 @@ io.on("connection", (socket) => {
 
   socket.on("msg", (msg) => console.log(msg));
 
-  socket.on("disconnect", ({ name }) => {
-    console.log("someone has disconnected" + " " + name);
+  socket.on("disconnect", () => {
+    console.log("someone has disconnected");
   });
 });
 

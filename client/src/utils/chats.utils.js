@@ -1,5 +1,6 @@
 //remove the current user from the chats array
 export const modifiedChatArray = (chats, currentUser) => {
+  console.warn(chats,currentUser)
   if (chats.length > 0) {
     return chats.reduce((acc, chat, index) => {
       if (chat.user1._id === currentUser._id) {

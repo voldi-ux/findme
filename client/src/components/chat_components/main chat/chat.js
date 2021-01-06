@@ -13,6 +13,7 @@ import {
   onrecieveMessage,
 } from "../../../redux/chat/chat_actions";
 import { toggleSideNav } from "../../../redux/controls/actions";
+import Loader from "../../loader/loader";
 const URI_STRING =
   process.env.NODE_ENV === "production" ? "/" : "http://localhost:5005/";
 let socket;
@@ -59,17 +60,7 @@ const Chat = ({
     );
   }
   if (!room) {
-    return (
-      <div className="preloader-container">
-        <div class="preloader js-preloader flex-center">
-          <div class="dots">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-          </div>
-        </div>
-      </div>
-    );
+    return <Loader />;
   }
   const handleSubmit = () => {
     if (!msg) return;

@@ -20,7 +20,7 @@ const NavigationBar = ({ toggleProfileComponent, search }) => {
       <span
         className={`${search ? "hide" : null} navigation_bar__logo_container`}
       >
-        <Link to="/" className="navigation_bar__logo">
+        <Link to="/home" className="navigation_bar__logo">
           <img src={require("../../assets/images/logo.png")} />
         </Link>
         <span

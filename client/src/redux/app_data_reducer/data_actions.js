@@ -61,26 +61,24 @@ export const fetchFilterProfilesFails = (msg) => ({
   payload: msg,
 });
 export const fecthFilterProfileSucceed = (profiles) => ({
-  type: types.FETCHING_FilTER_DATA_SUCCEed,
+  type: types.FETCHING_FilTER_DATA_SUCCEED,
   payload: profiles,
 });
 
 export const onFechingFilterProfiles = (FilteredData) => async (dispacth) => {
-  console.log(FilteredData);
-  dispacth(fetchProfilesStart);
   try {
     const resp = await fetch(`/getfilteredProfiles`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(FilteredData),
+      body: JSON.stringify({data:FilteredData}),
     });
 
     const profiles = await resp.json();
-    console.log(profiles);
-    dispacth(fecthProfileSucceed(profiles));
+    dispacth(fecthFilterProfileSucceed(profiles));
   } catch (error) {
+    console.log(error)
     dispacth(fetchProfilesFails(error.message));
   }
 };

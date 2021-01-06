@@ -39,7 +39,7 @@ const SignUpComponent = ({ match, location, history, logInSucceed }) => {
       });
       const data = await resp.json();
       if (data.type === "success") {
-        console.log(data);
+       
         logInSucceed(data);
         return;
       }
@@ -82,7 +82,6 @@ const SignUpComponent = ({ match, location, history, logInSucceed }) => {
           type="text"
           handleChange={handleChange}
           placeholder="name"
-          type="text"
           value={signUpdata.name}
         />
         <TextInputComponent

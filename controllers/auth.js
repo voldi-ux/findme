@@ -56,7 +56,8 @@ exports.postSignin = async (req, resp, next) => {
 
     const match = await bcrypt.compare(password, user.password);
 
-    if (!match) throw Error("passwords do not match");
+    if (!match) throw Error("incorrect email or password");
+
     const token = jwt.sign(
       {
         userId: user._id.toString(),
@@ -76,8 +77,9 @@ exports.postSignin = async (req, resp, next) => {
         profile: user.profile,
       },
       token: token,
-      message: "logged in successful",
+      message: "access granted",
     });
+
   } catch (error) {
     return resp.json({
       type: "error",
@@ -86,9 +88,7 @@ exports.postSignin = async (req, resp, next) => {
   }
 };
 
-//get the user passwords
 exports.signUp = async (req, resp, next) => {
-  // const hidden = req.query;
   try {
     const { password, confirmPassword, name, email } = req.body;
 
@@ -129,7 +129,7 @@ exports.signUp = async (req, resp, next) => {
         profile: user.profile,
       },
       token: token,
-      message: "logged in successful",
+      message: "access granted",
     });
   } catch (error) {
     console.log(error.message);

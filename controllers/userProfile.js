@@ -1,4 +1,4 @@
-const { findOneAndUpdate } = require("../models/profile");
+const { changeFilterData } = require("../utils");
 const Profile = require("../models/profile");
 const User = require("../models/User");
 
@@ -25,11 +25,11 @@ exports.getProfiles = async (req, resp, next) => {
   const { pageItems, pageNum } = await req.params;
   // const res = await Profile.updateMany({}, {email:'randomemail@gmail.com',
   // phone:094745723})
-  console.log(pageItems)
+  console.log(pageItems);
   try {
-    const profiles = await User.find({hasProfile:true})
+    const profiles = await User.find({ hasProfile: true })
       .skip(+pageItems)
-      .populate("profileId").limit(4)
+      .limit(4)
       .exec();
     resp.json({
       profiles: profiles,
@@ -39,50 +39,48 @@ exports.getProfiles = async (req, resp, next) => {
   }
 };
 
-exports.Search = async(req,resp,next) => {
-  // $regex: "s", $options: "i" 
+exports.Search = async (req, resp, next) => {
+  // $regex: "s", $options: "i"
   try {
-    const {searchString} = req.params
-   const usersFound =await User.find({$or:[{
-     'profile.name':{$regex: searchString, $options: "i" }
-   },{
-    'profile.surnname':{$regex: searchString, $options: "i" }
-  },{
-    'profile.title':{$regex: searchString, $options: "i" }
-  },{
-    'profile.bio':{$regex: searchString, $options: "i" }
-  }]})
+    const { searchString } = req.params;
+    const usersFound = await User.find({
+      $or: [
+        {
+          "profile.name": { $regex: searchString, $options: "i" },
+        },
+        {
+          "profile.surnname": { $regex: searchString, $options: "i" },
+        },
+        {
+          "profile.title": { $regex: searchString, $options: "i" },
+        },
+        {
+          "profile.bio": { $regex: searchString, $options: "i" },
+        },
+      ],
+    });
 
- return resp.send(usersFound)
+    return resp.send(usersFound);
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
   }
-}
+};
+
+// const arr = [
+//   { province: "Eastern Cape" },
+//   { city: "Newcastle" },
+//   { gender: "male" },
+// ];
 
 exports.getfilteredProfiles = async (req, resp, next) => {
-  const { name, country, town, gender, surname } = req.body;
-
-  // const filterObj = new FilterObj(name, country, town, gender, name, surname);
-  // const filter = isEmpty(filterObj) ? null : filterObj;
-
+  const { data } = req.body;
+  const filters = changeFilterData(data);
+  console.log(filters);
   try {
-    const profiles = await Profile.find({
-      $or: [
-        { name: name },
-        {
-          $or: [
-            { surname: surname || "not vallid" },
-            { surname: name || "not vallid" },
-          ],
-        },
-        { country: country || "not vallid" },
-        { gender: gender || "not vallid" },
-        { town: town || "not vallid" },
-      ],
-    })
-      .populate("userId")
-      .exec();
-
+    const profiles = await User.find({
+      $or: [...filters],
+    });
+    console.log(profiles);
     return resp.json({
       message: "success",
       profiles: profiles,

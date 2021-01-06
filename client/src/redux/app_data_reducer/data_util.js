@@ -2,9 +2,9 @@
 
 export const filteredData = (oldData, filerterContent) => {
     console.log(filerterContent)
- const {age,gender,country,town} = filerterContent;
+ const {gender,province,town} = filerterContent;
 
- return oldData.filter(data => data.age > +age || data.gender === gender || data.country === country || data.from === town)
+ return oldData.filter(data =>  data.gender === gender || data.province === province || data.town === town)
 // return oldData
 
 }

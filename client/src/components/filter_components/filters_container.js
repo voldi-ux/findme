@@ -26,8 +26,16 @@ const FilterContainer = ({ onfilter }) => {
   const cities = ObjectCities[profile.province] || ["select a province first"];
 
   const onSubmit = (e) => {
-    //  context.clearState()
-    // filter(filterData)
+     e.preventDefault()
+     console.log(profile)
+    if (
+      profile.province === "" || profile.province === "select province"||
+      profile.city === "select a province first" ||
+      profile.gender === ""
+    )
+      return false;
+
+    onfilter(profile);
   };
 
   const handleChange = (event) => {
@@ -81,6 +89,7 @@ const FilterContainer = ({ onfilter }) => {
           checked={profile.gender === "other"}
         />
       </div>
+      <Button onClick={onSubmit} value="filter" />
     </form>
   );
 };

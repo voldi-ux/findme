@@ -26,7 +26,7 @@ const LandingPage = ({ match }) => {
     return () => window.removeEventListener("resize", checkWindowSize);
   }, [width]);
 
-  if (match.path === "/") {
+  
     return (
       <div className="landing_page__container">
         <img src={urlImg} />
@@ -40,9 +40,7 @@ const LandingPage = ({ match }) => {
         </div>
       </div>
     );
-  } else if (match.path === "/verifyemail") {
-    return <h1>please very your email</h1>;
-  }
+
 };
 
 export default LandingPage;

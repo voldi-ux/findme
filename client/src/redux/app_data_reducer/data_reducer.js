@@ -31,16 +31,23 @@ const AppDataReducer = (state = InitialState, action) => {
     case types.FETCHING_PROFILES_SUCCEED:
       return {
         ...state,
-        profilesCount: action.payload.profiles.length >= 1
-          ? state.profilesCount + action.payload.profiles.length
-          : state.profilesCount,
+        profilesCount:
+          action.payload.profiles.length >= 1
+            ? state.profilesCount + action.payload.profiles.length
+            : state.profilesCount,
         msg: null,
         loading: false,
         data: [...state.data, ...action.payload.profiles],
       };
-    case types.FETCHING_FilTER_DATA_FAIL:
+    case types.FETCHING_FilTER_DATA_SUCCEED:
       return {
         ...state,
+
+        data: [...action.payload.profiles],
+      };
+
+    case types.FETCHING_FilTER_DATA_FAIL:
+      return {
         loading: false,
         msg: action.payload.msg,
       };

@@ -1,5 +1,4 @@
 {
-  "short_name": "find",
   "name": "Findme",
   "icons": [
     {
@@ -20,6 +19,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#227AD3",
+  "background_color": "#227AD3"
 }
