@@ -3,10 +3,6 @@ const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-const Profile = require("../models/profile");
-const { users } = require("../testData");
-const Avatar = require("../models/avatar");
-const { paths } = require("../avatarPaths");
 
 const api_key =
   "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";
