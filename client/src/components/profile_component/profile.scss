@@ -10,12 +10,13 @@
   text-align: center;
   min-height: 39.8rem;
   background-color: $color-white-light3;
+  user-select: none;
 
   &__icon {
     margin-right: 10px;
     color: #1d89ee;
     user-select: none;
-    cursor: pointer;
+   
   }
 
   &__content {
@@ -33,6 +34,9 @@
       padding: 1rem 4rem;
       font-size: 1.5rem;
       border-radius: 10px;
+      .chat {
+        cursor: pointer;
+      }
     }
   }
   @media (max-width: 750px) {
@@ -60,7 +64,6 @@
 
   &__name {
     margin-top: 1rem;
-    font-size: medium;
   }
 
   &__online {

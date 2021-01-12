@@ -33,7 +33,7 @@ const ProfileComponent = ({
       }`}
     >
       <span className="close" onClick={toggleProfileComponent}>
-        x
+      &larr;
       </span>
       <div className={`profile  Resp-profile`}>
         <div className="profile__content-top">
@@ -56,7 +56,7 @@ const ProfileComponent = ({
             </span>
           </div>
         </div>
-        <div className="profile__content-bottom d-flex flex-column ">
+        <div className="profile__content-bottom content-bottom d-flex flex-column ">
           <IconContext.Provider
             value={{ className: "profile__icon", size: "2.5rem" }}
           >
@@ -69,7 +69,7 @@ const ProfileComponent = ({
                 });
                 history.push("/chatroom");
               }}
-              className="d-flex chat align-items-center justify-content-center"
+              className="d-flex chat chat__bottom align-items-center justify-content-center"
             >
               <BsChatSquare />
               {/* <MdAccountCircle /> */}

@@ -55,7 +55,7 @@ const ResultBox = ({
         <Button
           value="profile"
           onClick={() => {
-            setSearchProfile(profile.profile);
+            setSearchProfile(profile);
             history.push(`/profile/`);
           }}
         />

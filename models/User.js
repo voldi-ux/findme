@@ -65,7 +65,7 @@ const UserChema = new Schema({
     gender: { type: String },
   },
   skills: {
-    type: [{ type: String }],
+    type: [],
   },
 });
 

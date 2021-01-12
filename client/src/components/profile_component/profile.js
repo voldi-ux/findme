@@ -29,10 +29,10 @@ const ProfileComponent = ({ isLoggedin, userProfile, setSearchProfile }) => {
           className="d-flex flex-column .align-items-center
  "
         >
-          <h3 className="profile__name">
+          <h2 className="profile__name">
             {userProfile.name} {userProfile.surname}
-          </h3>
-          <h3 className="profile__title">{userProfile.title}</h3>
+          </h2>
+          <h5>{userProfile.title}</h5>
         </div>
         <div>
           <span className="profile__online">

@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { ImSearch } from "react-icons/im";
+import { BsSearch } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import "./search_bar.scss";
 import { onFechingFilterProfiles } from "../../redux/app_data_reducer/data_actions";
@@ -93,7 +93,7 @@ const SeacrhBar = ({ onSearch }) => {
       <IconContext.Provider
         value={{ size: "2rem", className: "search_bar__icon" }}
       >
-        <ImSearch onClick={showSearchBar} />
+        <BsSearch onClick={showSearchBar} />
       </IconContext.Provider>
     </div>
   );

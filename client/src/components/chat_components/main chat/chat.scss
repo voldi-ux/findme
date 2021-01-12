@@ -1,3 +1,9 @@
+@font-face {
+  font-family:venezio;
+  src: url('../../../assets//fonts/Swoonbold.otf')
+  
+}
+
 .main-chat {
   background-color: #eaeef0a9;
   flex: 0 0 60%;
@@ -26,13 +32,12 @@
       @media (max-width: 550px) {
         width: 2rem;
         height: 2rem;
-      border-radius: 1rem;
-
+        border-radius: 1rem;
       }
     }
 
     &__content {
-      padding: .4rem;
+      padding: 0.4rem;
       font-size: 1.4rem;
       line-height: 2rem !important;
       border-radius: 6px;
@@ -66,8 +71,7 @@
       @media (max-width: 550px) {
         width: 4rem;
         height: 4rem;
-      border-radius: 2rem;
-
+        border-radius: 2rem;
       }
     }
 
@@ -155,40 +159,54 @@
   }
 }
 
-
 .noProfileContainer {
- text-align: center;
-  display:flex;
+  text-align: center;
+  display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   height: 100%;
   width: 100%;
   padding: 1rem;
-  color: #fff;
-  background: rgb(59,59,185);
-  background: linear-gradient(250deg, rgba(59,59,185,1) 0%, rgba(37,90,173,1) 30%, rgba(0,212,255,1) 100%);
-  
+  background: rgb(59, 59, 185);
+  background: linear-gradient(
+    250deg,
+    rgba(59, 59, 185, 1) 0%,
+    rgba(37, 90, 173, 1) 30%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  .content {
+    background: #fff;
+    border-radius: 5px;
+    padding: 2rem;
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, .2);
+     h1 {
+      font-family: swoon !important;
+      font-size: 3rem !important;
+     }
+  }
+
   img {
     width: 15rem;
     height: 15rem;
     border-radius: 100rem;
-    border: 3px solid rgb(187, 27, 62) ;
+    border: 3px solid rgb(187, 27, 62);
     margin-bottom: 2rem;
   }
 
   span {
+    display: block;
     font-size: 2rem;
     padding: 1rem 1rem;
-    border: 1px solid #1e64be;
+    border: 2px solid #1e64be;
     user-select: none;
-    cursor:pointer;
-    display:none;
+    border-radius: 3px;
+    cursor: pointer;
+    display: none;
     @media (max-width: 750px) {
       display: inline-block;
     }
   }
-
 }
 
 .arrow-left {
@@ -201,3 +219,126 @@
   }
 }
 
+.typingContainer {
+  margin: 1rem auto;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h6 {
+    text-align:center;
+  }
+}
+
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+}
+.lds-ellipsis div {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+
+.lds-heart {
+  display: block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  transform: rotate(45deg);
+  transform-origin: 40px 40px;
+  margin: 0 auto;
+  
+}
+.lds-heart div {
+  top: 32px;
+  left: 32px;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 30, 30, 0.911);;
+  animation: lds-heart 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.lds-heart div:after,
+.lds-heart div:before {
+  content: " ";
+  position: absolute;
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 30, 30, 0.911);;
+}
+.lds-heart div:before {
+  left: -24px;
+  border-radius: 50% 0 0 50%;
+}
+.lds-heart div:after {
+  top: -24px;
+  border-radius: 50% 50% 0 0;
+}
+@keyframes lds-heart {
+  0% {
+    transform: scale(0.95);
+  }
+  5% {
+    transform: scale(1.1);
+  }
+  39% {
+    transform: scale(0.85);
+  }
+  45% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(0.9);
+  }
+}

@@ -49,13 +49,13 @@
     }
   }
 
-  @media (max-width: 750px) {
-    // width: 100%;
-    padding: 4px 3rem;
-    &:focus {
-      width: 100% !important;
-    }
-  }
+  // @media (max-width: 750px) {
+  //   // width: 100%;
+  //   padding: 4px 3rem;
+  //   &:focus {
+  //     width: 100% !important;
+  //   }
+  // }
 
   &__icon {
     margin-left: -3rem;

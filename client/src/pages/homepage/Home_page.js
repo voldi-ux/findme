@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import withSpinner from "../../components/spinner/spinner";
 import { ToggleSlideInleft } from "../../redux/user/user_action";
 import NavigationBar from "../../components/navigation_bar/navigation_bar";
+import HomeLoader from "../../components/homeLoader/homeLoader";
 
 const HomeContentWithSpinner = withSpinner(HomeContent);
 
@@ -38,11 +39,9 @@ const HomePage = ({
         <div className="filter">
           <FilterComponent />
         </div>
-        <HomeContentWithSpinner
-          height="50rem"
-          profiles={profiles}
-          isLoading={isLoading}
-        />
+          {
+            isLoading ? <HomeLoader /> : <HomeContent profiles={profiles} />
+          }
         <ProfileComponent />
         <RespProfile />
       </div>

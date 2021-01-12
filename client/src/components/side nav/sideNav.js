@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { BsHouse } from "react-icons/bs";
 import { MdAccountCircle } from "react-icons/md";
@@ -29,6 +29,13 @@ const SideNav = ({
   toggleSide,
   showNav,
 }) => {
+  const [term, setTerm] = useState("");
+  const filter = (chat) => {
+    return (
+      chat.profile.name.toLocaleLowerCase().includes(term.toLocaleLowerCase()) ||
+      chat.profile.surname.toLocaleLowerCase().includes(term.toLocaleLowerCase())
+    );
+  };
   const modifiedChats = CustomCompose(chats, currentUser)(
     isMessagesEmpty,
     modifiedChatArray
@@ -46,6 +53,11 @@ const SideNav = ({
       };
     };
   }, []);
+
+
+  const handleChange = (e) => {
+   setTerm(e.target.value.trim())
+  }
   const renderChats = (chat, index, arr) => {
     return (
       <div
@@ -118,6 +130,7 @@ const SideNav = ({
           >
             <div className='input-group mb-3 w-100" side-nav__input__container my-4'>
               <input
+                onChange={handleChange}
                 type="text"
                 className="form-control side-nav__input"
                 placeholder="Search for chats"
@@ -135,9 +148,9 @@ const SideNav = ({
         </header>
         <main>
           {modifiedChats.length ? (
-            modifiedChats.map(renderChats)
+            modifiedChats.filter(filter).map(renderChats)
           ) : (
-            <h1> you have no chats</h1>
+            <h1> You Have No Chats</h1>
           )}
         </main>
       </aside>

@@ -4,7 +4,7 @@ import {
   decrentPageNum,
   filteredData,
   increntPageNum,
-  fliterUsers,
+ removeDuplicates
 } from "./data_util";
 const InitialState = {
   data: [],
@@ -37,7 +37,7 @@ const AppDataReducer = (state = InitialState, action) => {
             : state.profilesCount,
         msg: null,
         loading: false,
-        data: [...state.data, ...action.payload.profiles],
+        data: removeDuplicates([...state.data, ...action.payload.profiles]),
       };
     case types.FETCHING_FilTER_DATA_SUCCEED:
       return {
@@ -47,15 +47,11 @@ const AppDataReducer = (state = InitialState, action) => {
       };
 
     case types.FETCHING_FilTER_DATA_FAIL:
+    case types.FETCHING_PROFILES_FAIL:
       return {
-        loading: false,
+        ...state,
         msg: action.payload.msg,
       };
-    case "INCREMENT_PAGE_NUMBER":
-      return increntPageNum(state);
-
-    case "DECREMENT_PAGE_NUMBER":
-      return decrentPageNum(state);
 
     default:
       return state;

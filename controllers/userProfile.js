@@ -150,3 +150,55 @@ exports.getProfilesMobile = async (req, resp, next) => {
     console.log(error);
   }
 };
+
+
+exports.addRemoveSkills = async (req,resp) => {
+  const {data} = req.body
+  console.log(req.body)
+  
+  try {
+    if(data.type === 'add') {
+      const user = await  User.findByIdAndUpdate(data.userId,{$push:{
+        skills: data.skill
+       }},{
+        new:true
+      })
+      return resp.status(200).json({
+        msg:'okay',
+        user:{
+         _id: user._id,
+         chatroomIds: user.chatroomIds,
+         userName: user.userName,
+         avatarUrl: user.avatarUrl,
+         hasProfile: user.hasProfile,
+         profile: user.profile,
+         skills: user.skills
+        }
+      })
+     } else if(data.type === 'remove') {
+       const user = await  User.findByIdAndUpdate(data.userId,  {$pull:{
+        skills: data.skill
+       }},{
+        new:true
+      })
+      console.log(user)
+       return resp.status(200).json({
+         msg:'okay',
+         user:{
+          _id: user._id,
+          chatroomIds: user.chatroomIds,
+          userName: user.userName,
+          avatarUrl: user.avatarUrl,
+          hasProfile: user.hasProfile,
+          profile: user.profile,
+          skills: user.skills
+         }
+       })
+     }
+  } catch (error) {
+    console.log(error.message)
+    return resp.json({
+      msg:'something went wrong please try again later.'
+    })
+  }
+}

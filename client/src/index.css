@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 html {
@@ -11,6 +12,7 @@ html {
   margin: 0;
   text-decoration: none;
   text-decoration:none;
+  letter-spacing: .5px;
   /* border:1px solid red; */
 }
 

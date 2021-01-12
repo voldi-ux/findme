@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IconContext } from "react-icons";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FiPaperclip } from "react-icons/fi";
-import { FaPaperPlane, FaArrowLeft } from "react-icons/fa";
+import { FaPaperPlane } from "react-icons/fa";
 import { connect } from "react-redux";
 import { io } from "socket.io-client";
 import moment from "moment";
@@ -31,7 +31,8 @@ const Chat = ({
   useEffect(() => {
     getCurrentUserChats(currentUser._id);
   }, [msg, messages]);
-
+  const [typing, setTyping] = useState(false);
+  const [online, setOnline] = useState(false);
   useEffect(() => {
     socket = io.apply(URI_STRING);
     if (room && profile) {
@@ -41,21 +42,37 @@ const Chat = ({
         console.log(msg);
         setMsg("");
       });
+      socket.on('typing', () => {
+          setTyping(true)
+      })
+      
+      socket.on('typingEnd', () => {
+          setTyping(false)
+      })
+
     }
     return () => {
       socket.off();
       socket.disconnect();
     };
   }, [room, profile]);
-
+ useEffect(()=> {
+  const el = document.getElementsByClassName('main-chat__message')
+  if(el.length <= 0) return
+  el[el.length - 1].scrollIntoView({behavior: "smooth"})
+  
+ },[messages])
   if (!profile) {
     return (
       <div className="noProfileContainer">
-        <img src={currentUser.profile.avatarUrl} alt="avatar" />
-        <h1>
-          Hey {currentUser.profile.name} click on a chat to start chatting😍
-        </h1>
-        <span onClick={toggleSide}>Open chats</span>
+        <div className="content">
+          <img src={currentUser.profile.avatarUrl} alt="avatar" />
+          <h1>
+            Hey {currentUser.profile.name} click on a chat to start chatting
+          </h1>
+          <div class="lds-heart heart"><div></div></div>
+          <span onClick={toggleSide}>Open chats</span>
+        </div>
       </div>
     );
   }
@@ -72,9 +89,12 @@ const Chat = ({
     setMsg("");
   };
   const handleChange = (e) => setMsg(e.target.value);
+   const onKeyDown = () => socket.emit('typing',{ roomId: room._id,})
+   const onKeyUp = () =>  setTimeout(() => {
+    socket.emit('typingEnd',{ roomId: room._id,})
+   },2000)
 
   const renderMesssages = (message, index) => {
-    console.log(message.name, currentUser.userName);
     if (message.name === currentUser.userName) {
       return (
         <div
@@ -127,7 +147,9 @@ const Chat = ({
           <h1>
             {profile.profile.name} {profile.profile.surname}
           </h1>
-          <small>online</small>
+  <small>{
+     typing ? 'typing...' : "online"
+    }</small>
         </div>
         <IconContext.Provider value={{ size: "2rem" }}>
           <BsThreeDotsVertical />
@@ -135,9 +157,17 @@ const Chat = ({
       </header>
       <main className="main-chat__main d-flex flex-column">
         {messages.map(renderMesssages)}
+        {
+          typing ? <div className='typingContainer'>
+            <h6>{profile.profile.name} is typing</h6>
+            <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+          </div> : null
+        }
       </main>
       <footer className="main-chat__footer d-flex ">
         <textarea
+        onKeyDown={onKeyDown}
+        onKeyUp={onKeyUp}
           onChange={handleChange}
           value={msg}
           className="main-chat__footer__input"

@@ -1,60 +1,83 @@
-@import '../../colors';
+@import "../../colors";
 
 .search_result_container {
-    position: relative;
-    // max-width: 50rem;
-    flex:0 0 45%;
-    padding: 2rem 1rem;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-    height: 100%;
-    overflow-x:hidden;
-    overflow-y:auto;
-    
-    /* width */
-    &::-webkit-scrollbar {
-        width: 0.5rem;
-      }
-  
-      /* Track */
-      &::-webkit-scrollbar-track {
-        background: #f1f1f1;
-      }
-  
-      /* Handle */
-      &::-webkit-scrollbar-thumb {
-        background: #1d43eefd;
-        border-radius: 20rem;
-      }
-  
-      /* Handle on hover */
-      &::-webkit-scrollbar-thumb:hover {
-        background:red;
-      }
-    @media (max-width:750px) {
-        margin: 2rem 0;
-        min-width: 100%;
-        
-    }
-    
+  position: relative;
+  // max-width: 50rem;
+  flex: 0 0 45%;
+  padding: 0rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  /* width */
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #1d43eefd;
+    border-radius: 20rem;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgb(194, 71, 194);
+  }
+  @media (max-width: 750px) {
+    margin: .5rem 0;
+    min-width: 100%;
+  }
 }
 
 .search_result__heading {
-    font-size: 2rem;
-    letter-spacing: 1.3px;
-    font-weight: 700;
-    text-transform: capitalize;
-    color: $color-blue-dark;
-    padding: 4rem  1rem;
+  font-size: 2rem;
+  letter-spacing: 1.3px;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: $color-blue-dark;
+  padding: 4rem 1rem;
 }
 
 .control__botton {
-    text-align: center;
-    width: 100%;
-    position: absolute;
-    left: 50%;
-    bottom: 0%;
-    transform:translate(-50%,-50%);
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  bottom: 0%;
+  transform: translate(-50%, -50%);
+}
+
+.caughtUpContainer {
+  width: 100%;
+  text-align: center;
+  margin-bottom:1rem ;
+  transform: scale(0);
+
+  animation: .6s 1s ease forwards scale;
+  img {
+    margin: 0 auto;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50rem;
+    display: block;
+  }
+}
+
+@keyframes scale {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
 }

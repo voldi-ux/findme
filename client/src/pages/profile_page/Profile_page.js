@@ -46,6 +46,6 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   IsProfileLoading: state.user.IsProfileLoading,
   searchedProfile: state.user.searchedProfile,
-  userProfile: state.user.profile,
+  userProfile: state.user.CurrentUser,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

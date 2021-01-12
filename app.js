@@ -33,18 +33,8 @@ const io = socketio(server, {
 });
 const port = process.env.PORT || 5005;
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "images"));
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + Date.now() + file.originalname);
-  },
-});
-const getImages = multer({ storage: storage });
-
-app.use(bodyParser.json({ limit: 50000000000 }));
-app.use(bodyParser.urlencoded({ extended: true, limit: 500000000 }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true}));
 app.use(
   cors({
     origin: "*",
@@ -53,24 +43,13 @@ app.use(
     optionsSuccessStatus: 204,
   })
 );
-
 app.use('/getAvatars', getAvatars)
-app.use(
-  "/postprofil",
-  getImages.fields([{ name: "gallarierssss", maxCount: 10 }])
-);
-app.use(
-  "/update-profile",
-  getImages.fields([{ name: "profile-image", maxCount: 1 }])
-);
-
 app.use(ProfileRoutes);
 app.use(authRoutes);
 app.use(ChatRoutes);
 app.use(express.static(path.join(__dirname, "client/build")));
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/avatars", express.static(path.join(__dirname, "avatars")));
-
 app.use("*", (req, resp) =>
   resp.sendFile(path.join(__dirname, "client/build", "index.html"))
 );
@@ -96,16 +75,15 @@ io.on("connection", (socket) => {
   //for messaging
   let theRoom;
   socket.on("join", async ({ roomId, name, userId2 }) => {
-    console.log(`${name} has joined and the room ${roomId}`);
+
 
     // const room = await getRoom(roomId);
     theRoom = roomId;
     await socket.join(roomId);
-    console.log(socket.rooms);
+
     socket.on("message", async ({ roomId, name, msg }) => {
       //recieve the message and then save it to the database
-      console.log(`${name} has send message  and the roomNo is ${roomId}`);
-      console.log("messaging worked", name, msg);
+      
       //  const room = await getRoom(roomId)
       // const newRoom = await upadateMessages(roomId, { name, msg });
 
@@ -126,6 +104,14 @@ io.on("connection", (socket) => {
         //after saving send back to the client
       });
     });
+
+    //typing sockets
+    socket.on('typing', ({roomId}) => {
+     socket.to(roomId).broadcast.emit('typing')
+    })
+    socket.on('typingEnd', ({roomId}) => {
+     socket.to(roomId).broadcast.emit('typingEnd')
+    })
     socket.on("createroom", ({ userId1, userId2 }) => {
       //create a room if does not exist yet!!!
       // createRoom([userId1,userId2])
