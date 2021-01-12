@@ -8,39 +8,12 @@ const { users } = require("../testData");
 const Avatar = require("../models/avatar");
 const { paths } = require("../avatarPaths");
 
-const api_key =
-  "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";
-
-sendGrid.setApiKey(api_key);
-
-//should handle errors latter on
-exports.postSigningUp = async (req, resp, next) => {
-  // return crypto.randomBytes(42, (err, buffer) => {
-  //   const token = buffer.toString("hex");
-  //   const { name, email } = req.body;
-  //   try {
-  //     sendGrid
-  //       .send({
-  //         to: email,
-  //         from: "voldimuyumba2001@gmail.com",
-  //         subject: "verify email ",
-  //         html: `<p> to very your email please click <a href="http://localhost:5000/getcredentials/?uva=${token}&&name=${name}&&email=${email}"> here</a> </p>`,
-  //       })
-  //       .then(() => {
-  //         return resp.redirect("/emailverification");
-  //       })
-  //       .catch((err) => console.log(err.message));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // });
-};
 
 exports.postSignin = async (req, resp, next) => {
-  // await paths.forEach(async path => {
-  //   console.log(path)
-  //   return new Avatar(path).save()
-  // })
+  await paths.forEach(async path => {
+    console.log(path)
+    return new Avatar(path).save()
+  })
 
   const { password, email } = req.body;
 
