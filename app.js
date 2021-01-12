@@ -33,8 +33,18 @@ const io = socketio(server, {
 });
 const port = process.env.PORT || 5005;
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "images"));
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + Date.now() + file.originalname);
+  },
+});
+const getImages = multer({ storage: storage });
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.urlencoded({ extended: true, limit: 500000000 }));
 app.use(
   cors({
     origin: "*",
