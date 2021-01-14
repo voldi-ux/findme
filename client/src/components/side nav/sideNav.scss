@@ -71,11 +71,22 @@
     // flex: 0 0 15%;
     width: 20%;
     background: #fff;
+    @media (max-width: 550px) {
+     width:10%;
+     .notification__icon {
+      height: 1rem;
+      width: 1rem;
+    }
+    }
   }
   &__chats {
     background-color: $color-white-light3;
     width: 80%;
     padding: 1rem;
+    @media (max-width: 550px) {
+      width:90%;
+      
+     }
     &__chat {
       // min-height: 6rem;
       background-color: #fff;
@@ -83,17 +94,30 @@
       box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.06);
 
       padding: 1rem;
+      @media (max-width: 550px) {
+        padding: .3;
+        
+       }
       &__name {
         font-weight: 700;
         font-size: 1.6rem;
         margin-right: auto;
+        @media (max-width: 550px) {
+          font-size: 1.3rem;         
+         }
       }
 
       &__msg {
         font-size: 1.3rem;
+        @media (max-width: 550px) {
+          font-size: 1.1rem;         
+         }
       }
       &__time {
         font-size: 1rem;
+        @media (max-width: 550px) {
+          font-size: 0.8rem;         
+         }
       }
     }
     h1 {

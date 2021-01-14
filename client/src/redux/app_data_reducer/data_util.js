@@ -1,4 +1,3 @@
-import { json } from "body-parser";
 
 export const filteredData = (oldData, filerterContent) => {
   console.log(filerterContent);
@@ -36,8 +35,7 @@ export const fliterUsers = (profiles) => {
 
 //remove a duplicate obj from an array
 export const removeDuplicates = (profiles) => {
- 
-  const profileHolder = {};
+const profileHolder = {};
  return profiles.reduce((acc, profile) => {
     if (!profileHolder[JSON.stringify(profile)]) {
       profileHolder[JSON.stringify(profile)] = true;

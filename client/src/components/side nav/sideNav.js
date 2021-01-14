@@ -79,7 +79,7 @@ const SideNav = ({
           <img alt="..ddd" src={chat.profile.avatarUrl} />
           <div className="ms-3 w-100">
             <div className="d-flex w-100 justify-content-between ">
-              <h5 className="mb-4 side-nav__chats__chat__name">
+              <h5 className="mb-2 side-nav__chats__chat__name">
                 {chat.profile.name} {chat.profile.surname}
               </h5>
               <small className="side-nav__chats__chat__time">

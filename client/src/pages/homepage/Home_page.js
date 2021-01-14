@@ -31,7 +31,6 @@ const HomePage = ({
     console.log("window width", profiles);
   });
 
-  const isSearching = location.search ? true : false;
   return (
     <>
       <NavigationBar />

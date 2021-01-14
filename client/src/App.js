@@ -5,7 +5,7 @@ import FiltercontextProvider from "./context/filter_Data_context/filter.data";
 import Loader from "./components/loader/loader";
 import { onFechingProfiles } from "./redux/app_data_reducer/data_actions";
 import { fetchingChats } from "./redux/chat/chat_actions";
-
+import Errorboundary from "./components/error boundary/ErrorBoundary";
 // import HomePage from "./pages/homepage/Home_page";
 // import SignIn from "./pages/signIn_page/sigIn_page";
 // import SignUp from "./pages/siginUp_page/signUp";
@@ -45,10 +45,19 @@ function App({
     if (!hasProfile) {
       return (
         <div className="App">
-          <Suspense fallback={<Loader />}>
-            <Route path="/" render={() => <Redirect to="/update-profile" />} />
-            <Route exact path="/update-profile" component={CreateProfilePage} />
-          </Suspense>
+          <Errorboundary>
+            <Suspense fallback={<Loader />}>
+              <Route
+                path="/"
+                render={() => <Redirect to="/update-profile" />}
+              />
+              <Route
+                exact
+                path="/update-profile"
+                component={CreateProfilePage}
+              />
+            </Suspense>
+          </Errorboundary>
         </div>
       );
     }
@@ -57,13 +66,15 @@ function App({
       <FiltercontextProvider>
         <div className="App">
           <Switch>
-            <Suspense fallback={<Loader />}>
-              <Route path="/chatroom" component={ChatRoom} />
-              <Route exact path="/getcredentials" component={SignUp} />
-              <Route exact path="/profile" component={Profile} />
-              <Route exact path="/home" component={HomePage} />
-              <Route path="/" render={() => <Redirect to="/home" />} />
-            </Suspense>
+            <Errorboundary>
+              <Suspense fallback={<Loader />}>
+                <Route path="/chatroom" component={ChatRoom} />
+                <Route exact path="/getcredentials" component={SignUp} />
+                <Route exact path="/profile" component={Profile} />
+                <Route exact path="/home" component={HomePage} />
+                <Route path="/" render={() => <Redirect to="/home" />} />
+              </Suspense>
+            </Errorboundary>
           </Switch>
         </div>
       </FiltercontextProvider>
@@ -74,6 +85,7 @@ function App({
     <FiltercontextProvider>
       <div className="App">
         <Switch>
+          <Errorboundary >
           <Suspense fallback={<Loader />}>
             <Route
               exact
@@ -87,6 +99,7 @@ function App({
             />
             <Route path="/" render={() => <Redirect to="/" />} />
           </Suspense>
+          </Errorboundary>
         </Switch>
       </div>
     </FiltercontextProvider>

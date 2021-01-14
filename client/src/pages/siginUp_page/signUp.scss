@@ -1,10 +1,12 @@
 .signUp_Page {
     background-color: #eaeef0a9;
-    background: url('./bg.png');
+    background: url('/images/bg.png');
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
-
+    @media (max-width:750px) {
+        background-image: url('/images/bg-phone.png');
+      }
     display: flex;
     justify-content: center;
     align-items: center;

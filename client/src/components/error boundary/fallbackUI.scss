@@ -1,0 +1,29 @@
+.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  padding: 2rem;
+ 
+  img {
+    width: 600px;
+  }
+  p {
+      font-size: 2rem;
+      line-height: 2.5rem;
+  }
+
+  @media (max-width:750px) {
+      flex-direction: column;
+      img {
+
+        max-width: 600px;
+        width: 100%;
+      }
+      p {
+          font-size: 1.6rem;
+          line-height: 2rem;
+      }
+  }
+}

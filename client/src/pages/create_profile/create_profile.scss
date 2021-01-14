@@ -2,17 +2,20 @@
 
 .updateProfile {
   // background: #106EDF;
-  
-  background: url('/images/bg.png'), #eaeef0a9;
+
+  background: url("/images/bg.png"), #eaeef0a9;
   background-size: cover;
   background-repeat: no-repeat;
   min-height: 100vh;
   padding: 3rem;
   box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.1);
-  @media(max-width: 550px) {
-   padding: 1rem;
-  }
 
+  @media (max-width: 750px) {
+    background-image: url("/images/bg-phone.png");
+  }
+  @media (max-width: 550px) {
+    padding: 1rem;
+  }
 }
 
 .form {
@@ -24,7 +27,7 @@
     width: 100%;
     margin: 0 auto;
     .d-flex {
-      @media(max-width: 550px) {
+      @media (max-width: 550px) {
         flex-direction: column !important;
       }
     }
@@ -40,7 +43,7 @@
       border: 2px solid rgb(37, 109, 202);
       z-index: 1;
     }
-    
+
     &__buttons {
       align-self: center;
       button {
@@ -49,8 +52,6 @@
         min-width: 6rem;
         margin-right: 1rem;
       }
-
-      
     }
     &__bio {
       &__area {
