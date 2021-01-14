@@ -18,8 +18,8 @@ const {
 } = require("./utils/socket");
 
 const MONGO_URI =
-  process.env.NODE_ENV === "production"
-    ? "mongodb+srv://voldi2:findme@cluster0.gulxq.mongodb.net/findme?retryWrites=true&w=majority"
+  process.env.NODE_ENV !== "production"
+    ? "mongodb+srv://voldi2:findme@cluster0.gulxq.mongodb.net/<dbname>?retryWrites=true&w=majority"
     : "mongodb://127.0.0.1:27017/findme";
 
 const server = http.createServer(app);
