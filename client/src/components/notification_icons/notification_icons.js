@@ -1,20 +1,15 @@
 import React from "react";
-import { ImBubble2 } from "react-icons/im";
 import { AiOutlineLogout } from "react-icons/ai";
-import { FaBell, FaCommentAlt } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { useHistory } from "react-router-dom";
 
 import "./notification_icons.scss";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logOut, ToggleSlideInRight } from "../../redux/user/user_action";
 
 const NotificationContainer = ({
-  isLoggedin,
   logout,
-  currentUserPhoto,
-  toggleNav,
+  
 }) => {
   const history = useHistory();
 

@@ -26,6 +26,9 @@
     max-width: 60rem;
     width: 100%;
     margin: 0 auto;
+    @media (max-width: 550px) {
+      padding: 2rem .7rem;
+    }
     .d-flex {
       @media (max-width: 550px) {
         flex-direction: column !important;
@@ -104,6 +107,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   img {
+    cursor: pointer;
     width: 100%;
   }
 }

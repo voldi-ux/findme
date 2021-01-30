@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from "react";
+import React, {  useEffect, lazy, Suspense } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import FiltercontextProvider from "./context/filter_Data_context/filter.data";
@@ -26,14 +26,13 @@ const ChatRoom = lazy(() => import("./pages/chat_room_Page/chat_room"));
 function App({
   isloggedin,
   getProfiles,
-  pageNunber,
   hasProfile,
   getCurrentUserChats,
   userId,
 }) {
   useEffect(() => {
     getProfiles(0);
-  }, []);
+  }, [getProfiles]);
 
   useEffect(() => {
     if (isloggedin) {

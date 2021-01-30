@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import "./inputs_componenents.scss";
 
 const TextInputComponent = ({ type, handleChange, label,err, ...props }) => (

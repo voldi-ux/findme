@@ -6,7 +6,7 @@ import { FaPaperPlane } from "react-icons/fa";
 import { connect } from "react-redux";
 import { io } from "socket.io-client";
 import moment from "moment";
-
+import Pop from "../../pop box/pop";
 import "./chat.scss";
 import {
   fetchingChats,
@@ -14,6 +14,8 @@ import {
 } from "../../../redux/chat/chat_actions";
 import { toggleSideNav } from "../../../redux/controls/actions";
 import Loader from "../../loader/loader";
+import { colors } from "../../../border colors/colors";
+
 const URI_STRING =
   process.env.NODE_ENV === "production" ? "/" : "http://localhost:5005/";
 let socket;
@@ -30,38 +32,66 @@ const Chat = ({
   const [msg, setMsg] = useState("");
   useEffect(() => {
     getCurrentUserChats(currentUser._id);
-  }, [msg, messages]);
+  }, [msg, messages, currentUser._id, getCurrentUserChats]);
   const [typing, setTyping] = useState(false);
-  const [online, setOnline] = useState(false);
+  const imagePaths = [
+    "/images/bg-1.jpg",
+    "/images/bg-2.jpg",
+    "/images/bg-3.jpg",
+  ];
+
+  // const [online, setOnline] = useState(false);
+  // const [online, setOnline] = useState(false);
+  let [imagePath, setImagePath] = useState(imagePaths[0]);
+  let [borderStyle, setborderStyle] = useState(null);
+  const [showPop, setPop] = useState(false);
+  useEffect(() => {
+    setborderStyle({
+      borderColor: colors[Math.floor(Math.random() * 28)],
+    });
+  }, [room]);
+
   useEffect(() => {
     socket = io.apply(URI_STRING);
     if (room && profile) {
       socket.emit("join", { roomId: room._id });
       socket.on("recievedMsg", (msg) => {
         updateMsg(msg);
-        console.log(msg);
+       
         setMsg("");
       });
-      socket.on('typing', () => {
-          setTyping(true)
-      })
-      
-      socket.on('typingEnd', () => {
-          setTyping(false)
-      })
+      socket.on("typing", () => {
+        setTyping(true);
+      });
 
+      socket.on("typingEnd", () => {
+        setTyping(false);
+      });
     }
     return () => {
       socket.off();
       socket.disconnect();
     };
-  }, [room, profile]);
- useEffect(()=> {
-  const el = document.getElementsByClassName('main-chat__message')
-  if(el.length <= 0) return
-  el[el.length - 1].scrollIntoView({behavior: "smooth"})
-  
- },[messages])
+  }, [room, profile, updateMsg]);
+  useEffect(() => {
+    const el = document.getElementsByClassName("main-chat__message");
+    if (el.length <= 0) return;
+    el[el.length - 1].scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  useEffect(() => {
+    window.addEventListener("click", (e) => {
+      if (showPop && e.target.className.baseVal !== "dots__icon")
+        return setPop(false);
+   
+    });
+
+    return () => {
+      window.removeEventListener("click", (e) => {
+        if (showPop) return setPop(false);
+      });
+    };
+  }, [showPop]);
   if (!profile) {
     return (
       <div className="noProfileContainer">
@@ -70,7 +100,9 @@ const Chat = ({
           <h1>
             Hey {currentUser.profile.name} click on a chat to start chatting
           </h1>
-          <div class="lds-heart heart"><div></div></div>
+          <div className="lds-heart heart">
+            <div></div>
+          </div>
           <span onClick={toggleSide}>Open chats</span>
         </div>
       </div>
@@ -79,6 +111,10 @@ const Chat = ({
   if (!room) {
     return <Loader />;
   }
+
+  const changeImg = (id) => {
+    setImagePath(imagePaths[id]);
+  };
   const handleSubmit = () => {
     if (!msg) return;
     socket.emit("message", {
@@ -89,10 +125,11 @@ const Chat = ({
     setMsg("");
   };
   const handleChange = (e) => setMsg(e.target.value);
-   const onKeyDown = () => socket.emit('typing',{ roomId: room._id,})
-   const onKeyUp = () =>  setTimeout(() => {
-    socket.emit('typingEnd',{ roomId: room._id,})
-   },2000)
+  const onKeyDown = () => socket.emit("typing", { roomId: room._id });
+  const onKeyUp = () =>
+    setTimeout(() => {
+      socket.emit("typingEnd", { roomId: room._id });
+    }, 2000);
 
   const renderMesssages = (message, index) => {
     if (message.name === currentUser.userName) {
@@ -121,7 +158,12 @@ const Chat = ({
         className=" main-chat__message main-chat__message__left d-flex"
         aria-current="true"
       >
-        <img alt="..ddd" src={profile.profile.avatarUrl} />
+        <img
+          alt="..ddd"
+          src={profile.profile.avatarUrl}
+          alt="avatar"
+          style={borderStyle}
+        />
         <div className="w-100 ">
           <div className="d-flex w-100  main-chat__message__content main-chat__message__content__left ">
             <p>{message.msg}</p>
@@ -135,43 +177,60 @@ const Chat = ({
   };
 
   return (
-    <div className="main-chat d-flex flex-column">
+    <div
+      className="main-chat d-flex flex-column"
+      style={{
+        backgroundImage: ` url(${imagePath})`,
+      }}
+    >
       <header className="main-chat__header d-flex align-items-center">
         <IconContext.Provider value={{ size: "2rem" }}>
           <span className="arrow-left" onClick={toggleSide}>
             &larr;
           </span>
         </IconContext.Provider>
-        <img alt="..ddd" src={profile.profile.avatarUrl} />
+        <img
+          alt="..ddd"
+          src={profile.profile.avatarUrl}
+          alt="avatar"
+          style={borderStyle}
+        />
         <div>
           <h1>
             {profile.profile.name} {profile.profile.surname}
           </h1>
-  <small>{
-     typing ? 'typing...' : "online"
-    }</small>
+          <small>{typing ? "typing..." : "online"}</small>
         </div>
-        <IconContext.Provider value={{ size: "2rem" }}>
-          <BsThreeDotsVertical />
+        <IconContext.Provider value={{ size: "2rem", className: "dots__icon" }}>
+          <div className="dots">
+            {showPop ? <Pop setPop={setPop} changeImg={changeImg} /> : null}
+            <BsThreeDotsVertical onClick={() => setPop(true)} />
+          </div>
         </IconContext.Provider>
       </header>
       <main className="main-chat__main d-flex flex-column">
         {messages.map(renderMesssages)}
-        {
-          typing ? <div className='typingContainer'>
+        {typing ? (
+          <div className="typingContainer">
             <h6>{profile.profile.name} is typing</h6>
-            <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-          </div> : null
-        }
+            <div className="lds-ellipsis">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        ) : null}
       </main>
       <footer className="main-chat__footer d-flex ">
         <textarea
-        onKeyDown={onKeyDown}
-        onKeyUp={onKeyUp}
+          onKeyDown={onKeyDown}
+          onKeyUp={onKeyUp}
           onChange={handleChange}
           value={msg}
           className="main-chat__footer__input"
           placeholder="Type a message"
+          
         />
         <IconContext.Provider
           value={{ className: "footer__icons", size: "2rem" }}

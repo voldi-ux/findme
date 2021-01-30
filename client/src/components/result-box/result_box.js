@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect ,useState} from "react";
 import { useHistory } from "react-router-dom";
 import "./result_box.scss";
 import Button from "../buttons/button";
@@ -9,6 +9,7 @@ import { setSearchedProfile } from "../../redux/user/user_action";
 import { connect } from "react-redux";
 import { onGettingRoom, setChatData } from "../../redux/chat/chat_actions";
 import { checkRoom } from "../../utils/chats.utils";
+import { colors } from "../../border colors/colors";
 
 const ResultBox = ({
   profile,
@@ -17,16 +18,28 @@ const ResultBox = ({
   rooms,
   createRoom,
   userId,
-  Profile
+  Profile,
 }) => {
-  let userProfile = profile || Profile
-   
+
   const history = useHistory();
+  let [borderStyle,setborderStyle] = useState(null);
+  useEffect(() => {
+    setborderStyle({
+      borderWidth: "2px",
+      borderStyle: "solid",
+      borderColor: colors[Math.floor(Math.random()*28 )],
+    }) 
+  },[]);
+  
   return (
     <div className="result__box">
       <div className="result__group-1">
         <span className="result__img">
-          <img src={profile.profile.avatarUrl} />
+          <img
+            src={profile.profile.avatarUrl}
+            alt="avatar"
+            style={borderStyle}
+          />
         </span>
         <div className="result__details d-flex flex-column">
           <span className="result__name mb-1">

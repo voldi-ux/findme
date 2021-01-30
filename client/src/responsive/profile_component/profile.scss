@@ -1,5 +1,5 @@
-@import "../../../colors";
-@import "../../../sass/mixins.scss";
+@import "../../colors";
+@import "../../sass/mixins.scss";
 
 .resp-profile-container {
   @include positionfixed;
@@ -89,6 +89,7 @@
   font-size: 4rem;
   position: absolute;
   top: 2%;
+  right: 1%;
   z-index: 999999;
   color: rgb(27, 23, 23);
 }

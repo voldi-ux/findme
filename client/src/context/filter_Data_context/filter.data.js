@@ -1,13 +1,19 @@
 import React, { createContext, useReducer } from "react";
 
 const init = {
-  visible: true,
+  visible: false,
   profiles: [],
+  filters: {
+    province: "",
+    city: "",
+    gender: "",
+  }
 };
 
 const types = {
   SET_VISIBLE: "SET_VISIBLE",
   SET_PROFILES: " SET_PROFILES",
+  SET_FILTER_DATA: "SET_FILTER_DATA",
 };
 
 const reducer = (state, action) => {
@@ -21,7 +27,15 @@ const reducer = (state, action) => {
       return {
         ...state,
         visible:!state.visible,
+        profiles: [],
       };
+      
+    case types.SET_FILTER_DATA:
+      return {
+        ...state,
+        filters: action.payload
+      };
+
     default:
       return state;
   }
@@ -42,11 +56,17 @@ const FilterProfileContextProvider = (props) => {
       type: types.SET_PROFILES,
       payload: data,
     });
+  const setfilterData = (data) =>
+    dispatch({
+      type: types.SET_FILTER_DATA,
+      payload: data,
+    });
 
   return (
     <FilterProfileContext.Provider
       value={{
         setProfiles,setVisible,
+        setfilterData,
       ...state
 
       }}

@@ -3,7 +3,8 @@
 
 html {
   font-size: 62.5%;
-  /* color:#eaee1d; */
+  /* color:#000000c4; */
+  /* background: ; */
 }
 
 *{
@@ -13,6 +14,7 @@ html {
   text-decoration: none;
   text-decoration:none;
   letter-spacing: .5px;
+  user-select: none;
   /* border:1px solid red; */
 }
 
@@ -24,6 +26,22 @@ body {
   /* overflow:hidden; */
 }
 
+input:focus,
+select:focus,
+button:focus,
+textarea:focus {
+  border-color:#fff !important;
+  outline:0 !important;
+  box-shadow:0 0 0 0rem #fff !important;
+}
+
+
+
+
 .error {
   border: 1px solid rgb(197, 60, 60) !important;
+}
+.bd {
+  border-bottom: 1px dashed #1d89ee;
+  padding-bottom: .5rem;
 }

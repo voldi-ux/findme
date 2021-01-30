@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import "./Profile_page.scss";
 import ProfilePageComponent from "../../components/profile_page_componet/profile_page_component";

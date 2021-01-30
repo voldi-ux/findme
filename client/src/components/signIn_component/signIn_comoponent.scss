@@ -6,6 +6,10 @@
     &__signIn{
         height: 40rem;
         padding: 3rem 2rem;
+        @media (max-width: 550px) {
+          padding: 2rem 0.7rem;
+        }
+        
         &__heading {
             letter-spacing: 1.4px;
             font-size: 2rem;

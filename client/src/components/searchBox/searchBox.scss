@@ -1,33 +1,29 @@
 .searchBox {
-  position: absolute;
-  top: 6rem;
-  max-width: 60rem;
-  width: 100%;
-  margin: 0 auto;
-  max-height: 90%;
-  z-index: 999999999;
-  left: 50%;
-  transform: translateX(-55%);
-  background: rgb(101, 138, 219);
-  opacity: 0;
-  transition: 0.4s all;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  @media (max-width: 560px) {
-    left: 0;
-    right: 0;
-    transform: translate(0);
-  }
-  &.fadeIn {
-    opacity: 1;
+   overflow-y: auto;
+   height:89%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   padding: .5rem;
+   &::-webkit-scrollbar {
+    width: 0.5rem;
   }
 
-  &.fadeOut {
-    opacity: 0;
-    display: none;
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
   }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #1d43eefd;
+    border-radius: 20rem;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #f1f1f1;
+  }
+
 }
+// }

@@ -12,7 +12,14 @@
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+  margin: .5rem 0;
 
+  @media (max-width:900px) {
+    flex: 0 0 65%;
+}
+@media (max-width: 550px) {
+  padding: 0 .5rem !important;
+}
   /* width */
   &::-webkit-scrollbar {
     width: 0.5rem;
@@ -34,7 +41,6 @@
     background: rgb(194, 71, 194);
   }
   @media (max-width: 750px) {
-    margin: .5rem 0;
     min-width: 100%;
   }
 }

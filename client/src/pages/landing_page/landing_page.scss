@@ -40,7 +40,7 @@
     width: 50%;
     z-index: 3;
 
-    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.2);
     @media (max-width: 750px) {
       width: 80%;
       transform: translateY(0%);
@@ -48,7 +48,7 @@
 
     @media (max-width: 500px) {
       flex-direction: column;
-      padding: 2rem 0;
+      padding: 4rem 0;
       bottom: 2%;
 
       width: 95%;

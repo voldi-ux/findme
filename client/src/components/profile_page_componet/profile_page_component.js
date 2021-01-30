@@ -1,15 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, {  useState,useEffect } from "react";
 import {
   FaMapMarkerAlt,
   FaMapMarkedAlt,
   FaFlag,
   FaPhone,
   FaMailBulk,
-  FaImage,
   FaStar,
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
-import { useHistory } from "react-router-dom";
 
 import "./profile_page_copomenent.scss";
 import TextInput from "../form_inputs_components/text";
@@ -19,16 +17,19 @@ import {
   onUserProfilePicUpdate,
   loginSucceed,
 } from "../../redux/user/user_action";
-import SButton from "../buttons/secondary-btn";
+import {colors } from '../../border colors/colors'
 const ProfilePageComponent = ({
   userProfile,
-  profiles,
   ProfileId,
-  updateProfile,
   login,
 }) => {
-  const [imageSelected, selectImage] = useState(null);
   const [skill, setSkill] = useState("");
+  let [borderStyle,setborderStyle] = useState(null);
+  useEffect(() => {
+    setborderStyle({
+      borderColor: colors[Math.floor(Math.random()*28 )],
+    }) 
+  },[]);
 
   const renderSkills = (skill) => {
     return (
@@ -61,7 +62,6 @@ const ProfilePageComponent = ({
         }),
       });
       const data = await resp.json();
-      console.log(data);
       if (data.msg === "okay") {
         login(data);
       }
@@ -88,7 +88,7 @@ const ProfilePageComponent = ({
         <div className="profile_page__content">
           <div className="profile_page__content-top d-flex mb-4">
             <div className="mx-4">
-              <img src={userProfile.profile.avatarUrl} />
+              <img src={userProfile.profile.avatarUrl} alt='avatar' style={borderStyle} />
             </div>
             <div className="profile_page__name align-self-cente ml-4 bt-3">
               <h1 className="mb-2">
@@ -153,14 +153,13 @@ const ProfilePageComponent = ({
           <p>{userProfile.profile.bio}</p>
         </div>
         <h1 className="profile_page__bio__heading">
-          My skills/specialities and Hobbies
+          My skills / Hobbies
         </h1>
         <div>
           <div className="profile_page__content-right">
             <IconContext.Provider
               value={{ size: "2rem", className: "profile_page__right__icons" }}
             >
-              {console.log(userProfile.skills)}
               {userProfile.skills.length ? (
                 userProfile.skills.map(renderSkills)
               ) : (

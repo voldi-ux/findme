@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./signIn_comoponent.scss";
 import TextInputComponent from "../form_inputs_components/text";
 import Button from "../buttons/button";
-import { Link, useHistory } from "react-router-dom";
+import {  useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { loggingInUser, loginSucceed } from "../../redux/user/user_action";
+import {  loginSucceed } from "../../redux/user/user_action";
 import Alert from "../alert/alert";
 
 const SignInComponent = ({ black, startLogin }) => {

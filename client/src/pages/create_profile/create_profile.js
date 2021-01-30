@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import TextInputComponent from "../../components/form_inputs_components/text";
-import { useHistory } from "react-router-dom";
 import Radio from "../../components/form_inputs_components/radio";
 import Select from "../../components/form_inputs_components/select";
 import "./create_profile.scss";
@@ -16,7 +15,7 @@ const URI_STRING =
   process.env.NODE_ENV === "production" ? "/" : "http://localhost:5005/";
 let socket;
 
-const CreateProfilePage = ({ match, userId, updateProfile }) => {
+const CreateProfilePage = ({  userId, updateProfile }) => {
   const [defaultImagePath, setImagePath] = useState(
     "/images/avatars/avatar (1).png"
   );
@@ -55,10 +54,8 @@ const CreateProfilePage = ({ match, userId, updateProfile }) => {
       socket.disconnect();
       socket.off();
     };
-  }, []);
+  }, [updateProfile,userId]);
 
-  const history = useHistory();
-  const uri = "data:image/png;base64,";
   const [profile, setProfile] = useState({
     UserProfile: {
       name: "",
@@ -86,40 +83,40 @@ const CreateProfilePage = ({ match, userId, updateProfile }) => {
       },
     });
   };
-  const onImageChange = async (event) => {
-    let imageUrl = [];
-    if (event.target.files && event.target.files[0]) {
-      let files = event.target.files;
-      const photoUrl = await Object.keys(event.target.files).map(
-        async (key, index, arr) => {
-          if (key !== "length") {
-            //    setProfile({
-            //     ...profile,
-            //     imagesPreview:[...profile.imagesPreview,URL.createObjectURL(event.target.files[key])]
-            // })
-            const reader = new FileReader();
-            reader.onload = async (data) => {
-              let result = data.target.result;
-              imageUrl = [...imageUrl, btoa(result).toString("base64")];
-              if (arr.length - 1 === index) {
-                console.log(imageUrl);
-                setProfile({
-                  ...profile,
-                  UserProfile: {
-                    ...profile.UserProfile,
-                    gallery: imageUrl,
-                  },
-                });
-              }
-            };
-            reader.readAsBinaryString(files[key]);
+  // const onImageChange = async (event) => {
+  //   let imageUrl = [];
+  //   if (event.target.files && event.target.files[0]) {
+  //     let files = event.target.files;
+  //     const photoUrl = await Object.keys(event.target.files).map(
+  //       async (key, index, arr) => {
+  //         if (key !== "length") {
+  //           //    setProfile({
+  //           //     ...profile,
+  //           //     imagesPreview:[...profile.imagesPreview,URL.createObjectURL(event.target.files[key])]
+  //           // })
+  //           const reader = new FileReader();
+  //           reader.onload = async (data) => {
+  //             let result = data.target.result;
+  //             imageUrl = [...imageUrl, btoa(result).toString("base64")];
+  //             if (arr.length - 1 === index) {
+  //               console.log(imageUrl);
+  //               setProfile({
+  //                 ...profile,
+  //                 UserProfile: {
+  //                   ...profile.UserProfile,
+  //                   gallery: imageUrl,
+  //                 },
+  //               });
+  //             }
+  //           };
+  //           reader.readAsBinaryString(files[key]);
 
-            return imageUrl;
-          }
-        }
-      );
-    }
-  };
+  //           return imageUrl;
+  //         }
+  //       }
+  //     );
+  //   }
+  // };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -160,7 +157,7 @@ const CreateProfilePage = ({ match, userId, updateProfile }) => {
               type="button"
               className="btn btn-success "
             >
-              Pick Profile Image
+              Pick a Profile Image
             </button>
           </div>
         </div>
@@ -245,7 +242,7 @@ const CreateProfilePage = ({ match, userId, updateProfile }) => {
             <Radio
               handleChange={handleChange}
               value="male"
-              label="male"
+              label="Male"
               name="gender"
             />
             <Radio
@@ -257,7 +254,7 @@ const CreateProfilePage = ({ match, userId, updateProfile }) => {
             <Radio
               handleChange={handleChange}
               value="other"
-              label="other"
+              label="Other"
               name="gender"
             />
           </div>
@@ -266,7 +263,7 @@ const CreateProfilePage = ({ match, userId, updateProfile }) => {
           <div>
             <h1 className="form__group__bio__heading">Your bio*</h1>
             <textarea
-              err={err}
+            
               className="form__group__bio__area"
               className={`form__group__bio__area ${err ? "error" : null}`}
               onChange={handleChange}

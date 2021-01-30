@@ -127,11 +127,12 @@
       text-align: center;
     }
   }
-
+   
   &__detail span {
     font-size: 1.5rem;
   }
   &__detail h4 {
+    font-weight: 600;
     color: #0a0a27;
     text-transform: uppercase;
   }

@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import SignInComponent from "../../components/signIn_component/signIn_comoponent";
 import "./landing_page.scss";
-import { Link } from "react-router-dom";
 
-const LandingPage = ({ match }) => {
+const LandingPage = () => {
 
     return (
       <div className="landing_page__container">
-        <img src={'/images/desktop.png'} />
+        <img src={'/images/desktop.png'} alt='bg '/>
         <div className="landing_page__content">
           <div className="landing_page__content-1"></div>
 

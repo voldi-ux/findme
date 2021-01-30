@@ -1,33 +1,30 @@
 import React, { useState, useContext } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
 
 import "./filter_container.scss";
 import SelectComponent from "../form_inputs_components/select";
-import RangeComponent from "../form_inputs_components/range";
 import Button from "../buttons/button";
 import Radio from "../form_inputs_components/radio";
 import {
-  filterData,
   onFechingFilterProfiles,
 } from "../../redux/app_data_reducer/data_actions";
 import { FilterProfileContext } from "../../context/filter_Data_context/filter.data";
-import TextInputComponent from "../form_inputs_components/text";
 import { provinces, ObjectCities } from "../../utils/citiesAndprovinces";
 
 const FilterContainer = ({ onfilter }) => {
-  const history = useHistory();
   const [profile, setProfile] = useState({
     province: "",
     city: "",
     gender: "",
   });
+ const {setfilterData} = useContext(FilterProfileContext)
 
   const cities = ObjectCities[profile.province] || ["select a province first"];
 
   const onSubmit = (e) => {
      e.preventDefault()
-     console.log(profile)
+    setfilterData(profile)
+
     if (
       profile.province === "" || profile.province === "select province"||
       profile.city === "select a province first" ||
@@ -89,7 +86,7 @@ const FilterContainer = ({ onfilter }) => {
           checked={profile.gender === "other"}
         />
       </div>
-      <Button onClick={onSubmit} value="filter" />
+      <Button onClick={onSubmit} value="FILTER" />
     </form>
   );
 };

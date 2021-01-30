@@ -1,6 +1,4 @@
 import types from "./chat_types";
-import userTypes from '../user/user_types'
-import {} from "./chat_util";
 
 const intial = {
   loading: true,
@@ -15,12 +13,6 @@ const intial = {
 
 const chatReducer = (state = intial, action) => {
   switch (action.type) {
-    case types.GET_ROOM_START:
-      return {
-        ...state,
-        isGettingPartner: true,
-        loading:true
-      };
     case types.GET_CHAT_PARTNER_SUCCECED:
       return {
         ...state,

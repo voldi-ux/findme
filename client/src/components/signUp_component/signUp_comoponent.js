@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./signUp_comoponent.scss";
 import TextInputComponent from "../form_inputs_components/text";
 import Button from "../buttons/button";
-import { Link, withRouter, useHistory } from "react-router-dom";
+import {  withRouter, } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginSucceed } from "../../redux/user/user_action";
 import Alert from "../alert/alert";
-const SignUpComponent = ({ match, location, history, logInSucceed }) => {
+const SignUpComponent = ({  history, logInSucceed }) => {
   const [err, setError] = useState(false);
   const [errMsg, setErrMsg] = useState("");
 

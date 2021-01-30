@@ -1,17 +1,34 @@
 @font-face {
-  font-family:venezio;
-  src: url('../../../assets//fonts/Swoonbold.otf')
-  
+  font-family: venezio;
+  src: url("../../../assets//fonts/Swoonbold.otf");
 }
 
 .main-chat {
   background-color: #eaeef0a9;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  // background-image: re('../../../assets/images/bg.jpg');
   flex: 0 0 60%;
+  p {
+    margin-bottom: 0.5rem;
+    width:100%;
+    word-wrap: break-word !important;
+  }
   @media (max-width: 750px) {
     flex: 0 0 100%;
     height: 100vh;
   }
+  .dots {
+    // position: relative;
+    margin: 0;
+    &__icon {
+      z-index: 2;
+      cursor: pointer;
+    }
+  }
   &__message {
+   
     &__left {
       align-self: flex-start;
     }
@@ -21,6 +38,9 @@
     border: transparent;
 
     width: 50%;
+    @media (max-width: 550px) {
+      width: 70%;
+    }
 
     img {
       width: 4rem;
@@ -30,9 +50,9 @@
       border: 2px solid rgb(37, 109, 202);
 
       @media (max-width: 550px) {
-        width: 2rem;
-        height: 2rem;
-        border-radius: 1rem;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 2rem;
       }
     }
 
@@ -41,7 +61,7 @@
       font-size: 1.4rem;
       line-height: 2rem !important;
       border-radius: 6px;
-
+      
       &__right {
         background-color: #fff;
         margin-left: auto;
@@ -52,10 +72,12 @@
       }
     }
     &__time {
+      color: #fff;
     }
   }
 
   &__header {
+    position: relative;
     height: 10%;
     background-color: #fff;
     padding: 4px 2rem;
@@ -89,19 +111,26 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding: 1rem 3rem;
-
+    width: 100%;
+    @media (max-width: 750px) {
+    width: 100vw;
+    }
+    @media (max-width: 550px) {
+      padding: 1rem 0.7rem;
+    }
     &::-webkit-scrollbar {
       width: 0.5rem;
     }
 
     /* Track */
     &::-webkit-scrollbar-track {
-      background: #f1f1f1;
+      background: transparent;
     }
 
     /* Handle */
     &::-webkit-scrollbar-thumb {
-      background: #1d43eefd;
+      background: transparent;
+
       border-radius: 20rem;
     }
 
@@ -113,19 +142,27 @@
 
   &__footer {
     height: 10%;
-    background-color: #fff;
+    // box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.4);
+
     @media (max-width: 550px) {
       height: 10%;
     }
     &__icons {
       margin: 0rem 1rem 0 3rem;
       align-self: center;
+      @media (max-width: 750px) {
+        margin: 0rem 1rem;
+      }
     }
     &__input {
       flex: 1;
       font-size: 1.6rem;
       border: transparent;
-      padding: 0.5rem 1rem;
+      background: #fff;
+      border-radius: 34rem;
+      padding: .7rem 2rem;
+      align-self: center;
+
       &:focus,
       &:active {
         outline: none;
@@ -145,6 +182,7 @@
   cursor: pointer;
   @media (max-width: 550px) {
     padding: 1rem;
+    margin: 0 1rem;
   }
 }
 
@@ -179,11 +217,11 @@
     background: #fff;
     border-radius: 5px;
     padding: 2rem;
-    box-shadow: 0 2rem 5rem rgba(0, 0, 0, .2);
-     h1 {
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.2);
+    h1 {
       font-family: swoon !important;
       font-size: 3rem !important;
-     }
+    }
   }
 
   img {
@@ -221,13 +259,14 @@
 
 .typingContainer {
   margin: 1rem auto;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
   h6 {
-    text-align:center;
+    text-align: center;
+    color: white;
   }
 }
 
@@ -285,7 +324,6 @@
   }
 }
 
-
 .lds-heart {
   display: block;
   position: relative;
@@ -294,7 +332,6 @@
   transform: rotate(45deg);
   transform-origin: 40px 40px;
   margin: 0 auto;
-  
 }
 .lds-heart div {
   top: 32px;
@@ -302,7 +339,7 @@
   position: absolute;
   width: 32px;
   height: 32px;
-  background: rgba(255, 30, 30, 0.911);;
+  background: rgba(255, 30, 30, 0.911);
   animation: lds-heart 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 .lds-heart div:after,
@@ -312,7 +349,7 @@
   display: block;
   width: 32px;
   height: 32px;
-  background: rgba(255, 30, 30, 0.911);;
+  background: rgba(255, 30, 30, 0.911);
 }
 .lds-heart div:before {
   left: -24px;

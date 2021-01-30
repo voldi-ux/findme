@@ -44,7 +44,7 @@ export const onUserProfileUpdate = (profile) => async dispatch => {
   dispatch(uptdateUserProfileStart())
    try {
           
-        const resp = await fetch('/postprofile', {
+         await fetch('/postprofile', {
             method:'post',
             headers: {
                 'Content-Type': 'application/json'
@@ -59,7 +59,7 @@ export const onUserProfilePicUpdate = (profile) => async dispatch => {
   dispatch(uptdateUserProfileStart())
    try {
           
-        const resp = await fetch('/update-profile', {
+        await fetch('/update-profile', {
             method:'post',
             headers: {
                 'Content-Type': 'application/json'

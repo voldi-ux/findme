@@ -1,7 +1,4 @@
-import {
-  fecthUserProfileStart,
-  fecthUserProfileSucceed,
-} from "../user/user_action";
+
 import types from "./data_types";
 
 export const filterData = (data) => ({

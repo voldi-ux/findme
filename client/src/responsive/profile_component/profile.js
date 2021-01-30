@@ -1,18 +1,17 @@
 import React from "react";
 import "./profile.scss";
-import Button from "../../../components/buttons/button";
+import Button from "../../components/buttons/button";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { BsChatSquare } from "react-icons/bs";
-import { MdAccountCircle } from "react-icons/md";
 import { AiTwotoneMail } from "react-icons/ai";
 import { ImLocation } from "react-icons/im";
 import { AiOutlinePhone } from "react-icons/ai";
 import { MdLocationCity } from "react-icons/md";
 import { IconContext } from "react-icons";
-import { setChatData } from "../../../redux/chat/chat_actions";
-import LogoutBtn from "../../../components/notification_icons/notification_icons";
-import { toggleProfileComponent } from "../../../redux/controls/actions";
+import { setChatData } from "../../redux/chat/chat_actions";
+import LogoutBtn from "../../components/notification_icons/notification_icons";
+import { toggleProfileComponent } from "../../redux/controls/actions";
 //should beautify the design
 
 const ProfileComponent = ({
@@ -31,7 +30,7 @@ const ProfileComponent = ({
       className={`resp-profile-container ${
         showProfileComponent ? "slide-right" : null
       }`}
-    >
+    > <span></span>
       <span className="close" onClick={toggleProfileComponent}>
       &larr;
       </span>
@@ -69,7 +68,7 @@ const ProfileComponent = ({
                 });
                 history.push("/chatroom");
               }}
-              className="d-flex chat chat__bottom align-items-center justify-content-center"
+              className="d-flex chat chat__bottom align-items-center justify-content-center bd"
             >
               <BsChatSquare />
               {/* <MdAccountCircle /> */}

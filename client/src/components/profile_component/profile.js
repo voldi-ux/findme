@@ -1,29 +1,35 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import "./profile.scss";
 import Button from "../buttons/button";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { BsChatSquare } from "react-icons/bs";
-import { MdAccountCircle } from "react-icons/md";
 import { AiTwotoneMail } from "react-icons/ai";
 import { ImLocation } from "react-icons/im";
 import { AiOutlinePhone } from "react-icons/ai";
 import { MdLocationCity } from "react-icons/md";
 import { IconContext } from "react-icons";
 import { setChatData } from "../../redux/chat/chat_actions";
-
+import {colors} from '../../border colors/colors'
 //should beautify the design
 
 const ProfileComponent = ({ isLoggedin, userProfile, setSearchProfile }) => {
   const disable = isLoggedin && userProfile ? "" : "true";
   const history = useHistory();
   let value = "GO TO PROFILE";
+  let [borderStyle,setborderStyle] = useState(null);
+  useEffect(() => {
+    setborderStyle({
+      borderColor: colors[Math.floor(Math.random()*28 )],
+    }) 
+  },[]);
+  
 
   return (
     <div className={`profile ${isLoggedin ? "" : "profile__disable"}`}>
       <div className="profile__content-top">
         <div className="profile__image">
-          <img src={`${userProfile.avatarUrl}`} alt="avatar url" />
+          <img src={`${userProfile.avatarUrl}`} alt="avatar url" style={borderStyle} />
         </div>
         <div
           className="d-flex flex-column .align-items-center
@@ -54,7 +60,7 @@ const ProfileComponent = ({ isLoggedin, userProfile, setSearchProfile }) => {
               });
               history.push("/chatroom");
             }}
-            className="d-flex chat align-items-center justify-content-center"
+            className="d-flex chat align-items-center justify-content-center bd"
           >
             <BsChatSquare />
             {/* <MdAccountCircle /> */}

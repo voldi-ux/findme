@@ -1,9 +1,5 @@
 import types from "./data_types";
-import TestData from "../../testData/user";
 import {
-  decrentPageNum,
-  filteredData,
-  increntPageNum,
  removeDuplicates
 } from "./data_util";
 const InitialState = {
@@ -17,12 +13,6 @@ const InitialState = {
 
 const AppDataReducer = (state = InitialState, action) => {
   switch (action.type) {
-    case types.FILTER_DATA:
-      return {
-        ...state,
-        data: filteredData(state.data, action.payload),
-      };
-
     case types.FETCHING_PROFILES_START:
       return {
         ...state,

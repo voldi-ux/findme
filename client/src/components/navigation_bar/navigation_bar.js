@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, {  useContext } from "react";
 import "./navigation_bar.scss";
 
 import SeacrhBar from "../search_bar/search_bar";
@@ -6,20 +6,17 @@ import NotificationContainer from "../notification_icons/notification_icons";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { toggleProfileComponent } from "../../redux/controls/actions";
-import SearchBox from "../searchBox/searchBox";
 import { FilterProfileContext } from "../../context/filter_Data_context/filter.data";
-const NavigationBar = ({ toggleProfileComponent, search }) => {
-  const [searchTerm, setTerm] = useState("");
+import SearchOverlay from "../search overlay/overlay";
+const NavigationBar = ({ toggleProfileComponent }) => {
 
-  const { setVisible, setProfiles, profiles, visible } = useContext(
+  const { visible } = useContext(
     FilterProfileContext
   );
 
   return (
     <nav className="navigation_bar">
-      <span
-        className={`${search ? "hide" : null} navigation_bar__logo_container`}
-      >
+      <span className={` navigation_bar__logo_container`}>
         <Link to="/home" className="navigation_bar__logo">
           <img src={require("../../assets/images/logo.png")} />
         </Link>
@@ -30,17 +27,9 @@ const NavigationBar = ({ toggleProfileComponent, search }) => {
           &#9776;
         </span>
       </span>
-
-      <SeacrhBar
-        props={{ visible }}
-        className={`navigation_bar__search_bar`}
-      />
-
-      <NotificationContainer
-        className={`${search ? "hide" : null}navigation_bar__icons`}
-      />
-
-      {(<SearchBox profiles={profiles} />) || null}
+      {visible && <SearchOverlay />}
+      {!visible && <SeacrhBar className={`navigation_bar__search_bar`} />}
+      <NotificationContainer className={`navigation_bar__icons`} />
     </nav>
   );
 };
