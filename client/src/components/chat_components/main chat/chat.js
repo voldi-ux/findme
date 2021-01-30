@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { IconContext } from "react-icons";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FiPaperclip } from "react-icons/fi";
@@ -29,15 +29,24 @@ const Chat = ({
   getCurrentUserChats,
   toggleSide,
 }) => {
+  const unputRef = useRef(null);
   const [msg, setMsg] = useState("");
   useEffect(() => {
     getCurrentUserChats(currentUser._id);
   }, [msg, messages, currentUser._id, getCurrentUserChats]);
+
   const [typing, setTyping] = useState(false);
   const imagePaths = [
-    "/images/bg-1.jpg",
-    "/images/bg-2.jpg",
-    "/images/bg-3.jpg",
+    "/images/wallpapers/bg (1).jpg",
+    "/images/wallpapers/bg (2).jpg",
+    "/images/wallpapers/bg (3).jpg",
+    "/images/wallpapers/bg (4).jpg",
+    "/images/wallpapers/bg (5).jpg",
+    "/images/wallpapers/bg (6).jpg",
+    "/images/wallpapers/bg (7).jpg",
+    "/images/wallpapers/bg (8).jpg",
+    "/images/wallpapers/bg (9).jpg",
+    "/images/wallpapers/bg (10).jpg",
   ];
 
   // const [online, setOnline] = useState(false);
@@ -57,7 +66,7 @@ const Chat = ({
       socket.emit("join", { roomId: room._id });
       socket.on("recievedMsg", (msg) => {
         updateMsg(msg);
-       
+
         setMsg("");
       });
       socket.on("typing", () => {
@@ -83,7 +92,6 @@ const Chat = ({
     window.addEventListener("click", (e) => {
       if (showPop && e.target.className.baseVal !== "dots__icon")
         return setPop(false);
-   
     });
 
     return () => {
@@ -92,6 +100,16 @@ const Chat = ({
       });
     };
   }, [showPop]);
+
+  useEffect(() => {
+    if (!room) return;
+    const inputRef = document.getElementsByTagName("textarea")[0];
+    if (inputRef === document.activeElement && msg.trimLeft().length > 0) {
+      socket.emit("typing", { roomId: room._id });
+    } else {
+      socket.emit("typingEnd", { roomId: room._id });
+    }
+  },[msg]);
   if (!profile) {
     return (
       <div className="noProfileContainer">
@@ -125,11 +143,11 @@ const Chat = ({
     setMsg("");
   };
   const handleChange = (e) => setMsg(e.target.value);
-  const onKeyDown = () => socket.emit("typing", { roomId: room._id });
-  const onKeyUp = () =>
-    setTimeout(() => {
-      socket.emit("typingEnd", { roomId: room._id });
-    }, 2000);
+  // const onKeyDown = () => socket.emit("typing", { roomId: room._id });
+  // const onKeyUp = () =>
+  //   setTimeout(() => {
+  //     socket.emit("typingEnd", { roomId: room._id });
+  //   }, 2000);
 
   const renderMesssages = (message, index) => {
     if (message.name === currentUser.userName) {
@@ -180,7 +198,8 @@ const Chat = ({
     <div
       className="main-chat d-flex flex-column"
       style={{
-        backgroundImage: ` url(${imagePath})`,
+        backgroundImage: `url('${imagePath}')`,
+        
       }}
     >
       <header className="main-chat__header d-flex align-items-center">
@@ -189,6 +208,7 @@ const Chat = ({
             &larr;
           </span>
         </IconContext.Provider>
+      
         <img
           alt="..ddd"
           src={profile.profile.avatarUrl}
@@ -224,13 +244,13 @@ const Chat = ({
       </main>
       <footer className="main-chat__footer d-flex ">
         <textarea
-          onKeyDown={onKeyDown}
-          onKeyUp={onKeyUp}
+      
+      onBlur={() => socket.emit("typingEnd", { roomId: room._id })}
+          autoFocus
           onChange={handleChange}
           value={msg}
           className="main-chat__footer__input"
           placeholder="Type a message"
-          
         />
         <IconContext.Provider
           value={{ className: "footer__icons", size: "2rem" }}

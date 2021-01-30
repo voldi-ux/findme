@@ -110,24 +110,30 @@ exports.postProfile = async (req, resp, next) => {
 //update the user profile
 
 exports.updateProfile = async (req, resp, next) => {
+  const {userId,profile} = req.body
   try {
-    const { userId, profileUrl } = req.body;
-    console.log("updating user profile");
-    const profile = await Profile.findOneAndUpdate(
-      { userId },
-      {
-        avatarUrl: profileUrl,
+    
+    const user = await User.findOneAndUpdate({_id:userId}, {
+      hasProfile:true,
+      profile:{
+        ...profile,
+        country:"South Africa",
+       
       }
-    );
-
-    const user = await User.findByIdAndUpdate(userId, {
-      avatarUrl: profileUrl,
-    });
-
-    return resp.json({ msg: "success" });
-  } catch (error) {
-    console.log(error.message);
-  }
+    },{
+      new:true
+    })
+ 
+    resp.json({
+       msg:'okay',
+       user,
+    })
+   } catch (error) {
+     console.log(error.message)
+      resp.json({
+        msg:'not okay'
+      })
+   }
 };
 
 //mobile controllers

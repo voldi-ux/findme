@@ -1,13 +1,9 @@
-const sendGrid = require("@sendgrid/mail");
-const crypto = require("crypto");
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-
-const api_key =
-  "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";
-
-sendGrid.setApiKey(api_key);
+const Avatar = require("../models/avatar");
+const {paths} = require('../avatarPaths')
 
 //should handle errors latter on
 exports.postSigningUp = async (req, resp, next) => {
@@ -37,7 +33,7 @@ exports.postSignin = async (req, resp, next) => {
   //   console.log(path)
   //   return new Avatar(path).save()
   // })
-
+ 
   const { password, email } = req.body;
 
   try {

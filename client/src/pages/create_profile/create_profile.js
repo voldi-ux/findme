@@ -6,14 +6,13 @@ import Select from "../../components/form_inputs_components/select";
 import "./create_profile.scss";
 import Button from "../../components/buttons/button";
 import { uptdateUserProfileSucceced } from "../../redux/user/user_action";
-import { io } from "socket.io-client";
 import { provinces, ObjectCities } from "../../utils/citiesAndprovinces";
 import Drawer from "react-bottom-drawer";
 import Alert from "../../components/alert/alert";
+import { Error } from "mongoose";
 
 const URI_STRING =
   process.env.NODE_ENV === "production" ? "/" : "http://localhost:5005/";
-let socket;
 
 const CreateProfilePage = ({  userId, updateProfile }) => {
   const [defaultImagePath, setImagePath] = useState(
@@ -44,16 +43,7 @@ const CreateProfilePage = ({  userId, updateProfile }) => {
       }
     };
     getImages();
-    socket = io.apply(URI_STRING);
-
-    socket.emit("user room", userId);
-    socket.on("profile created", (profile) => {
-      updateProfile(profile);
-    });
-    return () => {
-      socket.disconnect();
-      socket.off();
-    };
+ 
   }, [updateProfile,userId]);
 
   const [profile, setProfile] = useState({
@@ -118,7 +108,7 @@ const CreateProfilePage = ({  userId, updateProfile }) => {
   //   }
   // };
 
-  const onSubmit = (e) => {
+  const onSubmit = async(e) => {
     e.preventDefault();
     if (
       profile.UserProfile.name === "" ||
@@ -134,11 +124,30 @@ const CreateProfilePage = ({  userId, updateProfile }) => {
       return false;
     }
 
-    socket.emit("save profile", {
-      ...profile.UserProfile,
-      avatarUrl: defaultImagePath,
-    });
-  };
+    try {
+      const resp = await fetch("/update-profile", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId,
+          profile: {
+           ...profile.UserProfile,
+           avatarUrl: defaultImagePath,
+
+          },
+        }),
+      });
+      const data = await resp.json();
+      if (data.msg === "okay") {
+       return updateProfile(data)
+      }
+      throw Error()
+    } catch (error) {
+       alert('oops somthing went wrong please try again later.')
+    }
+  }
 
   return (
     <div className="updateProfile UserProfile">

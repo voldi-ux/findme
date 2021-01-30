@@ -8,18 +8,16 @@ const app = express();
 const authRoutes = require("./routes/auth");
 const ProfileRoutes = require("./routes/UserProfile");
 const ChatRoutes = require("./routes/chat");
-const multer = require("multer");
 const socketio = require("socket.io");
 const moment = require("moment");
 const {getAvatars} = require('./controllers/images')
 const {
   upadateMessages,
-  createProfile,
 } = require("./utils/socket");
 
 const MONGO_URI =
   process.env.NODE_ENV === "production"
-    ? "mongodb+srv://voldi2:findme@cluster0.gulxq.mongodb.net/<dbname>?retryWrites=true&w=majority"
+    ? 'mongodb://voldi2:findmepassword@cluster0-shard-00-00.gulxq.mongodb.net:27017,cluster0-shard-00-01.gulxq.mongodb.net:27017,cluster0-shard-00-02.gulxq.mongodb.net:27017/findme?ssl=true&replicaSet=atlas-xe2t2h-shard-0&authSource=admin&retryWrites=true&w=majority'
     : "mongodb://127.0.0.1:27017/findme";
 
 const server = http.createServer(app);
@@ -33,15 +31,6 @@ const io = socketio(server, {
 });
 const port = process.env.PORT || 5005;
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "images"));
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + Date.now() + file.originalname);
-  },
-});
-const getImages = multer({ storage: storage });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true, limit: 500000000 }));
@@ -59,6 +48,7 @@ app.use(authRoutes);
 app.use(ChatRoutes);
 app.use(express.static(path.join(__dirname, "client/build")));
 app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/images/wallpapers", express.static(path.join(__dirname, "images")));
 app.use("/avatars", express.static(path.join(__dirname, "avatars")));
 app.use("*", (req, resp) =>
   resp.sendFile(path.join(__dirname, "client/build", "index.html"))
@@ -68,37 +58,14 @@ app.use("*", (req, resp) =>
 io.on("connection", (socket) => {
   console.log("someone has joined the socket");
 
-  //for creating a user profile
-  socket.on("user room", async (room) => {
-    await socket.join(room);
-    socket.on("save profile", async (profile) => {
-      const UserProfile = await createProfile(profile.userId, profile);
-      if (UserProfile) {
-        console.log(UserProfile);
-        io.to(room).emit("profile created", UserProfile);
-      } else {
-        io.to(room).emit(" creating profile faild", "error");
-      }
-    });
-  });
-
+  
   //for messaging
-  let theRoom;
-  socket.on("join", async ({ roomId, name, userId2 }) => {
-
-
-    // const room = await getRoom(roomId);
-    theRoom = roomId;
+  socket.on("join", async ({ roomId}) => {
     await socket.join(roomId);
 
     socket.on("message", async ({ roomId, name, msg }) => {
       //recieve the message and then save it to the database
-      
-      //  const room = await getRoom(roomId)
-      // const newRoom = await upadateMessages(roomId, { name, msg });
-
-      // io.to(roomId).emit("recievedMsg", { name, msg });
-      console.log(name, "name ");
+  
       io.to(roomId).emit("recievedMsg", {
         _id: Date.now() * Math.random(),
         name,
@@ -110,9 +77,6 @@ io.on("connection", (socket) => {
         msg,
         time: moment().format('LLLL'),
       });
-      socket.emit("sendMessage", () => {
-        //after saving send back to the client
-      });
     });
 
     //typing sockets
@@ -122,16 +86,8 @@ io.on("connection", (socket) => {
     socket.on('typingEnd', ({roomId}) => {
      socket.to(roomId).broadcast.emit('typingEnd')
     })
-    socket.on("createroom", ({ userId1, userId2 }) => {
-      //create a room if does not exist yet!!!
-      // createRoom([userId1,userId2])
-      console.log(userId1, userId2);
-    });
+
   });
-  //mobile app connections
-
-  socket.on("msg", (msg) => console.log(msg));
-
   socket.on("disconnect", () => {
     console.log("someone has disconnected");
   });
