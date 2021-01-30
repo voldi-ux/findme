@@ -55,6 +55,13 @@ const Chat = ({
   let [borderStyle, setborderStyle] = useState(null);
   const [showPop, setPop] = useState(false);
   useEffect(() => {
+    //preloading image
+    imagePaths.forEach((imageUrl) => {
+      const img = new Image();
+      img.src = imageUrl;
+    });
+  }, []);
+  useEffect(() => {
     setborderStyle({
       borderColor: colors[Math.floor(Math.random() * 28)],
     });
