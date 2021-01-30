@@ -45,3 +45,12 @@ textarea:focus {
   border-bottom: 1px dashed #1d89ee;
   padding-bottom: .5rem;
 }
+
+.light-bg {
+  padding: .5rem 1rem;
+  background-color: rgba(189, 206, 223, 0.822);
+  border-radius: 10rem;
+  margin: .5rem 0;
+  text-transform: capitalize;
+  display: inline-block;
+}

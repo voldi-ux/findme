@@ -45,7 +45,7 @@ const ResultBox = ({
           <span className="result__name mb-1">
             {profile.profile.name} {profile.profile.surname}
           </span>
-          <span className="result__title"> {profile.profile.title} </span>
+          <span className="result__title light-bg text-center"> {profile.profile.title} </span>
         </div>
       </div>
       <div className="result__footer">

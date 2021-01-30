@@ -40,13 +40,12 @@ const ProfileComponent = ({
             <img src={userProfile.avatarUrl} />
           </div>
           <div
-            className="d-flex flex-column .align-items-center
- "
+            className="text-center"
           >
-            <h3 className="profile__name">
+            <h2 className="profile__name">
               {userProfile.name} {userProfile.surname}
-            </h3>
-            <h3 className="profile__title">{userProfile.title}</h3>
+            </h2>
+            <h3 className="profile__title light-bg">{userProfile.title}</h3>
           </div>
           <div>
             <span className="profile__online">

@@ -94,7 +94,7 @@ const ProfilePageComponent = ({
               <h1 className="mb-2">
                 {userProfile.profile.name} {userProfile.profile.surname}
               </h1>
-              <h3>{userProfile.profile.title}</h3>
+              <h3 className='light-bg text-center'>{userProfile.profile.title}</h3>
             </div>
           </div>
 
