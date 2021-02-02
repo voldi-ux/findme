@@ -13,7 +13,7 @@ const SideChat = ({chat,setChatData,toggleSide}) => {
   
     return (
       <div
-        className="list-group  mb-4"
+        className="list-group  mb-4 side-chat"
         onClick={() => {
           setChatData({
             room: chat.room,

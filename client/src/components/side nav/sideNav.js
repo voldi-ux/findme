@@ -41,7 +41,18 @@ const SideNav = ({
   ); 
 
   const history = useHistory();
-
+  useEffect(()=> {
+    const chatEle = document.querySelector('.side-chat')
+    console.log(chatEle)
+    if(chatEle) {
+      chatEle.classList.add('animate')
+    }
+    return () => {
+      if(chatEle) {
+        chatEle.classList.remove('animate')
+      } 
+    }
+  },[chats])
   useEffect(() => {
     if (showNav === true) toggleSide();
     return () => {

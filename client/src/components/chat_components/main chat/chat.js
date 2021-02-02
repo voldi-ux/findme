@@ -14,6 +14,7 @@ import {
 } from "../../../redux/chat/chat_actions";
 import { toggleSideNav } from "../../../redux/controls/actions";
 import Loader from "../../loader/loader";
+import Tick from '../../tick/tick'
 import { colors } from "../../../border colors/colors";
 
 const URI_STRING =
@@ -33,7 +34,7 @@ const Chat = ({
   const [msg, setMsg] = useState("");
   useEffect(() => {
     getCurrentUserChats(currentUser._id);
-  }, [messages, currentUser._id, getCurrentUserChats]);
+  }, [messages, getCurrentUserChats]);
 
   const [typing, setTyping] = useState(false);
   const imagePaths = [
@@ -206,9 +207,12 @@ const Chat = ({
           <div className="w-100 ms-auto">
             <div className=" w-100  main-chat__message__content main-chat__message__content__right ">
               <p className="w-br">{message.msg}</p>
-              <small className=" main-chat__message__time">
+               <div className='d-flex justify-content-between'>
+               <small className=" main-chat__message__time">
                 {moment(message.time).calendar()}
               </small>
+                 <Tick seen={message.seen} />
+               </div>
             </div>
           </div>
           <img alt="..ddd" src={currentUser.profile.avatarUrl} />

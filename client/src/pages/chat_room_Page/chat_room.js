@@ -13,7 +13,7 @@ const ChatRoom = ({socket,clearNotification,notificationCount}) => {
  },[notificationCount]) 
  useEffect(() => {
    document.body.requestFullscreen();
- })
+ },[])
   return (
     <div className="chatroom__container d-flex flex-row">
       <SideNav />

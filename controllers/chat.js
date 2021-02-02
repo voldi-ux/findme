@@ -7,7 +7,7 @@ exports.getChats = async (req, res) => {
   const rooms = await chatroom
     .find({
       $or: [{ user1: userId }, { user2: userId }],
-    })
+    }).sort({timeStemp:-1})
     .populate(["user2", "user1"])
     .exec();
   return res.json(rooms);

@@ -2,6 +2,9 @@ const mongoose = require('mongoose')
 const { Schema} = mongoose 
 
 const ChatRoomSchema = new Schema({
+    timeStemp: {
+        type:Number,
+    },
     user1: {
         type:mongoose.SchemaTypes.ObjectId,
         ref:'user'
@@ -21,8 +24,11 @@ const ChatRoomSchema = new Schema({
           msg: {
            type: String,
            
-          }
-      }]
+          },
+          seen:{
+            type:Boolean,
+            default:true
+      }}]
 })
 
 

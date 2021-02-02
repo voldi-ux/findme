@@ -104,9 +104,10 @@
     }
     .small {
       display: inline-block;
-      animation: scale .5s ease-in forwards;
+      animation: scale .2s ease-in forwards;
       font-size: 1.3rem;
       color: green;
+      will-change: transform;
     }
   }
 
