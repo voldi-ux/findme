@@ -9,9 +9,10 @@
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
-  transition: 0.4s all;
+  transition: 0.4s transform;
   display:none;
   user-select: none;
+  will-change: transform;
 
   @media (max-width: 750px) {
     display: block;

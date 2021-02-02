@@ -206,12 +206,14 @@ const CreateProfilePage = ({  userId, updateProfile }) => {
           />
           <TextInputComponent
           id='dkdkd'
+          maxLength='10'
+           pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
             err={err}
             handleChange={handleChange}
             type="number"
             name="phone"
             label="Phone"
-            placeholder="phone"
+            placeholder="Enter a telephone number (in the form xxx-xxx-xxxx)"
           />
         </div>
         <div className="form__group d-flex w-100">

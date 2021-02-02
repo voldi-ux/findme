@@ -7,7 +7,8 @@
   top: 2%;
   //   left: -100%;
   right: .5rem;
-  animation: scale .2s ease-in forwards;
+  will-change: transform;
+  animation: scale .3s  forwards;
   
   ul {
     list-style: none;

@@ -40,6 +40,13 @@ export const setSearchedProfile = (profile) => ({
   payload:profile
 })
 
+export const updateUserNotifications = () => ({
+  type:userTypes.UPDATE_USER_NOTICATIONS
+})
+export const clearUserNotifications = () => ({
+  type:userTypes.CLEAR_USER_NOTICATIONS
+})
+
 export const onUserProfileUpdate = (profile) => async dispatch => {
   dispatch(uptdateUserProfileStart())
    try {

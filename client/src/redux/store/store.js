@@ -14,7 +14,7 @@ if(process.env.NODE_ENV !== 'production') middlewares = [...middlewares, logger]
 const persistConfig = {
   key:'root',
   storage,
-  whitelist: ['user', 'Chat']
+  whitelist: ['user']
 }
 const persistedRootReducer =  persistReducer(persistConfig,rootReducer),
  store = createStore(persistedRootReducer, applyMiddleware(...middlewares))

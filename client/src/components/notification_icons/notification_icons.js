@@ -14,8 +14,8 @@ const NotificationContainer = ({
   const history = useHistory();
 
   return (
-    <div className="notification__container">
-      <span className="notification__icons" onClick={logout}>
+    <div className="notification__container" onClick={logout}>
+      <span className="notification__icons" >
         <IconContext.Provider
           value={{ className: "notification__icon", size: "2.5rem" }}
         >

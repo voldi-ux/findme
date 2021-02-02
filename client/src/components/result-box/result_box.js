@@ -8,17 +8,14 @@ import { IconContext } from "react-icons";
 import { setSearchedProfile } from "../../redux/user/user_action";
 import { connect } from "react-redux";
 import { onGettingRoom, setChatData } from "../../redux/chat/chat_actions";
-import { checkRoom } from "../../utils/chats.utils";
 import { colors } from "../../border colors/colors";
 
 const ResultBox = ({
   profile,
   setSearchProfile,
   setChat,
-  rooms,
-  createRoom,
+  joinRoom,
   userId,
-  Profile,
 }) => {
 
   const history = useHistory();
@@ -77,18 +74,10 @@ const ResultBox = ({
           value="message"
           outline={true}
           onClick={async () => {
-            const room = checkRoom(profile._id, rooms);
-            if (room) {
-              await history.push(`/chatroom`);
-
-              setChat({
-                profile,
-                room: room,
-                messages: room.messages,
-              });
-              return;
-            }
-
+           if(userId === profile._id) {
+            history.push(`/profile/?current=true`);
+             return;
+           }
             setChat({
               profile,
               room: null,
@@ -97,9 +86,7 @@ const ResultBox = ({
 
             await history.push(`/chatroom`);
 
-            setTimeout(() => {
-              createRoom(userId, profile._id);
-            }, 2000);
+            joinRoom(userId, profile._id);
           }}
         />
       </div>
@@ -110,7 +97,7 @@ const ResultBox = ({
 const mapDispatch = (dispatch) => ({
   setSearchProfile: (profile) => dispatch(setSearchedProfile(profile)),
   setChat: (data) => dispatch(setChatData(data)),
-  createRoom: (id1, id2) => dispatch(onGettingRoom(id1, id2)),
+  joinRoom: (id1, id2) => dispatch(onGettingRoom(id1, id2)),
 });
 const mapState = ({ user }) => ({
   rooms: user.CurrentUser.chatroomIds,

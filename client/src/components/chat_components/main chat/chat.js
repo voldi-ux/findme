@@ -19,7 +19,7 @@ import { colors } from "../../../border colors/colors";
 const URI_STRING =
   process.env.NODE_ENV === "production" ? "/" : "http://localhost:5005/";
 let socket;
-
+let notificationSocket;
 const Chat = ({
   profile,
   messages,
@@ -28,12 +28,12 @@ const Chat = ({
   updateMsg,
   getCurrentUserChats,
   toggleSide,
+  notiSocket,
 }) => {
-  const unputRef = useRef(null);
   const [msg, setMsg] = useState("");
   useEffect(() => {
     getCurrentUserChats(currentUser._id);
-  }, [msg, messages, currentUser._id, getCurrentUserChats]);
+  }, [messages, currentUser._id, getCurrentUserChats]);
 
   const [typing, setTyping] = useState(false);
   const imagePaths = [
@@ -50,7 +50,7 @@ const Chat = ({
   ];
 
   // const [online, setOnline] = useState(false);
-  // const [online, setOnline] = useState(false);
+  const [active, setActive] = useState(false);
   let [imagePath, setImagePath] = useState(imagePaths[0]);
   let [borderStyle, setborderStyle] = useState(null);
   const [showPop, setPop] = useState(false);
@@ -62,19 +62,39 @@ const Chat = ({
     });
   }, []);
   useEffect(() => {
+    setActive(false);
     setborderStyle({
       borderColor: colors[Math.floor(Math.random() * 28)],
     });
+    return () => {
+      setActive(false);
+    };
   }, [room]);
 
   useEffect(() => {
-    socket = io.apply(URI_STRING);
+    socket = io(`${URI_STRING}`);
     if (room && profile) {
       socket.emit("join", { roomId: room._id });
+      socket.emit("OnActive", { roomId: room._id });
       socket.on("recievedMsg", (msg) => {
+        updateMsg(msg);
+        setMsg("");
+      });
+      notiSocket.on("recievedMsg", (msg) => {
         updateMsg(msg);
 
         setMsg("");
+      });
+      socket.on("active", () => {
+        setActive(true);
+        socket.emit("OnActive2", { roomId: room._id });
+      });
+      socket.on("onUnActive", () => {
+        setActive(false);
+        console.log("going offline", active);
+      });
+      socket.on("ActiveRecieved", () => {
+        setActive(true);
       });
       socket.on("typing", () => {
         setTyping(true);
@@ -85,14 +105,18 @@ const Chat = ({
       });
     }
     return () => {
+      if (room) {
+        socket.emit("unActive", { roomId: room._id });
+      }
       socket.off();
       socket.disconnect();
     };
   }, [room, profile, updateMsg]);
+
   useEffect(() => {
     const el = document.getElementsByClassName("main-chat__message");
     if (el.length <= 0) return;
-    el[el.length - 1].scrollIntoView({ behavior: "smooth" });
+    el[el.length - 1].scrollIntoView();
   }, [messages]);
 
   useEffect(() => {
@@ -116,7 +140,7 @@ const Chat = ({
     } else {
       socket.emit("typingEnd", { roomId: room._id });
     }
-  },[msg]);
+  }, [msg]);
   if (!profile) {
     return (
       <div className="noProfileContainer">
@@ -136,25 +160,40 @@ const Chat = ({
   if (!room) {
     return <Loader />;
   }
-
+  const renderStatus = () => {
+    if (typing) {
+      return <span className="small">{"typing..."}</span>;
+    } else if (active) {
+      return <span className="small">{"active"}</span>;
+    }
+    return null;
+  };
   const changeImg = (id) => {
     setImagePath(imagePaths[id]);
   };
   const handleSubmit = () => {
+    console.log(notiSocket);
     if (!msg) return;
-    socket.emit("message", {
-      roomId: room._id,
-      name: currentUser.userName,
-      msg,
-    });
+    if (!active) {
+      notiSocket.emit("notify", {
+        userId: profile._id,
+        roomId: room._id,
+        name: currentUser.userName,
+        msg,
+      });
+    } else {
+      socket.emit("message", {
+        roomId: room._id,
+        name: currentUser.userName,
+        msg,
+      });
+    }
+
     setMsg("");
   };
-  const handleChange = (e) => setMsg(e.target.value);
-  // const onKeyDown = () => socket.emit("typing", { roomId: room._id });
-  // const onKeyUp = () =>
-  //   setTimeout(() => {
-  //     socket.emit("typingEnd", { roomId: room._id });
-  //   }, 2000);
+  const handleChange = (e) => {
+    setMsg(e.target.value);
+  };
 
   const renderMesssages = (message, index) => {
     if (message.name === currentUser.userName) {
@@ -165,12 +204,12 @@ const Chat = ({
           aria-current="true"
         >
           <div className="w-100 ms-auto">
-            <div className="d-flex w-100  main-chat__message__content main-chat__message__content__right ">
-              <p>{message.msg}</p>
+            <div className=" w-100  main-chat__message__content main-chat__message__content__right ">
+              <p className="w-br">{message.msg}</p>
+              <small className=" main-chat__message__time">
+                {moment(message.time).calendar()}
+              </small>
             </div>
-            <p className=" main-chat__message__time">
-              {moment(message.time).calendar()}
-            </p>
           </div>
           <img alt="..ddd" src={currentUser.profile.avatarUrl} />
         </div>
@@ -190,12 +229,12 @@ const Chat = ({
           style={borderStyle}
         />
         <div className="w-100 ">
-          <div className="d-flex w-100  main-chat__message__content main-chat__message__content__left ">
-            <p>{message.msg}</p>
+          <div className=" w-100  main-chat__message__content main-chat__message__content__left ">
+            <p className="w-br">{message.msg}</p>
+            <small className=" main-chat__message__time">
+              {moment(message.time).calendar()}
+            </small>
           </div>
-          <p className=" main-chat__message__time">
-            {moment(message.time).calendar()}
-          </p>
         </div>
       </div>
     );
@@ -206,7 +245,6 @@ const Chat = ({
       className="main-chat d-flex flex-column"
       style={{
         backgroundImage: `url('${imagePath}')`,
-        
       }}
     >
       <header className="main-chat__header d-flex align-items-center">
@@ -215,7 +253,7 @@ const Chat = ({
             &larr;
           </span>
         </IconContext.Provider>
-      
+
         <img
           alt="..ddd"
           src={profile.profile.avatarUrl}
@@ -226,7 +264,7 @@ const Chat = ({
           <h1>
             {profile.profile.name} {profile.profile.surname}
           </h1>
-          <small>{typing ? "typing..." : "online"}</small>
+          {renderStatus()}
         </div>
         <IconContext.Provider value={{ size: "2rem", className: "dots__icon" }}>
           <div className="dots">
@@ -251,9 +289,7 @@ const Chat = ({
       </main>
       <footer className="main-chat__footer d-flex ">
         <textarea
-      
-      onBlur={() => socket.emit("typingEnd", { roomId: room._id })}
-          autoFocus
+          onBlur={() => socket.emit("typingEnd", { roomId: room._id })}
           onChange={handleChange}
           value={msg}
           className="main-chat__footer__input"

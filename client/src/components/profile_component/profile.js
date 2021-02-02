@@ -13,7 +13,12 @@ import { setChatData } from "../../redux/chat/chat_actions";
 import { colors } from "../../border colors/colors";
 //should beautify the design
 
-const ProfileComponent = ({ isLoggedin, userProfile, setSearchProfile }) => {
+const ProfileComponent = ({
+  isLoggedin,
+  userProfile,
+  setSearchProfile,
+  notifications,
+}) => {
   const disable = isLoggedin && userProfile ? "" : "true";
   const history = useHistory();
   let value = "GO TO PROFILE";
@@ -34,9 +39,7 @@ const ProfileComponent = ({ isLoggedin, userProfile, setSearchProfile }) => {
             style={borderStyle}
           />
         </div>
-        <div
-          className="text-center"
-        >
+        <div className="text-center">
           <h2 className="profile__name">
             {userProfile.name} {userProfile.surname}
           </h2>
@@ -64,8 +67,10 @@ const ProfileComponent = ({ isLoggedin, userProfile, setSearchProfile }) => {
             }}
             className="d-flex chat align-items-center justify-content-center bd"
           >
-            <BsChatSquare />
-            {/* <MdAccountCircle /> */}
+            <span className="badge-container">
+              <BsChatSquare />
+          {notifications ? <span className="badge">{notifications}</span> : null}
+            </span>
             <span>Chats</span>
           </div>
 
@@ -101,6 +106,7 @@ const ProfileComponent = ({ isLoggedin, userProfile, setSearchProfile }) => {
 const mapStateToProps = (state) => ({
   isLoggedin: state.user.loggedIn,
   userProfile: state.user.profile,
+  notifications: state.user.notificationCount,
 });
 
 const mapDispatch = (dispatch) => ({

@@ -20,6 +20,7 @@ const ProfileComponent = ({
   setSearchProfile,
   showProfileComponent,
   toggleProfileComponent,
+  notifications
 }) => {
   const disable = isLoggedin && userProfile ? "" : "true";
   const history = useHistory();
@@ -30,18 +31,18 @@ const ProfileComponent = ({
       className={`resp-profile-container ${
         showProfileComponent ? "slide-right" : null
       }`}
-    > <span></span>
+    >
+      {" "}
+      <span></span>
       <span className="close" onClick={toggleProfileComponent}>
-      &larr;
+        &larr;
       </span>
       <div className={`profile  Resp-profile`}>
         <div className="profile__content-top">
           <div className="profile__image">
             <img src={userProfile.avatarUrl} />
           </div>
-          <div
-            className="text-center"
-          >
+          <div className="text-center">
             <h2 className="profile__name">
               {userProfile.name} {userProfile.surname}
             </h2>
@@ -67,9 +68,12 @@ const ProfileComponent = ({
                 });
                 history.push("/chatroom");
               }}
-              className="d-flex chat chat__bottom align-items-center justify-content-center bd"
+              className="d-flex chat chat__bottom align-items-center justify-content-center  bd"
             >
-              <BsChatSquare />
+              <span className="badge-container">
+                <BsChatSquare />
+                {notifications ? <span className="badge">{notifications}</span> : null}
+              </span>
               {/* <MdAccountCircle /> */}
               <span>Chats</span>
             </div>
@@ -108,12 +112,13 @@ const ProfileComponent = ({
 const mapStateToProps = (state) => ({
   isLoggedin: state.user.loggedIn,
   userProfile: state.user.profile,
-  showProfileComponent: state.controls.isProfileComponentIsVisible,
+  notifications: state.user.notificationCount,
+  showProfileComponent:state.controls.isProfileComponentIsVisible
 });
 
 const mapDispatch = (dispatch) => ({
   setSearchProfile: (profile) => dispatch(setChatData(profile)),
-  toggleProfileComponent: () => dispatch(toggleProfileComponent()),
+  toggleProfileComponent:() => dispatch(toggleProfileComponent())
 });
 
 export default connect(mapStateToProps, mapDispatch)(ProfileComponent);

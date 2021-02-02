@@ -1,4 +1,5 @@
 import types from './types'
+import userTypes from '../user/user_types'
 
 const initState = {
   isSideNavVisible:false,
@@ -7,6 +8,11 @@ const initState = {
 
 const Controls = (state = initState, action) => {
   switch (action.type) {
+   case userTypes.LOG_OUT: 
+   return {
+    isSideNavVisible:false,
+    isProfileComponentIsVisible:false,
+   }
       case types.TOGGLE_SIDE_NAV:
           return {
               ...state,

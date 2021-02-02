@@ -1,5 +1,5 @@
 import types from "./user_types";
-import chatTypes from '../chat/chat_types'
+import chatTypes from "../chat/chat_types";
 import { addRoom } from "./user_utils";
 
 const initState = {
@@ -8,19 +8,30 @@ const initState = {
   CurrentUser: {},
   message: null,
   loading: false,
-  searchedProfile:null,
+  searchedProfile: null,
   IsProfileLoading: false,
   LeftNavVisible: false,
   RightNavVisible: false,
+  notificationCount: 0,
 };
 
 const UserReducer = (state = initState, action) => {
   switch (action.type) {
+    case types.UPDATE_USER_NOTICATIONS:
+      return {
+        ...state,
+        notificationCount: state.notificationCount + 1,
+      };
+    case types.CLEAR_USER_NOTICATIONS:
+      return {
+        ...state,
+        notificationCount: 0,
+      };
     case types.LOG_IN_SUCCECEDED:
       return {
         ...state,
         loggedIn: true,
-        profile:action.payload.user.profile,
+        profile: action.payload.user.profile,
         CurrentUser: action.payload.user,
       };
     case types.FETCH_USER_PROFILE_START:
@@ -28,14 +39,14 @@ const UserReducer = (state = initState, action) => {
         ...state,
         IsProfileLoading: true,
       };
-      case chatTypes.GET_ROOM_SUCCECED: 
+    case chatTypes.GET_ROOM_SUCCECED:
       return {
         ...state,
         CurrentUser: {
           ...state.CurrentUser,
-          chatroomIds: addRoom(action.payload, state.CurrentUser.chatroomIds)
-        }
-      }
+          chatroomIds: addRoom(action.payload, state.CurrentUser.chatroomIds),
+        },
+      };
     case types.FETCH_USER_PROFILE_SUCCECEDED:
       return {
         ...state,
@@ -50,9 +61,16 @@ const UserReducer = (state = initState, action) => {
     case types.LOG_OUT:
       return {
         ...state,
+        loggedIn: false,
         profile: null,
         CurrentUser: {},
-        loggedIn: false,
+        message: null,
+        loading: false,
+        searchedProfile: null,
+        IsProfileLoading: false,
+        LeftNavVisible: false,
+        RightNavVisible: false,
+        notificationCount: 0,
       };
 
     case types.UPDATE_USER_PROFILE_SUCCECEDED:
@@ -61,12 +79,12 @@ const UserReducer = (state = initState, action) => {
         profile: action.payload.user.profile,
         CurrentUser: action.payload.user,
       };
-      case types.SET_SEARCHED_PROFILE: 
+    case types.SET_SEARCHED_PROFILE:
       return {
         ...state,
-        searchedProfile: action.payload
-        }
-      
+        searchedProfile: action.payload,
+      };
+
     default:
       return state;
   }

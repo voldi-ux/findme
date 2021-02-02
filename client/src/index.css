@@ -3,6 +3,7 @@
 
 html {
   font-size: 62.5%;
+  background-color: #eaeef0a9;
   /* color:#000000c4; */
   /* background: ; */
 }
@@ -53,4 +54,27 @@ textarea:focus {
   margin: .5rem 0;
   text-transform: capitalize;
   display: inline-block;
+}
+
+.w-br {
+  word-break:  break-all;
+}
+
+
+.badge-container {
+  position: relative;
+
+}
+
+.badge-container .badge {
+  position: absolute !important;
+  background-color: rgb(245, 32, 68);
+  height: 2rem;
+  width: 2rem;
+  border-radius: 2rem;
+  left: 38%;
+  top: -15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

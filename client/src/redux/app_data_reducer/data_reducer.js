@@ -1,4 +1,6 @@
 import types from "./data_types";
+import userTypes from '../user/user_types'
+
 import {
  removeDuplicates
 } from "./data_util";
@@ -13,6 +15,15 @@ const InitialState = {
 
 const AppDataReducer = (state = InitialState, action) => {
   switch (action.type) {
+    case userTypes.LOG_OUT: 
+    return {
+      data: [],
+      itemsPerPage: 4,
+      page: 1,
+      loading: true,
+      msg: null,
+      profilesCount: 0,
+    }
     case types.FETCHING_PROFILES_START:
       return {
         ...state,

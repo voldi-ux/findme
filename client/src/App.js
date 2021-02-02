@@ -1,11 +1,13 @@
 import React, {  useEffect, lazy, Suspense } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import {io} from 'socket.io-client'
 import FiltercontextProvider from "./context/filter_Data_context/filter.data";
 import Loader from "./components/loader/loader";
 import { onFechingProfiles } from "./redux/app_data_reducer/data_actions";
 import { fetchingChats } from "./redux/chat/chat_actions";
 import Errorboundary from "./components/error boundary/ErrorBoundary";
+import { updateUserNotifications } from "./redux/user/user_action";
 // import HomePage from "./pages/homepage/Home_page";
 // import SignIn from "./pages/signIn_page/sigIn_page";
 // import SignUp from "./pages/siginUp_page/signUp";
@@ -22,6 +24,9 @@ const CreateProfilePage = lazy(() =>
   import("./pages/create_profile/create_profile")
 );
 const ChatRoom = lazy(() => import("./pages/chat_room_Page/chat_room"));
+const URI_STRING =
+  process.env.NODE_ENV === "production" ? "/" : "http://localhost:5005/";
+let socket;
 
 function App({
   isloggedin,
@@ -29,16 +34,31 @@ function App({
   hasProfile,
   getCurrentUserChats,
   userId,
+  updateNotications
 }) {
-  useEffect(() => {
-    getProfiles(0);
-  }, [getProfiles]);
-
   useEffect(() => {
     if (isloggedin) {
       getCurrentUserChats(userId);
     }
   });
+
+  useEffect(() => {
+     if(!hasProfile) return;
+     socket = io(`${URI_STRING}notifcations`)
+     socket.emit('join',{roomId:userId})
+     socket.on('getNotify', ()=> {
+       updateNotications()
+       getCurrentUserChats(userId);
+     })
+    return () => {
+      socket.off()
+      socket.disconnect()
+    }
+  },[hasProfile,userId])
+  useEffect(() => {
+    getProfiles(0);
+  }, [getProfiles]);
+
 
   if (isloggedin) {
     if (!hasProfile) {
@@ -67,7 +87,7 @@ function App({
           <Switch>
             <Errorboundary>
               <Suspense fallback={<Loader />}>
-                <Route path="/chatroom" component={ChatRoom} />
+                <Route path="/chatroom"  render={() => <ChatRoom socket={socket} />}/>
                 <Route exact path="/getcredentials" component={SignUp} />
                 <Route exact path="/profile" component={Profile} />
                 <Route exact path="/home" component={HomePage} />
@@ -115,5 +135,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getProfiles: (num) => dispatch(onFechingProfiles(num)),
   getCurrentUserChats: (id) => dispatch(fetchingChats(id)),
+  updateNotications: (id) => dispatch(updateUserNotifications()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);

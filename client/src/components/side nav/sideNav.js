@@ -14,14 +14,12 @@ import {
 import { useHistory } from "react-router-dom";
 import "./sideNav.scss";
 import { toggleSideNav } from "../../redux/controls/actions";
-const Header = lazy(() => import("./header"));
-const SideChats = lazy(() => import("./sideChats"));
+import Header from "./header"
+import SideChats  from "./sideChats"
 
 const SideNav = ({
   chats,
   currentUser,
-  getCurrentUserChats,
-  userId,
   toggleSide,
   showNav,
   // modifiedChats
@@ -37,22 +35,21 @@ const SideNav = ({
         .includes(term.toLowerCase())
     );
   };
-  let modifiedChats = CustomCompose(chats, currentUser)(
+ let modifiedChats = CustomCompose(chats, currentUser)(
     isMessagesEmpty,
     modifiedChatArray
-  );
+  ); 
 
   const history = useHistory();
 
   useEffect(() => {
-    getCurrentUserChats(userId);
     if (showNav === true) toggleSide();
     return () => {
       window.onpopstate = () => {
         if (showNav === true) toggleSide();
       };
     };
-  }, [getCurrentUserChats, userId, toggleSide]);
+  }, [toggleSide]);
 
   const handleChange = (e) => {
     setTerm(e.target.value.trim());
@@ -125,7 +122,6 @@ const mapState = ({ Chat, user, controls }) => ({
 
 const mapDispatch = (dispatch) => ({
   setChatData: (data) => dispatch(setChatData(data)),
-  getCurrentUserChats: (id) => dispatch(fetchingChats(id)),
   toggleSide: () => dispatch(toggleSideNav()),
 });
 
