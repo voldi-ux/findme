@@ -140,9 +140,21 @@
       }
 
       &__msg {
-        font-size: 1.3rem;
-      word-wrap: break-word;
+        &-1 {
+          font-size: 1.3rem;
+        word-wrap: break-word;
 
+        }
+        &-2 {
+          background-color: rgb(29, 143, 34);
+          height: 2rem;
+          width: 2rem;
+          border-radius: 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #fff;
+        }
         @media (max-width: 550px) {
           font-size: 1.1rem;
         }

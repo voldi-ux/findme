@@ -14,7 +14,7 @@ import {
 } from "../../../redux/chat/chat_actions";
 import { toggleSideNav } from "../../../redux/controls/actions";
 import Loader from "../../loader/loader";
-import Tick from '../../tick/tick'
+import Tick from "../../tick/tick";
 import { colors } from "../../../border colors/colors";
 
 const URI_STRING =
@@ -23,7 +23,7 @@ let socket;
 let notificationSocket;
 const Chat = ({
   profile,
-  messages,
+  userMessages,
   room,
   currentUser,
   updateMsg,
@@ -34,7 +34,7 @@ const Chat = ({
   const [msg, setMsg] = useState("");
   useEffect(() => {
     getCurrentUserChats(currentUser._id);
-  }, [messages, getCurrentUserChats]);
+  }, [getCurrentUserChats, room]);
 
   const [typing, setTyping] = useState(false);
   const imagePaths = [
@@ -55,6 +55,23 @@ const Chat = ({
   let [imagePath, setImagePath] = useState(imagePaths[0]);
   let [borderStyle, setborderStyle] = useState(null);
   const [showPop, setPop] = useState(false);
+  const [messages, setMessages] = useState(userMessages);
+  const getMessages = async (roomId) => {
+    try {
+      const res = await fetch(`/messages/${roomId}`);
+      const Rmessages = await res.json();
+      if (Rmessages.msg === "okay") {
+        return setMessages(Rmessages);
+      }
+      alert(
+        "something went wrong, please ensure that yout have an internet connection and refresh the page"
+      );
+    } catch (error) {
+      alert(
+        "something went wrong, please ensure that yout have an internet connection and refresh the page"
+      );
+    }
+  };
   useEffect(() => {
     //preloading image
     imagePaths.forEach((imageUrl) => {
@@ -79,13 +96,17 @@ const Chat = ({
       socket.emit("OnActive", { roomId: room._id });
       socket.on("recievedMsg", (msg) => {
         updateMsg(msg);
+        setMessages(msg);
         setMsg("");
+        getCurrentUserChats(currentUser._id);
       });
       notiSocket.on("recievedMsg", (msg) => {
         updateMsg(msg);
 
         setMsg("");
+        getCurrentUserChats(currentUser._id);
       });
+      
       socket.on("active", () => {
         setActive(true);
         socket.emit("OnActive2", { roomId: room._id });
@@ -104,6 +125,10 @@ const Chat = ({
       socket.on("typingEnd", () => {
         setTyping(false);
       });
+      socket.on("onSeen", async (data) => {
+        await getCurrentUserChats(currentUser._id);
+        // setMessages(userMessages);
+      });
     }
     return () => {
       if (room) {
@@ -118,7 +143,7 @@ const Chat = ({
     const el = document.getElementsByClassName("main-chat__message");
     if (el.length <= 0) return;
     el[el.length - 1].scrollIntoView();
-  }, [messages]);
+  }, [userMessages]);
 
   useEffect(() => {
     window.addEventListener("click", (e) => {
@@ -142,6 +167,13 @@ const Chat = ({
       socket.emit("typingEnd", { roomId: room._id });
     }
   }, [msg]);
+  useEffect(() => {
+    if (!room) return;
+    if (!active) notiSocket.emit("seen", { userId: profile._id,roomId: room._id, name: currentUser.userName  });
+    socket.emit("seen", { roomId: room._id, name: currentUser.userName });
+
+  }, [room, messages]);
+
   if (!profile) {
     return (
       <div className="noProfileContainer">
@@ -173,7 +205,7 @@ const Chat = ({
     setImagePath(imagePaths[id]);
   };
   const handleSubmit = () => {
-    console.log(notiSocket);
+ 
     if (!msg) return;
     if (!active) {
       notiSocket.emit("notify", {
@@ -181,12 +213,14 @@ const Chat = ({
         roomId: room._id,
         name: currentUser.userName,
         msg,
+        seen: false,
       });
     } else {
       socket.emit("message", {
         roomId: room._id,
         name: currentUser.userName,
         msg,
+        seen: true,
       });
     }
 
@@ -207,12 +241,12 @@ const Chat = ({
           <div className="w-100 ms-auto">
             <div className=" w-100  main-chat__message__content main-chat__message__content__right ">
               <p className="w-br">{message.msg}</p>
-               <div className='d-flex justify-content-between'>
-               <small className=" main-chat__message__time">
-                {moment(message.time).calendar()}
-              </small>
-                 <Tick seen={message.seen} />
-               </div>
+              <div className="d-flex justify-content-between">
+                <small className=" main-chat__message__time">
+                  {moment(message.time).calendar()}
+                </small>
+                <Tick seen={message.seen} />
+              </div>
             </div>
           </div>
           <img alt="..ddd" src={currentUser.profile.avatarUrl} />
@@ -278,7 +312,9 @@ const Chat = ({
         </IconContext.Provider>
       </header>
       <main className="main-chat__main d-flex flex-column">
-        {messages.map(renderMesssages)}
+        {messages.length
+          ? messages.map(renderMesssages)
+          : userMessages.map(renderMesssages)}
         {typing ? (
           <div className="typingContainer">
             <h6>{profile.profile.name} is typing</h6>
@@ -317,7 +353,7 @@ const Chat = ({
 };
 
 const mapState = ({ Chat, user }) => ({
-  messages: Chat.messages,
+  userMessages: Chat.messages,
   room: Chat.room,
   loading: Chat.laoding,
   currentUser: user.CurrentUser,

@@ -1,4 +1,5 @@
 import types from "./chat_types";
+import { updateMessages } from "./chat_util";
 
 const intial = {
   loading: true,
@@ -13,13 +14,13 @@ const intial = {
 
 const chatReducer = (state = intial, action) => {
   switch (action.type) {
-    case types.GET_CHAT_PARTNER_SUCCECED:
+    case types.GET_CHAT_PARTNER_SUCCEED:
       return {
         ...state,
         isGettingPartner: false,
         partner: action.payload,
       };
-    case types.GET_ROOM_SUCCECED:
+    case types.GET_ROOM_SUCCEED:
       return {
         ...state,
         loading: false,
@@ -32,13 +33,19 @@ const chatReducer = (state = intial, action) => {
         ...state,
         loading: true,
       };
-    case types.FETCHING_CHATS_SUCCECED:
+    case types.FETCHING_CHATS_SUCCEED:
       return {
         ...state,
         loading: false,
         chats: action.payload,
+        messages:updateMessages(state.room,action.payload)
       };
-      case types.UPDATE_MESSSAGE: 
+      case types.SEEN_MESSAGE:
+       return {
+          ...state,
+          messages:action.payload
+        }
+      case types.UPDATE_MESSAGE: 
       return {
         ...state,
         messages:[...state.messages,action.payload]

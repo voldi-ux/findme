@@ -61,7 +61,7 @@ const ProfileComponent = ({
               setSearchProfile({
                 profile: null,
                 room: null,
-                messages: null,
+                messages: [],
               });
               history.push("/chatroom");
             }}

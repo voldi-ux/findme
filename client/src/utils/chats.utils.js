@@ -38,3 +38,15 @@ export const checkRoom = (userId, ArrOfrooms) => {
   }
   return null;
 };
+
+
+export const unSeenMsgCount = ({userName,messages}) => {
+ 
+  let count = 0 ;
+  for(var i =0 ; i < messages.length; i++) {
+    if(messages[i].name === userName && messages[i].seen === false) {
+      count++
+    }
+  }
+  return count
+}

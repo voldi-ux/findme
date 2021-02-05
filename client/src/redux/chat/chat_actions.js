@@ -1,6 +1,9 @@
 import types from './chat_types'
 
-
+export const onSeenMessage = (messages) => ({
+    type:types.SEEN_MESSAGE,
+    payload:messages
+})
 const fetchingChatsStart= () => ({
     type:types.FETCHING_CHATS_START
 }) 
@@ -8,8 +11,8 @@ const fetchingChatsFail= () => ({
     type:types.FETCHING_CHATS_FAIL
 }) 
 
-const fetchingChatsSucceced= (chats) => ({
-    type:types.FETCHING_CHATS_SUCCECED,
+const fetchingChatsSucceed= (chats) => ({
+    type:types.FETCHING_CHATS_SUCCEED,
     payload:chats
 }) 
 
@@ -26,7 +29,7 @@ export const fetchingChats= (id1) => async dispatch => {
         dispatch(fetchingChatsStart())
         const res = await fetch(`/getchats/${id1}`)
         const chats = await res.json()
-        dispatch(fetchingChatsSucceced(chats))
+        dispatch(fetchingChatsSucceed(chats))
     } catch (error) {
          
        dispatch(fetchingChatsFail())
@@ -44,8 +47,8 @@ const gettingPatnerFail = (msg) => ({
     type:types.GET_CHAT_PARTNER_FAIL,
     payload:msg
 })
-const gettingPatnerSucceced = (partner) => ({
-    type:types.GET_CHAT_PARTNER_SUCCECED,
+const gettingPatnerSucceed = (partner) => ({
+    type:types.GET_CHAT_PARTNER_SUCCEED,
     payload:partner
 })
 
@@ -56,7 +59,7 @@ export const onGettingChatPrtner = (id) => async dispatch => {
         dispatch(gettingPatnerStart())
         const res = await fetch(`/getuserbyId/${id}`)
         const partner = await res.json()
-        dispatch(gettingPatnerSucceced(partner))
+        dispatch(gettingPatnerSucceed(partner))
     } catch (error) {    
        dispatch(gettingPatnerFail(error.message))
     }
@@ -74,17 +77,20 @@ const gettingMessagesFail= (err) => ({
     payload:err
 })
 
-const gettingMessagesSucceced= (messages) => ({
+const gettingMessagesSucceed= (messages) => ({
     type:types.GET_MESSAGES_START,
     payload:messages
 })
 
-export const onGettingMesssages = (id1,id2) =>async dispatch => {
+export const onGettingMesssages = (roomId) =>async dispatch => {
     try {
         dispatch(gettingMessagesStart())
-        const res = await fetch(`/messages/${id1}/${id2}`)
+        const res = await fetch(`/messages/${roomId}`)
         const messages = await res.json()
-        dispatch(gettingMessagesSucceced(messages))
+        if(messages.msg === 'okay') {
+         return  dispatch(gettingMessagesSucceed(messages))
+        }
+         alert('something went wrong, please ensure that yout have an internet connection and refresh the page')
     } catch (error) {    
        dispatch(gettingMessagesFail(error.message))
     }
@@ -103,12 +109,12 @@ const gettingRoomFail= (err) => ({
 })
 
 const gettingRoomSucceded= (Room) => ({
-    type:types.GET_ROOM_SUCCECED,
+    type:types.GET_ROOM_SUCCEED,
     payload:Room
 })
 
 export const onrecieveMessage= (msg) => ({
-    type:types.UPDATE_MESSSAGE,
+    type:types.UPDATE_MESSAGE,
     payload:msg
 })
 

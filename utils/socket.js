@@ -1,29 +1,45 @@
-const Chatroom = require('../models/chatroom')
+const Chatroom = require("../models/chatroom");
 
-const upadateMessages =async (roomId, msg) => {
-try {
-  
-  const room = await Chatroom.findOneAndUpdate({_id:roomId}, {
-    timeStemp:Date.now(),
-    $push: {
-        'messages': msg
-    }
-  })
-  
-  // const rooms = await Chatroom.updateMany({}, {
-  //    $set:{
-  //     'messages.$[el].seen':true,
-  //    },
-  // },{new:true,arrayFilters:[{'el.seen': {$exists:false}}]})
+const upadateMessages = async (roomId, msg) => {
+  try {
+    const room = await Chatroom.findOneAndUpdate(
+      { _id: roomId },
+      {
+        timeStemp: Date.now(),
+        $push: {
+          messages: msg,
+        },
+      }
+    );
 
-} catch (error) {
-  console.log(error.message)
-  
-}
-} 
+    // const rooms = await Chatroom.updateMany({}, {
+    //    $set:{
+    //     'messages.$[el].seen':true,
+    //    },
+    // },{new:true,arrayFilters:[{'el.seen': {$exists:true}}]})
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
-
+const makeSeen = async (roomId, name ) => {
+  try {
+    const room = await Chatroom.findOneAndUpdate(
+      { _id: roomId },
+      {
+        $set: {
+          "messages.$[el].seen": true,
+        },
+      },
+      { arrayFilters: [{ "el.name": { $ne: name },'el.seen':false}],new:true}
+    );
+    return room;
+  } catch (error) {
+    console.log(error.meesage);
+  }
+};
 
 module.exports = {
-    upadateMessages,
-}
+  upadateMessages,
+  makeSeen
+};

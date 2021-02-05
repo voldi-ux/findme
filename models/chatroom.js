@@ -27,7 +27,7 @@ const ChatRoomSchema = new Schema({
           },
           seen:{
             type:Boolean,
-            default:true
+            default:false
       }}]
 })
 

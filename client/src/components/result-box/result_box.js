@@ -81,7 +81,7 @@ const ResultBox = ({
             setChat({
               profile,
               room: null,
-              messages: null,
+              messages: [],
             });
 
             await history.push(`/chatroom`);

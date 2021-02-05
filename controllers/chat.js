@@ -66,6 +66,15 @@ exports.getRoom = async (req, res) => {
   }
 };
 
+exports.getMessages = async(req,resp) => {
+  const {roomId} = req.params;
+     const room = await  chatroom.findById(roomId)
+     console.log(room)
+     if(room) {
+       return resp.json({msg:'okay', messages:room.messages})
+     }
+     return resp.json({msg:'foul'})
+}
 exports.getRoomsMobile = async (req, res) => {
   try {
     const { userId } = req.params;

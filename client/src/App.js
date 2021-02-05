@@ -50,6 +50,9 @@ function App({
        updateNotications()
        getCurrentUserChats(userId);
      })
+     socket.on('onSeen', ()=> {
+      getCurrentUserChats(userId);
+     })
     return () => {
       socket.off()
       socket.disconnect()
