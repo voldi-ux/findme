@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./signIn_comoponent.scss";
 import TextInputComponent from "../form_inputs_components/text";
 import Button from "../buttons/button";
-import {  useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import {  loginSucceed } from "../../redux/user/user_action";
+import { loginSucceed } from "../../redux/user/user_action";
 import Alert from "../alert/alert";
 
 const SignInComponent = ({ black, startLogin }) => {
@@ -28,7 +28,7 @@ const SignInComponent = ({ black, startLogin }) => {
 
       const data = await resp.json();
       if (data.type === "success") {
-        startLogin(data);
+        return startLogin(data);
       }
       setErrMsg(data.message);
       setError(true);
@@ -63,7 +63,7 @@ const SignInComponent = ({ black, startLogin }) => {
 
   return (
     <div className={`form__signIn ${black ? "black" : ""}`}>
-       <form autoComplete='off' onSubmit={onSubmit} className="form ">
+      <form autoComplete="off" onSubmit={onSubmit} className="form ">
         {err ? <Alert message={errMsg} type="alert-danger" /> : null}
         <TextInputComponent
           id="sdfa"

@@ -1,4 +1,5 @@
 const Chatroom = require("../models/chatroom");
+const User = require("../models/User");
 
 const upadateMessages = async (roomId, msg) => {
   try {
@@ -21,7 +22,11 @@ const upadateMessages = async (roomId, msg) => {
     console.log(error.message);
   }
 };
-
+const upadateNotifications = async(userId) => {
+  await User.findByIdAndUpdate(userId, {$inc: {
+    notifications: 1
+  }});
+}
 const makeSeen = async (roomId, name ) => {
   try {
     const room = await Chatroom.findOneAndUpdate(
@@ -41,5 +46,6 @@ const makeSeen = async (roomId, name ) => {
 
 module.exports = {
   upadateMessages,
-  makeSeen
+  makeSeen,
+  upadateNotifications
 };

@@ -39,20 +39,10 @@ const SideNav = ({
     isMessagesEmpty,
     modifiedChatArray
   ); 
+  const filteredChats = modifiedChats.filter(filter);
 
   const history = useHistory();
-  useEffect(()=> {
-    const chatEle = document.querySelector('.side-chat')
-    console.log(chatEle)
-    if(chatEle) {
-      chatEle.classList.add('animate')
-    }
-    return () => {
-      if(chatEle) {
-        chatEle.classList.remove('animate')
-      } 
-    }
-  },[chats])
+
   useEffect(() => {
     if (showNav === true) toggleSide();
     return () => {
@@ -66,7 +56,6 @@ const SideNav = ({
     setTerm(e.target.value.trim());
   };
 
-  const filteredChats = modifiedChats.filter(filter);
 
   return (
     <div className={`side-nav d-flex ${showNav ? "show" : "hide"}`}>

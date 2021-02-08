@@ -1,5 +1,9 @@
 const moment = require("moment");
-const { upadateMessages, makeSeen } = require("../utils/socket");
+const {
+  upadateMessages,
+  makeSeen,
+  upadateNotifications,
+} = require("../utils/socket");
 
 module.exports = (socket, io) => {
   console.log("connection notification");
@@ -11,8 +15,7 @@ module.exports = (socket, io) => {
   });
   socket.on("notify", async ({ roomId, name, msg, userId, seen }) => {
     console.log("joining notification");
-
-    //recieve the message and then save it to the database
+    upadateNotifications(userId);
     socket.to(userId).broadcast.emit("getNotify");
 
     io.to(roomId).emit("recievedMsg", {
@@ -23,6 +26,7 @@ module.exports = (socket, io) => {
       seen,
     });
 
+    //recieve the message and then save it to the database
     upadateMessages(roomId, {
       name,
       msg,
@@ -32,7 +36,7 @@ module.exports = (socket, io) => {
   });
 
   socket.on("seen", async ({ userId, name, roomId }) => {
-    console.log('seeing')
+    console.log("seeing");
 
     await makeSeen(roomId, name);
     socket.to(userId).broadcast.emit("onSeen");

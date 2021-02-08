@@ -67,6 +67,10 @@ const UserChema = new Schema({
   skills: {
     type: [],
   },
+  notifications: {
+    type:Number,
+    default:0,
+  }
 });
 
 module.exports = mongoose.model("user", UserChema);

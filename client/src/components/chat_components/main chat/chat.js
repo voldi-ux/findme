@@ -56,22 +56,6 @@ const Chat = ({
   let [borderStyle, setborderStyle] = useState(null);
   const [showPop, setPop] = useState(false);
   const [messages, setMessages] = useState(userMessages);
-  const getMessages = async (roomId) => {
-    try {
-      const res = await fetch(`/messages/${roomId}`);
-      const Rmessages = await res.json();
-      if (Rmessages.msg === "okay") {
-        return setMessages(Rmessages);
-      }
-      alert(
-        "something went wrong, please ensure that yout have an internet connection and refresh the page"
-      );
-    } catch (error) {
-      alert(
-        "something went wrong, please ensure that yout have an internet connection and refresh the page"
-      );
-    }
-  };
   useEffect(() => {
     //preloading image
     imagePaths.forEach((imageUrl) => {
@@ -79,6 +63,7 @@ const Chat = ({
       img.src = imageUrl;
     });
   }, []);
+  
   useEffect(() => {
     setActive(false);
     setborderStyle({

@@ -39,14 +39,37 @@ export const checkRoom = (userId, ArrOfrooms) => {
   return null;
 };
 
-
-export const unSeenMsgCount = ({userName,messages}) => {
- 
-  let count = 0 ;
-  for(var i =0 ; i < messages.length; i++) {
-    if(messages[i].name === userName && messages[i].seen === false) {
-      count++
+export const unSeenMsgCount = ({ userName, messages }) => {
+  let count = 0;
+  for (var i = 0; i < messages.length; i++) {
+    if (messages[i].name === userName && messages[i].seen === false) {
+      count++;
     }
   }
-  return count
-}
+  return count;
+};
+
+export const getNotifications = async (userId, type) => {
+  try {
+    let resp = await fetch("/updateNotifications", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId,
+        type,
+      }),
+    });
+    let count = await resp.json();
+    console.log(count)
+    if (type === "get") {
+      return count;
+    }
+  } catch (error) {
+    console.log(error.message)
+    // alert(
+    //   "faild to load notifications, ensure that you have an internet connection"
+    // );
+  }
+};

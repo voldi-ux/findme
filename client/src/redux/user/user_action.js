@@ -15,7 +15,7 @@ export const loginFail = (msg) => ({
 })
 
 export const loginSucceed = (data) => ({
-    type: userTypes.LOG_IN_SUCCECEDED,
+    type: userTypes.LOG_IN_SUCCECEED,
     payload:data
 })
 
@@ -23,16 +23,16 @@ export const fecthUserProfileStart = () => ({
   type:userTypes.FETCH_USER_PROFILE_START
 })
 
-export const fecthUserProfileSucceced = (profile) => ({
-  type:userTypes.FETCH_USER_PROFILE_SUCCECEDED,
+export const fecthUserProfileSucceed = (profile) => ({
+  type:userTypes.FETCH_USER_PROFILE_SUCCECEED,
   payload:profile
 })
 export const uptdateUserProfileStart = () => ({
   type:userTypes.UPDATE_USER_PROFILE_START
 })
 
-export const uptdateUserProfileSucceced = (profile) => ({
-  type:userTypes.UPDATE_USER_PROFILE_SUCCECEDED,
+export const uptdateUserProfileSucceed = (profile) => ({
+  type:userTypes.UPDATE_USER_PROFILE_SUCCECEED,
   payload:profile
 })
 export const setSearchedProfile = (profile) => ({
@@ -40,8 +40,9 @@ export const setSearchedProfile = (profile) => ({
   payload:profile
 })
 
-export const updateUserNotifications = () => ({
-  type:userTypes.UPDATE_USER_NOTICATIONS
+export const updateUserNotifications = (count) => ({
+  type:userTypes.UPDATE_USER_NOTICATIONS,
+  payload:count,
 })
 export const clearUserNotifications = () => ({
   type:userTypes.CLEAR_USER_NOTICATIONS
@@ -110,7 +111,7 @@ export const onFetchUserProfile = (userId) => async dispatch => {
     dispatch(fecthUserProfileStart())
     const resp = await fetch(`/getuserprofile/${userId}`)
     const profile = await resp.json()
-    dispatch(fecthUserProfileSucceced(profile))
+    dispatch(fecthUserProfileSucceed(profile))
    } catch (error) {
      console.log(error)
    }

@@ -1,13 +1,14 @@
-import React, {  useEffect, lazy, Suspense } from "react";
+import React, { useEffect, lazy, Suspense } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import {io} from 'socket.io-client'
+import { io } from "socket.io-client";
 import FiltercontextProvider from "./context/filter_Data_context/filter.data";
 import Loader from "./components/loader/loader";
 import { onFechingProfiles } from "./redux/app_data_reducer/data_actions";
 import { fetchingChats } from "./redux/chat/chat_actions";
 import Errorboundary from "./components/error boundary/ErrorBoundary";
 import { updateUserNotifications } from "./redux/user/user_action";
+import { getNotifications } from "./utils/chats.utils";
 // import HomePage from "./pages/homepage/Home_page";
 // import SignIn from "./pages/signIn_page/sigIn_page";
 // import SignUp from "./pages/siginUp_page/signUp";
@@ -34,7 +35,7 @@ function App({
   hasProfile,
   getCurrentUserChats,
   userId,
-  updateNotications
+  updateNotications,
 }) {
   useEffect(() => {
     if (isloggedin) {
@@ -43,25 +44,33 @@ function App({
   });
 
   useEffect(() => {
-     if(!hasProfile) return;
-     socket = io(`${URI_STRING}notifcations`)
-     socket.emit('join',{roomId:userId})
-     socket.on('getNotify', ()=> {
-       updateNotications()
-       getCurrentUserChats(userId);
-     })
-     socket.on('onSeen', ()=> {
+    if (!hasProfile) return;
+     (async function g() {
+      const count = await getNotifications(userId, "get");
+      updateNotications(count);
+    })()
+
+    socket = io(`${URI_STRING}notifcations`);
+    socket.emit("join", { roomId: userId });
+    socket.on("getNotify", () => {
+      async function g() {
+        const count = await getNotifications(userId, "get");
+        updateNotications(count);
+      }
+      g()
       getCurrentUserChats(userId);
-     })
+    });
+    socket.on("onSeen", () => {
+      getCurrentUserChats(userId);
+    });
     return () => {
-      socket.off()
-      socket.disconnect()
-    }
-  },[hasProfile,userId])
+      socket.off();
+      socket.disconnect();
+    };
+  }, [hasProfile, userId]);
   useEffect(() => {
     getProfiles(0);
   }, [getProfiles]);
-
 
   if (isloggedin) {
     if (!hasProfile) {
@@ -90,7 +99,10 @@ function App({
           <Switch>
             <Errorboundary>
               <Suspense fallback={<Loader />}>
-                <Route path="/chatroom"  render={() => <ChatRoom socket={socket} />}/>
+                <Route
+                  path="/chatroom"
+                  render={() => <ChatRoom socket={socket} />}
+                />
                 <Route exact path="/getcredentials" component={SignUp} />
                 <Route exact path="/profile" component={Profile} />
                 <Route exact path="/home" component={HomePage} />
@@ -107,20 +119,20 @@ function App({
     <FiltercontextProvider>
       <div className="App">
         <Switch>
-          <Errorboundary >
-          <Suspense fallback={<Loader />}>
-            <Route
-              exact
-              path="/"
-              render={(props) => <LandingPage {...props} />}
-            />
-            <Route
-              exact
-              path="/signup"
-              render={(props) => <SignUp {...props} />}
-            />
-            <Route path="/" render={() => <Redirect to="/" />} />
-          </Suspense>
+          <Errorboundary>
+            <Suspense fallback={<Loader />}>
+              <Route
+                exact
+                path="/"
+                render={(props) => <LandingPage {...props} />}
+              />
+              <Route
+                exact
+                path="/signup"
+                render={(props) => <SignUp {...props} />}
+              />
+              <Route path="/" render={() => <Redirect to="/" />} />
+            </Suspense>
           </Errorboundary>
         </Switch>
       </div>
@@ -138,6 +150,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getProfiles: (num) => dispatch(onFechingProfiles(num)),
   getCurrentUserChats: (id) => dispatch(fetchingChats(id)),
-  updateNotications: (id) => dispatch(updateUserNotifications()),
+  updateNotications: (count) => dispatch(updateUserNotifications(count)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);

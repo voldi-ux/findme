@@ -67,7 +67,8 @@ exports.postSignin = async (req, resp, next) => {
         avatarUrl: user.avatarUrl,
         hasProfile: user.hasProfile,
         profile: user.profile,
-        skills: user.skills
+        skills: user.skills,
+        notifications:user.notifications
       },
       token: token,
       message: "access granted",
@@ -120,7 +121,9 @@ exports.signUp = async (req, resp, next) => {
         avatarUrl: user.avatarUrl,
         hasProfile: user.hasProfile,
         profile: user.profile,
-        skills: user.skills
+        skills: user.skills,
+        notifications:user.notifications
+
       },
       token: token,
       message: "access granted",

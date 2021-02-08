@@ -5,7 +5,7 @@ import Radio from "../../components/form_inputs_components/radio";
 import Select from "../../components/form_inputs_components/select";
 import "./create_profile.scss";
 import Button from "../../components/buttons/button";
-import { uptdateUserProfileSucceced } from "../../redux/user/user_action";
+import { uptdateUserProfileSucceed } from "../../redux/user/user_action";
 import { provinces, ObjectCities } from "../../utils/citiesAndprovinces";
 import Drawer from "react-bottom-drawer";
 import Alert from "../../components/alert/alert";
@@ -311,6 +311,6 @@ const mapStateToProps = (state) => ({
   userId: state.user.CurrentUser._id,
 });
 const mapDisptachToProps = (dispatch) => ({
-  updateProfile: (profile) => dispatch(uptdateUserProfileSucceced(profile)),
+  updateProfile: (profile) => dispatch(uptdateUserProfileSucceed(profile)),
 });
 export default connect(mapStateToProps, mapDisptachToProps)(CreateProfilePage);

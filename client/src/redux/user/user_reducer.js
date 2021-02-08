@@ -20,26 +20,27 @@ const UserReducer = (state = initState, action) => {
     case types.UPDATE_USER_NOTICATIONS:
       return {
         ...state,
-        notificationCount: state.notificationCount + 1,
+        notificationCount: action.payload.count,
       };
     case types.CLEAR_USER_NOTICATIONS:
       return {
         ...state,
         notificationCount: 0,
       };
-    case types.LOG_IN_SUCCECEDED:
+    case types.LOG_IN_SUCCECEED:
       return {
         ...state,
         loggedIn: true,
         profile: action.payload.user.profile,
         CurrentUser: action.payload.user,
+        notificationCount:action.payload.notifications
       };
     case types.FETCH_USER_PROFILE_START:
       return {
         ...state,
         IsProfileLoading: true,
       };
-    case chatTypes.GET_ROOM_SUCCECED:
+    case chatTypes.GET_ROOM_SUCCEED:
       return {
         ...state,
         CurrentUser: {
@@ -47,7 +48,7 @@ const UserReducer = (state = initState, action) => {
           chatroomIds: addRoom(action.payload, state.CurrentUser.chatroomIds),
         },
       };
-    case types.FETCH_USER_PROFILE_SUCCECEDED:
+    case types.FETCH_USER_PROFILE_SUCCECEED:
       return {
         ...state,
         IsProfileLoading: false,
@@ -73,7 +74,7 @@ const UserReducer = (state = initState, action) => {
         notificationCount: 0,
       };
 
-    case types.UPDATE_USER_PROFILE_SUCCECEDED:
+    case types.UPDATE_USER_PROFILE_SUCCECEED:
       return {
         ...state,
         profile: action.payload.user.profile,

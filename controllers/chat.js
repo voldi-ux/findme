@@ -7,7 +7,8 @@ exports.getChats = async (req, res) => {
   const rooms = await chatroom
     .find({
       $or: [{ user1: userId }, { user2: userId }],
-    }).sort({timeStemp:-1})
+    })
+    .sort({ timeStemp: -1 })
     .populate(["user2", "user1"])
     .exec();
   return res.json(rooms);
@@ -66,15 +67,15 @@ exports.getRoom = async (req, res) => {
   }
 };
 
-exports.getMessages = async(req,resp) => {
-  const {roomId} = req.params;
-     const room = await  chatroom.findById(roomId)
-     console.log(room)
-     if(room) {
-       return resp.json({msg:'okay', messages:room.messages})
-     }
-     return resp.json({msg:'foul'})
-}
+exports.getMessages = async (req, resp) => {
+  const { roomId } = req.params;
+  const room = await chatroom.findById(roomId);
+  console.log(room);
+  if (room) {
+    return resp.json({ msg: "okay", messages: room.messages });
+  }
+  return resp.json({ msg: "foul" });
+};
 exports.getRoomsMobile = async (req, res) => {
   try {
     const { userId } = req.params;
@@ -92,5 +93,18 @@ exports.getRoomsMobile = async (req, res) => {
     return res.json(rooms);
   } catch (error) {
     console.log(error.message);
+  }
+};
+
+exports.updateNotifications = async (req, resp) => {
+  const { userId, type } = req.body;
+  console.log(req.body)
+  if (type === "get") {
+    const user = await User.findById(userId);
+    return resp.json({ count: user.notifications });
+  }
+  if (type === "clear") {
+    await User.findByIdAndUpdate(userId, { notifications: 0 });
+    return resp.status(200)
   }
 };
