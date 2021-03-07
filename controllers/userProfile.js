@@ -49,7 +49,7 @@ exports.Search = async (req, resp, next) => {
           "profile.name": { $regex: searchString, $options: "i" },
         },
         {
-          "profile.surnname": { $regex: searchString, $options: "i" },
+          "profile.surname": { $regex: searchString, $options: "i" },
         },
         {
           "profile.title": { $regex: searchString, $options: "i" },

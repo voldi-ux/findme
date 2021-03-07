@@ -1,3 +1,4 @@
+
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
@@ -11,11 +12,11 @@ const ChatRoutes = require("./routes/chat");
 const socketio = require("socket.io");
 const moment = require("moment");
 const { getAvatars } = require("./controllers/images");
-const { upadateMessages } = require("./utils/socket");
-const messageSocket = require('./socket/message')
-const notificationSocket = require('./socket/notification')
+const messageSocket = require("./socket/message");
+const notificationSocket = require("./socket/notification");
+
 const MONGO_URI =
-  process.env.NODE_ENV === "production"
+  process.env.NODE_ENV == "production"
     ? "mongodb://voldi2:findmepassword@cluster0-shard-00-00.gulxq.mongodb.net:27017,cluster0-shard-00-01.gulxq.mongodb.net:27017,cluster0-shard-00-02.gulxq.mongodb.net:27017/findme?ssl=true&replicaSet=atlas-xe2t2h-shard-0&authSource=admin&retryWrites=true&w=majority"
     : "mongodb://127.0.0.1:27017/findme";
 
@@ -51,12 +52,12 @@ app.use("/avatars", express.static(path.join(__dirname, "avatars")));
 app.use("*", (req, resp) =>
   resp.sendFile(path.join(__dirname, "client/build", "index.html"))
 );
-io.of('/').on("connection", (socket) => {
-  messageSocket(socket,io)
+io.of("/").on("connection", (socket) => {
+  messageSocket(socket, io);
 });
 
 io.of("/notifcations").on("connection", (socket) => {
- notificationSocket(socket,io)
+  notificationSocket(socket, io);
 });
 
 mongoose

@@ -4,7 +4,8 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const Avatar = require("../models/avatar");
 const {paths} = require('../avatarPaths')
-
+const fs= require('fs')
+const path = require('path')
 //should handle errors latter on
 exports.postSigningUp = async (req, resp, next) => {
   // return crypto.randomBytes(42, (err, buffer) => {
