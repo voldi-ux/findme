@@ -1,14 +1,20 @@
 //remove the current user from the chats array
 export const modifiedChatArray = (chats, currentUser) => {
+  console.log(chats,currentUser);
+
   if (chats.length > 0) {
     return chats.reduce((acc, chat) => {
-
-      if (chat.user1._id === currentUser._id && chat.user1._id && currentUser._id) {
+       
+      if (
+        chat.user1._id === currentUser._id
+      ) {
         acc = [
           ...acc,
           { ...chat.user2, messages: chat.messages, room: { _id: chat._id } },
         ];
-      } else if (chat.user2._id === currentUser._id && chat.user1._id && currentUser._id) {
+      } else if (
+        chat.user2._id === currentUser._id
+      ) {
         acc = [
           ...acc,
           { ...chat.user1, messages: chat.messages, room: { _id: chat._id } },
@@ -67,7 +73,7 @@ export const getNotifications = async (userId, type) => {
       return count;
     }
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
     // alert(
     //   "faild to load notifications, ensure that you have an internet connection"
     // );

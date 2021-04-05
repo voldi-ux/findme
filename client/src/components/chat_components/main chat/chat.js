@@ -319,11 +319,6 @@ const Chat = ({
         <textarea
           onBlur={() => socket.emit("typingEnd", { roomId: room._id })}
           onChange={handleChange}
-           onKeyPress={(e)=> {
-             if(e.key === 'Enter') {
-               handleSubmit()
-             }
-           }}
           className="main-chat__footer__input"
           placeholder="Type a message"
         />

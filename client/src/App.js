@@ -34,7 +34,7 @@ function App({
     if (isloggedin) {
       getCurrentUserChats(userId);
     }
-  });
+  },[]);
   useEffect(() => {
     if (!hasProfile) return;
     const grabNotifications = async () => {
