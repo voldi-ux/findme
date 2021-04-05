@@ -22,8 +22,6 @@ const MONGO_URI =
 
 const server = http.createServer(app);
 const io = socketio(server, {
-  pingInterval: 0.5,
-  pingTimeout: 8000,
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
@@ -56,7 +54,7 @@ io.of("/").on("connection", (socket) => {
   messageSocket(socket, io);
 });
 
-io.of("/notifcations").on("connection", (socket) => {
+io.of("/notifications").on("connection", (socket) => {
   notificationSocket(socket, io);
 });
 

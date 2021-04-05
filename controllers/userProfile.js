@@ -5,7 +5,6 @@ const User = require("../models/User");
 exports.getUserProfile = async (req, resp, next) => {
   try {
     const { userId } = req.params;
-    console.log(userId);
 
     const profile = await (
       await Profile.findOne({ userId: userId })
@@ -25,7 +24,6 @@ exports.getProfiles = async (req, resp, next) => {
   const { pageItems, pageNum } = await req.params;
   // const res = await Profile.updateMany({}, {email:'randomemail@gmail.com',
   // phone:094745723})
-  console.log(pageItems);
   try {
     const profiles = await User.find({ hasProfile: true })
       .skip(+pageItems)
@@ -75,12 +73,10 @@ exports.Search = async (req, resp, next) => {
 exports.getfilteredProfiles = async (req, resp, next) => {
   const { data } = req.body;
   const filters = changeFilterData(data);
-  console.log(filters);
   try {
     const profiles = await User.find({
       $or: [...filters],
     });
-    console.log(profiles);
     return resp.json({
       message: "success",
       profiles: profiles,
@@ -160,7 +156,6 @@ exports.getProfilesMobile = async (req, resp, next) => {
 
 exports.addRemoveSkills = async (req,resp) => {
   const {data} = req.body
-  console.log(req.body)
   
   try {
     if(data.type === 'add') {
@@ -187,7 +182,6 @@ exports.addRemoveSkills = async (req,resp) => {
        }},{
         new:true
       })
-      console.log(user)
        return resp.status(200).json({
          msg:'okay',
          user:{

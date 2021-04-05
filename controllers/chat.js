@@ -1,5 +1,4 @@
 const chatroom = require("../models/chatroom");
-const Profile = require("../models/profile");
 const User = require("../models/User");
 
 exports.getChats = async (req, res) => {
@@ -30,7 +29,6 @@ exports.getRoom = async (req, res) => {
     const { userId1, userId2 } = req.params;
     const arrOfIds = [userId1, userId2];
     let room;
-    console.log("getting rooom ");
     room = await chatroom.findOne({
       $or: [
         { $and: [{ user1: userId1 }, { user2: userId2 }] },
@@ -70,7 +68,6 @@ exports.getRoom = async (req, res) => {
 exports.getMessages = async (req, resp) => {
   const { roomId } = req.params;
   const room = await chatroom.findById(roomId);
-  console.log(room);
   if (room) {
     return resp.json({ msg: "okay", messages: room.messages });
   }
@@ -88,7 +85,6 @@ exports.getRoomsMobile = async (req, res) => {
       })
       .populate(["user1", "user2"])
       .exec();
-    console.log(rooms);
 
     return res.json(rooms);
   } catch (error) {
@@ -98,7 +94,6 @@ exports.getRoomsMobile = async (req, res) => {
 
 exports.updateNotifications = async (req, resp) => {
   const { userId, type } = req.body;
-  console.log(req.body)
   if (type === "get") {
     const user = await User.findById(userId);
     return resp.json({ count: user.notifications });

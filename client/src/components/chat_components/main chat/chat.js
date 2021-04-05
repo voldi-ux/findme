@@ -31,7 +31,6 @@ const Chat = ({
   toggleSide,
   notiSocket,
 }) => {
-  const [msg, setMsg] = useState("");
   useEffect(() => {
     getCurrentUserChats(currentUser._id);
   }, [getCurrentUserChats, room]);
@@ -63,7 +62,7 @@ const Chat = ({
       img.src = imageUrl;
     });
   }, []);
-  
+
   useEffect(() => {
     setActive(false);
     setborderStyle({
@@ -82,16 +81,14 @@ const Chat = ({
       socket.on("recievedMsg", (msg) => {
         updateMsg(msg);
         setMessages(msg);
-        setMsg("");
         getCurrentUserChats(currentUser._id);
       });
       notiSocket.on("recievedMsg", (msg) => {
         updateMsg(msg);
 
-        setMsg("");
         getCurrentUserChats(currentUser._id);
       });
-      
+
       socket.on("active", () => {
         setActive(true);
         socket.emit("OnActive2", { roomId: room._id });
@@ -143,20 +140,16 @@ const Chat = ({
     };
   }, [showPop]);
 
+ 
   useEffect(() => {
     if (!room) return;
-    const inputRef = document.getElementsByTagName("textarea")[0];
-    if (inputRef === document.activeElement && msg.trimLeft().length > 0) {
-      socket.emit("typing", { roomId: room._id });
-    } else {
-      socket.emit("typingEnd", { roomId: room._id });
-    }
-  }, [msg]);
-  useEffect(() => {
-    if (!room) return;
-    if (!active) notiSocket.emit("seen", { userId: profile._id,roomId: room._id, name: currentUser.userName  });
+    if (!active)
+      notiSocket.emit("seen", {
+        userId: profile._id,
+        roomId: room._id,
+        name: currentUser.userName,
+      });
     socket.emit("seen", { roomId: room._id, name: currentUser.userName });
-
   }, [room, messages]);
 
   if (!profile) {
@@ -190,29 +183,39 @@ const Chat = ({
     setImagePath(imagePaths[id]);
   };
   const handleSubmit = () => {
- 
-    if (!msg) return;
+      const inputRef = document.getElementsByTagName("textarea")[0];
+    if(!inputRef.value.trim().length) return;
+    if (!socket.connected || !notiSocket.connected) {
+      socket.open();
+      notiSocket.open();
+      return;
+    }
     if (!active) {
       notiSocket.emit("notify", {
         userId: profile._id,
         roomId: room._id,
         name: currentUser.userName,
-        msg,
+        msg:inputRef.value,
         seen: false,
       });
     } else {
       socket.emit("message", {
         roomId: room._id,
         name: currentUser.userName,
-        msg,
+        msg:inputRef.value,
         seen: true,
       });
     }
 
-    setMsg("");
+  inputRef.value = ''.trim()
   };
   const handleChange = (e) => {
-    setMsg(e.target.value);
+    if (!room) return;
+    if (e.target.value && document.activeElement === e.target) {
+      socket.emit("typing", { roomId: room._id })
+    } else {
+      socket.emit("typingEnd", { roomId: room._id });
+    }
   };
 
   const renderMesssages = (message, index) => {
@@ -316,7 +319,11 @@ const Chat = ({
         <textarea
           onBlur={() => socket.emit("typingEnd", { roomId: room._id })}
           onChange={handleChange}
-          value={msg}
+           onKeyPress={(e)=> {
+             if(e.key === 'Enter') {
+               handleSubmit()
+             }
+           }}
           className="main-chat__footer__input"
           placeholder="Type a message"
         />

@@ -2,11 +2,9 @@ const moment = require("moment");
 const { upadateMessages,makeSeen } = require("../utils/socket");
 
 module.exports = (socket,io) => {
-    console.log("someone has conneted to the socket");
 
   //for messaging
   socket.on("join", async ({ roomId }) => {
-    console.log("someone has conneted to the socket");
 
     await socket.join(roomId);
   });
@@ -36,26 +34,22 @@ module.exports = (socket,io) => {
     socket.to(roomId).broadcast.emit("typingEnd");
   });
   socket.on("OnActive", ({ roomId }) => {
-    console.log("someone has conneted to the socket");
 
     socket.to(roomId).broadcast.emit("active");
   });
   socket.on("OnActive2", ({ roomId }) => {
-    console.log("someone has conneted to the socket");
 
     socket.to(roomId).broadcast.emit("ActiveRecieved");
   });
 
   socket.on("unActive", ({ roomId }) => {
-    console.log("going offline");
 
     socket.to(roomId).broadcast.emit("onUnActive");
   });
   
   socket.on('seen', async({roomId,name}) => {
-    console.log('seeing')
-   const room =  await makeSeen(roomId,name)
-    socket.to(roomId).emit("onSeen",room.messages);
+    const room =  await makeSeen(roomId,name)
+    socket.to(roomId).emit("onSeen",[] || room.messages);
   })
   socket.on("disconnect", () => {
     console.log("someone has disconnected");

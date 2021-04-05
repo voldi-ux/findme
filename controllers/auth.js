@@ -2,10 +2,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-const Avatar = require("../models/avatar");
-const {paths} = require('../avatarPaths')
-const fs= require('fs')
-const path = require('path')
+
 //should handle errors latter on
 exports.postSigningUp = async (req, resp, next) => {
   // return crypto.randomBytes(42, (err, buffer) => {
@@ -88,7 +85,6 @@ exports.signUp = async (req, resp, next) => {
     const { password, confirmPassword, name, email } = req.body;
 
     const existingUser = await User.findOne({ email: email });
-    console.log(existingUser);
     if (existingUser) {
       throw new Error(" a user with that email already exists");
     }

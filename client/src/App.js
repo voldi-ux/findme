@@ -9,13 +9,6 @@ import { fetchingChats } from "./redux/chat/chat_actions";
 import Errorboundary from "./components/error boundary/ErrorBoundary";
 import { updateUserNotifications } from "./redux/user/user_action";
 import { getNotifications } from "./utils/chats.utils";
-// import HomePage from "./pages/homepage/Home_page";
-// import SignIn from "./pages/signIn_page/sigIn_page";
-// import SignUp from "./pages/siginUp_page/signUp";
-// import LandingPage from "./pages/landing_page/landing_page";
-// import VeryEmailPage from "./pages/email_veryfication_page/email_verifiaction_page";
-// import CreateProfilePage from "./pages/create_profile/create_profile";
-// import ChatRoom from "./pages/chat_room_Page/chat_room";
 
 const Profile = lazy(() => import("./pages/profile_page/Profile_page"));
 const HomePage = lazy(() => import("./pages/homepage/Home_page"));
@@ -42,22 +35,30 @@ function App({
       getCurrentUserChats(userId);
     }
   });
+  useEffect(() => {
+    if (!hasProfile) return;
+    const grabNotifications = async () => {
+      const count = await getNotifications(userId, "get");
+      updateNotications(count);
+    };
+    grabNotifications();
+  }, [userId]);
 
   useEffect(() => {
     if (!hasProfile) return;
-     (async function g() {
-      const count = await getNotifications(userId, "get");
-      updateNotications(count);
-    })()
+    //  (async function g() {
+    //   const count = await getNotifications(userId, "get");
+    //   updateNotications(count);
+    // })()
 
-    socket = io(`${URI_STRING}notifcations`);
+    socket = io(`${URI_STRING}notifications`);
     socket.emit("join", { roomId: userId });
     socket.on("getNotify", () => {
       async function g() {
         const count = await getNotifications(userId, "get");
         updateNotications(count);
       }
-      g()
+      g();
       getCurrentUserChats(userId);
     });
     socket.on("onSeen", () => {
@@ -68,6 +69,7 @@ function App({
       socket.disconnect();
     };
   }, [hasProfile, userId]);
+
   useEffect(() => {
     getProfiles(0);
   }, [getProfiles]);
