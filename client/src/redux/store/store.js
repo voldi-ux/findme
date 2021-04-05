@@ -8,8 +8,8 @@ import {persistStore,persistReducer} from 'redux-persist'
 
 let middlewares = [thunk]
 
-if(process.env.NODE_ENV !== 'production') middlewares = [...middlewares, logger] 
-
+// if(process.env.NODE_ENV !== 'production') middlewares = [...middlewares, logger] 
+middlewares = [...middlewares, logger]
 
 const persistConfig = {
   key:'root',
