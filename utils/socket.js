@@ -23,7 +23,7 @@ const upadateMessages = async (roomId, msg) => {
   }
 };
 const upadateNotifications = async(userId) => {
-  await User.findByIdAndUpdate(userId, {$inc: {
+   await User.findByIdAndUpdate(userId, {$inc: {
     notifications: 1
   }});
 }

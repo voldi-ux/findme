@@ -14,6 +14,7 @@ module.exports = (socket, io) => {
     await socket.join(roomId);
   });
   socket.on("notify", async ({ roomId, name, msg, userId, seen }) => {
+    await upadateNotifications(userId)
     socket.to(userId).broadcast.emit("getNotify");
 
     io.to(roomId).emit("recievedMsg", {

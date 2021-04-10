@@ -10,13 +10,12 @@ const authRoutes = require("./routes/auth");
 const ProfileRoutes = require("./routes/UserProfile");
 const ChatRoutes = require("./routes/chat");
 const socketio = require("socket.io");
-const moment = require("moment");
 const { getAvatars } = require("./controllers/images");
 const messageSocket = require("./socket/message");
 const notificationSocket = require("./socket/notification");
 
 const MONGO_URI =
-  process.env.NODE_ENV == "production"
+  process.env.NODE_ENV !== "production"
     ? "mongodb://voldi2:findmepassword@cluster0-shard-00-00.gulxq.mongodb.net:27017,cluster0-shard-00-01.gulxq.mongodb.net:27017,cluster0-shard-00-02.gulxq.mongodb.net:27017/findme?ssl=true&replicaSet=atlas-xe2t2h-shard-0&authSource=admin&retryWrites=true&w=majority"
     : "mongodb://127.0.0.1:27017/findme";
 

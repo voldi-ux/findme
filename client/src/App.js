@@ -46,10 +46,10 @@ function App({
 
   useEffect(() => {
     if (!hasProfile) return;
-    //  (async function g() {
-    //   const count = await getNotifications(userId, "get");
-    //   updateNotications(count);
-    // })()
+     (async function g() {
+      const count = await getNotifications(userId, "get");
+      updateNotications(count);
+    })()
 
     socket = io(`${URI_STRING}notifications`);
     socket.emit("join", { roomId: userId });
